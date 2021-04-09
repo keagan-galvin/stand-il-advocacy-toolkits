@@ -3,7 +3,6 @@ const path = require("path");
 
 // CONFIGURE
 const app = express();
-const port = 3000;
 
 app.use(express.static("public"));
 
@@ -19,6 +18,7 @@ app.get(["/app", "/app/*"], function (req, res, next) {
 
 
 // START
-app.listen(port, () => {
-  console.log(`App listening on PORT: ${port}`);
+const port = process.env.PORT || 3000;
+var server = app.listen(port, function() {
+  console.log('Listening on %s', port);
 });
