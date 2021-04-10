@@ -1,23 +1,11 @@
 import Vue from "vue";
 import Vuex from "vuex";
 
+import { handleFetch } from "../utilities/HttpUtilities";
+
 Vue.use(Vuex);
 
-let tempDB = {
-  users: [
-    {
-      userId: "dummy_1",
-      email: "keagan.galvin@gmail.com",
-      firstName: "Keagan",
-      lastName: "Galvin",
-      phone: "815-258-2329",
-      city: "Lincoln",
-      state: "IL",
-      zip: "62656",
-      receiveEmails: false,
-    },
-  ],
-};
+console.log("test");
 
 export default new Vuex.Store({
   state() {
@@ -37,7 +25,7 @@ export default new Vuex.Store({
   },
   getters: {
     authorized(state) {
-      return state.user.userId !== "";
+      return state.user.email !== "";
     },
   },
   mutations: {
@@ -48,28 +36,35 @@ export default new Vuex.Store({
   actions: {
     loadUserDetail({ commit }, email) {
       return new Promise((resolve) => {
-        setTimeout(() => {
-          let user = tempDB.users.find(
-            (x) => x.email.toLowerCase() === email.toLowerCase()
-          );
-          if (user) {
-            commit("setUser", user);
-          }
-
-          resolve(user);
-        }, 1000);
+        handleFetch({
+          method: "get",
+          url: `/api/user?email=${encodeURI(email)}`,
+        }).then(
+          (result) => {
+            if (result) {
+              commit("setUser", result);
+              resolve(JSON.parse(JSON.stringify(result)));
+            } else {
+              resolve();
+            }
+          },
+          (error) => console.log(error)
+        );
       });
     },
-    saveUserDetail({ commit, state }, user) {
+    saveUserDetail({ commit }, user) {
       return new Promise((resolve) => {
-        setTimeout(() => {
-          if (state.user.email === "" || state.user.email === user.email) {
-            user.userId = "dummy_2";
-            commit("setUser", user);
-          }
-
-          resolve(user);
-        }, 1000);
+        handleFetch({
+          url: "/api/user",
+          method: "post",
+          body: user,
+        }).then(
+          (result) => {
+            commit("setUser", result);
+            resolve(JSON.parse(JSON.stringify(result)));
+          },
+          (error) => console.log(error)
+        );
       });
     },
   },

@@ -1,5 +1,6 @@
 module.exports = {
-  outputDir: '../server/presentation',
+  indexPath: '../public/app.html',
+  outputDir: '../public',
   transpileDependencies: ["vuetify"],
   chainWebpack: config => {
     config.module.rule('eslint').use('eslint-loader').options({
