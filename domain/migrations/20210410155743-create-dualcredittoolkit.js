@@ -1,16 +1,16 @@
 "use strict";
+
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     await queryInterface.createTable("dualCreditToolkits", {
       id: {
         allowNull: false,
         primaryKey: true,
-        type: Sequelize.INTEGER(11),
-        autoIncrement: true,
+        type: Sequelize.UUID,
       },
       userId: {
         allowNull: false,
-        type: Sequelize.INTEGER(11),
+        type: Sequelize.UUID,
         onDelete: "CASCADE",
         references: {
           model: "Users",

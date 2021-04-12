@@ -1,31 +1,47 @@
 <template>
   <div class="flex-fill">
-    <div class="pa-md-5 px-lg-16 px-0 text-center mx-auto">
-      <div class="rounded-bottom-lg px-16 pt-8 pb-6">
+    <v-container>
+      <div class="px-2 px-lg-16">
+        <h2 class="text-md-h4 text-h5 primary--text mb-5">
+          SET YOUR POLICY GOALS
+        </h2>
         <p>
-          Dual credit courses are often students’ first experience with
-          college-level coursework. Successful completion can give many students
-          the confidence boost needed to continue their studies after high
-          school. For other students, the low price-tag of a dual credit course
-          is an excellent way to explore career pathways or get a jump start on
-          the general education credits required for a postsecondary degree.
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam urna
+          mi, ullamcorper vitae pellentesque in, pulvinar vitae lectus. In
+          tincidunt felis quis massa luctus, at posuere velit blandit. Donec
+          erat est, dapibus sed pellentesque id, mattis at magna. Vivamus
+          venenatis vitae quam id commodo. Nullam vel dignissim ipsum. Nam
+          ornare sodales nibh sit amet tempor. Nunc at hendrerit libero, quis
+          rhoncus diam. Vestibulum a quam nec augue vulputate consequat.
         </p>
-        <p>
-          Access to dual credit courses varies across the state. While some
-          schools have become trailblazers in expanding their dual credit
-          programs, other schools continue to face challenges to launch or
-          expand dual credit coursework. That’s where you come in!
-        </p>
-        <p class="mb-6">
-          This toolkit will guide you as you advocate for expanding dual credit
-          in your school. Whether you want to lower costs, expand access,
-          introduce a new course, or start a brand new dual credit program this
-          toolkit will help your find allies, make connections with key decision
-          makers, and mobilize the community to help bring change to your
-          school.
-        </p>
+        <v-row align="center" class="mt-8">
+          <v-col cols="12">
+            <v-select
+              :items="[
+                'Parent',
+                'Student',
+                'Teacher',
+                'School Administrator',
+                'Community College Staff',
+              ]"
+              label="What role best represents you?"
+            ></v-select>
+          </v-col>
+          <v-col cols="12">
+            <v-select
+              :items="[
+                'Start a new dual credit program',
+                'Introduce a new course to an existing dual credit program',
+                'Expand eligibility criteria for an existing dual credit program',
+                'Lower the costs of dual credit courses for schools and students',
+                'Become licensed to teach dual credit',
+              ]"
+              label="What are your policy goals?"
+            ></v-select>
+          </v-col>
+        </v-row>
       </div>
-    </div>
+    </v-container>
   </div>
 </template>
 

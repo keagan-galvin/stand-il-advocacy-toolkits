@@ -13,7 +13,7 @@ module.exports = (sequelize, DataTypes) => {
   }
   DualCreditToolkit.init(
     {
-      uerId: DataTypes.INTEGER(11),
+      uerId: DataTypes.UUID,
     },
     {
       sequelize,

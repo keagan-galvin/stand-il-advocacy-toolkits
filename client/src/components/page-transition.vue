@@ -32,6 +32,8 @@ export default {
         from.meta.transitionName ||
         DEFAULT_TRANSITION;
 
+      if (!this.$store.getters.authorized) transitionName = "fade";
+
       if (transitionName === "slide") {
         transitionName =
           to.meta.position < from.meta.position ? "slide-bottom" : "slide-top";
@@ -64,7 +66,8 @@ export default {
     enter(element) {
       if (
         this.transitionName == "slide-top" ||
-        this.transitionName == "slide-bottom"
+        this.transitionName == "slide-bottom" ||
+        !this.$store.authorized
       )
         return;
 

@@ -9,21 +9,29 @@ const app = express();
 app.use(express.json());
 app.use(express.static("public"));
 
+
+
 app.use(function (req, res, next) {
   res.successResponse = (data) => {
-    res.send({
+    return res.send({
       status: constants.APIStatus.SUCCESS,
       data,
     });
   };
 
-  res.errorResponse = (message = "An unexpected error occurred", data) => {
-    res.send({
+  res.errorResponse = (message = "An unexpected error occurred", errors) => {
+    return res.send({
       status: constants.APIStatus.ERROR,
       message,
-      data,
+      errors,
     });
   };
+
+  res.validationError = (validation) => {
+    return res
+      .status(400)
+      .errorResponse("Validation errors where found.", validation.mapped());
+  }
 
   next();
 });
@@ -43,6 +51,11 @@ app.get("/", function (req, res, next) {
 
 app.get(["/app", "/app/*"], function (req, res, next) {
   res.sendFile(path.join(__dirname, "./public", "app.html"));
+});
+
+// FORCE LOADING INDICATORS FOR DEBUGGING
+app.use(function (req, res, next) {
+  setTimeout(next, 1000);
 });
 
 app.use("/api/user", require("./api/user"));
