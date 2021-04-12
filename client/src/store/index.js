@@ -99,9 +99,9 @@ let store = new Vuex.Store({
     logout({ commit }) {
       commit("setUser", defaultUser());
     },
-    notification({ commit, state }, { message, duration }) {
-      let id = state.nextNotificationId + 0;
-      state.nextNotificationId++;
+    notification({ commit }, { message, duration }) {
+      let id = nextNotificationId + 0;
+      nextNotificationId++;
 
       commit("addNotification", {
         id,
