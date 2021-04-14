@@ -1,4 +1,4 @@
-//require("dotenv").config();
+require("dotenv").config();
 
 const express = require("express");
 const path = require("path");
@@ -36,13 +36,13 @@ app.use(function (req, res, next) {
   next();
 });
 
-// // TEST Database Connection
-// const db = require("./domain/models");
+// TEST Database Connection
+const db = require("./domain/models");
 
-// db.sequelize.authenticate().then(
-//   (success) => console.log("DB Connection Established."),
-//   (error) => console.error("DB FAILED TO CONNECT! Error: " + error)
-// );
+db.sequelize.authenticate().then(
+  (success) => console.log("DB Connection Established."),
+  (error) => console.error("DB FAILED TO CONNECT! Error: " + error)
+);
 
 // ROUTING
 app.get("/", function (req, res, next) {
@@ -53,12 +53,7 @@ app.get(["/app", "/app/*"], function (req, res, next) {
   res.sendFile(path.join(__dirname, "./public", "app.html"));
 });
 
-// FORCE LOADING INDICATORS FOR DEBUGGING
-app.use(function (req, res, next) {
-  setTimeout(next, 1000);
-});
-
-app.use("/api/user", require("./api/user"));
+//app.use("/api/user", require("./api/user"));
 
 // START
 const port = process.env.PORT || 3000;
