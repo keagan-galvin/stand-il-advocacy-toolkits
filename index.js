@@ -53,7 +53,7 @@ app.get(["/app", "/app/*"], function (req, res, next) {
   res.sendFile(path.join(__dirname, "./public", "app.html"));
 });
 
-//app.use("/api/user", require("./api/user"));
+app.use("/api/user", require("./api/user"));
 
 // START
 const port = process.env.PORT || 3000;
