@@ -47,12 +47,12 @@ app.use(function (req, res, next) {
 });
 
 // TEST Database Connection
-const db = require("./domain/models");
+// const db = require("./domain/models");
 
-db.sequelize.authenticate().then(
-  (success) => console.log("DB Connection Established."),
-  (error) => console.error("DB FAILED TO CONNECT! Error: " + error)
-);
+// db.sequelize.authenticate().then(
+//   (success) => console.log("DB Connection Established."),
+//   (error) => console.error("DB FAILED TO CONNECT! Error: " + error)
+// );
 
 // ROUTING
 app.get("/", function (req, res, next) {
@@ -63,7 +63,7 @@ app.get(["/app", "/app/*"], function (req, res, next) {
   res.sendFile(path.join(__dirname, "./public", "app.html"));
 });
 
-app.use("/api/user", require("./api/user"));
+//app.use("/api/user", require("./api/user"));
 
 // START
 const port = process.env.PORT || 3000;
