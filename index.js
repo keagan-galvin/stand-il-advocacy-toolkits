@@ -1,10 +1,10 @@
-var fs = require('fs');
+// var fs = require('fs');
 
-var data = fs.readFileSync('.env', 'utf-8');
+// var data = fs.readFileSync('.env', 'utf-8');
 
-var newValue = data.replace(/{/g, '').replace(/}/g, '').replace(/>/g, '').replace(/,/g, '\n');
+// var newValue = data.replace(/{/g, '').replace(/}/g, '').replace(/>/g, '').replace(/,/g, '\n');
 
-fs.writeFileSync('.env', newValue, 'utf-8');
+// fs.writeFileSync('.env', newValue, 'utf-8');
 
 require("dotenv").config();
 
