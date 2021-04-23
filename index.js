@@ -1,14 +1,4 @@
-// var fs = require('fs');
-
-// var data = fs.readFileSync('.env', 'utf-8');
-
-// var newValue = data.replace(/{/g, '').replace(/}/g, '').replace(/>/g, '').replace(/,/g, '\n');
-
-// fs.writeFileSync('.env', newValue, 'utf-8');
-
-require("dotenv").config();
-
-
+//require("dotenv").config();
 
 const express = require("express");
 const path = require("path");
@@ -16,35 +6,35 @@ const constants = require("./constants");
 
 // CONFIGURE
 const app = express();
-app.use(express.json());
+//app.use(express.json());
 app.use(express.static("public"));
 
 
 
-app.use(function (req, res, next) {
-  res.successResponse = (data) => {
-    return res.send({
-      status: constants.APIStatus.SUCCESS,
-      data,
-    });
-  };
+// app.use(function (req, res, next) {
+//   res.successResponse = (data) => {
+//     return res.send({
+//       status: constants.APIStatus.SUCCESS,
+//       data,
+//     });
+//   };
 
-  res.errorResponse = (message = "An unexpected error occurred", errors) => {
-    return res.send({
-      status: constants.APIStatus.ERROR,
-      message,
-      errors,
-    });
-  };
+//   res.errorResponse = (message = "An unexpected error occurred", errors) => {
+//     return res.send({
+//       status: constants.APIStatus.ERROR,
+//       message,
+//       errors,
+//     });
+//   };
 
-  res.validationError = (validation) => {
-    return res
-      .status(400)
-      .errorResponse("Validation errors where found.", validation.mapped());
-  }
+//   res.validationError = (validation) => {
+//     return res
+//       .status(400)
+//       .errorResponse("Validation errors where found.", validation.mapped());
+//   }
 
-  next();
-});
+//   next();
+// });
 
 // TEST Database Connection
 // const db = require("./domain/models");
