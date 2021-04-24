@@ -29,6 +29,9 @@ module.exports = {
       zip: {
         type: Sequelize.STRING(10),
       },
+      email_optin: {
+        type: Sequelize.BOOLEAN,
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,

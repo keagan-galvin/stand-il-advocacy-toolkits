@@ -45,8 +45,11 @@
         </template>
 
         <v-card class="pb-2 px-1 pt-1 d-flex flex-column">
-          <v-card-title>
-            <span class="headline">Let's Get Started</span>
+          <v-card-title class="d-flex">
+            <span class="headline flex-fill">Let's Get Started</span>
+            <v-btn icon @click="dialog = false">
+              <v-icon>mdi-close</v-icon>
+            </v-btn>
           </v-card-title>
           <div class="flex-fill">
             <v-tabs-items v-model="step">
@@ -81,6 +84,7 @@
                       ></v-text-field>
                     </validation-provider>
                   </v-card-text>
+                  <button class="d-none" type="submit">submit</button>
                 </validation-observer>
               </v-tab-item>
               <v-tab-item>
@@ -131,6 +135,19 @@
                         </validation-provider>
                       </v-col>
 
+                      <v-col cols="12">
+                        <validation-provider v-slot="{ errors }" name="Phone">
+                          <v-text-field
+                            label="Phone Number"
+                            v-mask="'###-###-####'"
+                            :error-messages="errors"
+                            :disabled="loading"
+                            :loading="loading"
+                            v-model="user.phone"
+                          ></v-text-field>
+                        </validation-provider>
+                      </v-col>
+
                       <v-col cols="12" md="6">
                         <validation-provider
                           v-slot="{ errors }"
@@ -148,19 +165,14 @@
                       </v-col>
 
                       <v-col cols="12" md="2">
-                        <validation-provider
-                          v-slot="{ errors }"
-                          name="State"
-                          rules="max:2"
-                        >
-                          <v-text-field
-                            label="State"
-                            :error-messages="errors"
-                            :disabled="loading"
-                            :loading="loading"
+                        <validation-provider name="State" rules="max:2">
+                          <v-select
                             v-model="user.state"
-                            counter="2"
-                          ></v-text-field>
+                            :items="states"
+                            item-text="text"
+                            item-value="text"
+                            label="State"
+                          ></v-select>
                         </validation-provider>
                       </v-col>
                       <v-col cols="12" md="4">
@@ -179,8 +191,15 @@
                           ></v-text-field>
                         </validation-provider>
                       </v-col>
+                      <v-col cols="12">
+                        <v-checkbox
+                          v-model="user.email_optin"
+                          label="Send me periodic emails about stuff and things"
+                        ></v-checkbox>
+                      </v-col>
                     </v-row>
                   </v-card-text>
+                  <button class="d-none" type="submit">submit</button>
                 </validation-observer>
               </v-tab-item>
             </v-tabs-items>
@@ -228,6 +247,7 @@
 
 <script>
 import EmbeddedVideo from "../components/embedded-video.vue";
+import { US_State_Options } from "../utilities/DataUtilitites";
 
 let defaultUser = () => {
   return {
@@ -238,6 +258,7 @@ let defaultUser = () => {
     city: "",
     state: "",
     zip: "",
+    email_optin: true,
   };
 };
 export default {
@@ -257,12 +278,16 @@ export default {
     authorized() {
       return this.$store.getters.authorized;
     },
+    states() {
+      return US_State_Options;
+    },
   },
   watch: {
     dialog() {
       this.step = 0;
       this.user = defaultUser();
       if (this.$refs.emailObserver) this.$refs.emailObserver.reset();
+      if (this.$refs.userDetailObserver) this.$refs.userDetailObserver.reset();
     },
   },
   methods: {
@@ -286,6 +311,15 @@ export default {
         .then((result) => {
           if (result) {
             this.$store.dispatch("welcomeBackMessage");
+
+            var lastPosKey = "last_pos:" + this.user.email;
+            let lastPos = localStorage.getItem(lastPosKey);
+
+            this.dialog = false;
+            setTimeout(() => {
+              if (this.$route.path != lastPos)
+                this.$router.push(lastPos ? lastPos : "policy-goals");
+            }, 500);
           } else {
             this.step++;
           }
@@ -300,7 +334,10 @@ export default {
         .then(
           // Success
           () => {
-            setTimeout(() => this.$router.push("policy-goals"), 500);
+            this.dialog = false;
+            setTimeout(() => {
+              this.$router.push("policy-goals");
+            }, 500);
           },
           // Error
           () => {

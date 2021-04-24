@@ -191,12 +191,24 @@ export default {
       this.drawer = true;
       this.$store.dispatch("refresh");
       this.$store.dispatch("welcomeBackMessage");
+
+      setTimeout(() => {
+        let lastPos = localStorage.getItem(
+          "last_pos:" + this.$store.state.user.email
+        );
+
+        if (lastPos && this.$route.path != lastPos) this.$router.push(lastPos);
+      }, 200);
     }
   },
   watch: {
     authorized(val, prev) {
-      if (val === true && val != prev && !this.$vuetify.breakpoint.mobile) {
-        setTimeout(() => (this.drawer = true), 100);
+      if (val === true && val != prev) {
+        if (!this.$vuetify.breakpoint.mobile) {
+          setTimeout(() => {
+            this.drawer = true;
+          }, 100);
+        }
       } else if (val === false) {
         this.drawer = false;
         if (this.$route.path != "/") this.$router.push("/");

@@ -15,7 +15,7 @@ const defaultUser = () => {
     city: "",
     state: "",
     zip: "",
-    receiveEmails: false,
+    email_optin: true,
   };
 };
 
@@ -24,6 +24,7 @@ let nextNotificationId = 0;
 let store = new Vuex.Store({
   state() {
     return {
+      initialized: false,
       pendingStateChanges: 0,
       user: defaultUser(),
       notifications: [],
@@ -46,6 +47,8 @@ let store = new Vuex.Store({
 
         this.replaceState(Object.assign(state, data));
       }
+
+      state.initialized = true;
     },
     incrementPendingStateChanges(state, data) {
       state.pendingStateChanges += data;

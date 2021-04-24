@@ -26,6 +26,7 @@ module.exports = (sequelize, DataTypes) => {
     city: DataTypes.STRING(100),
     state: DataTypes.STRING(2),
     zip: DataTypes.STRING(10),
+    email_optin: DataTypes.BOOLEAN
   }, {
     sequelize,
     modelName: "User",

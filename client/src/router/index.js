@@ -39,8 +39,19 @@ const router = new VueRouter({
 });
 
 router.beforeEach((to, from, next) => {
-  if (!store.getters.authorized && to.path !== "/") next("/");
-  else next();
+  const tryNext = () => {
+    if (store.state.initialized) {
+      if (!store.getters.authorized && to.path !== "/") next("/");
+      else next();
+    } else setTimeout(tryNext, 10);
+  };
+
+  tryNext();
+});
+
+router.afterEach((to, from) => {
+  if (store.getters.authorized)
+    localStorage.setItem("last_pos:" + store.state.user.email, to.path);
 });
 
 export default router;

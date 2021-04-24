@@ -47,39 +47,7 @@ router.post('/',
                     max: 100
                 }
             }
-        },
-        phone: {
-            isLength: {
-                options: {
-                    min: 2,
-                    max: 12
-                }
-            }
-        },
-        city: {
-            isLength: {
-                options: {
-                    min: 2,
-                    max: 100
-                }
-            }
-        },
-        state: {
-            isLength: {
-                options: {
-                    min: 2,
-                    max: 2
-                }
-            }
-        },
-        zip: {
-            isLength: {
-                options: {
-                    min: 5,
-                    max: 10
-                }
-            }
-        },
+        }
     }),
     async function (req, res) {
         let validation = validationResult(req);
