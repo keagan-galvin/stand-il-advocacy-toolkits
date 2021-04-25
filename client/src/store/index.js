@@ -1,121 +1,43 @@
 import Vue from "vue";
 import Vuex from "vuex";
 
-import { handleFetch } from "../utilities/HttpUtilities";
+import user from "./user";
+import notifications from "./notifications";
 
 Vue.use(Vuex);
 
-const defaultUser = () => {
-  return {
-    id: "",
-    email: "",
-    firstName: "",
-    lastName: "",
-    phone: "",
-    city: "",
-    state: "",
-    zip: "",
-    email_optin: true,
-  };
-};
-
-let nextNotificationId = 0;
-
 let store = new Vuex.Store({
+  modules: {
+    user,
+    notifications,
+  },
   state() {
     return {
       initialized: false,
       pendingStateChanges: 0,
-      user: defaultUser(),
-      notifications: [],
     };
   },
   getters: {
-    authorized(state) {
-      return state.user.id !== "";
-    },
     loading(state) {
       return state.pendingStateChanges > 0;
     },
   },
   mutations: {
     initializeStore(state) {
-      if (localStorage.getItem("store")) {
-        let data = JSON.parse(localStorage.getItem("store"));
-        data.notifications = [];
-        data.pendingStateChanges = 0;
+      //   if (localStorage.getItem("store")) {
+      //     let data = JSON.parse(localStorage.getItem("store"));
+      //     data.notifications = [];
+      //     data.pendingStateChanges = 0;
 
-        this.replaceState(Object.assign(state, data));
-      }
+      //     this.replaceState(Object.assign(state, data));
+      //   }
 
       state.initialized = true;
-    },
-    incrementPendingStateChanges(state, data) {
-      state.pendingStateChanges += data;
-    },
-    setUser(state, data) {
-      Vue.set(state, "user", data);
-    },
-    addNotification(state, data) {
-      state.notifications.push(data);
-    },
-    removeNotification(state, id) {
-      let index = state.notifications.findIndex((x) => x.id === id);
-      if (index > -1) state.notifications.splice(index, 1);
     },
   },
   actions: {
     refresh({ state, dispatch }) {
-      if (state.user.email != "") dispatch("loadUserDetail", state.user.email);
-    },
-    loadUserDetail({ commit }, email) {
-      return new Promise((resolve, reject) => {
-        commit("incrementPendingStateChanges", 1);
-        handleFetch({
-          method: "get",
-          url: `/api/user?email=${encodeURI(email)}`,
-        })
-          .then((result) => {
-            if (result) {
-              commit("setUser", result);
-              resolve(JSON.parse(JSON.stringify(result)));
-            } else resolve(null);
-          }, reject)
-          .finally(() => commit("incrementPendingStateChanges", -1));
-      });
-    },
-    saveUserDetail({ commit }, user) {
-      return new Promise((resolve, reject) => {
-        commit("incrementPendingStateChanges", 1);
-        handleFetch({
-          url: "/api/user",
-          method: "post",
-          body: user,
-        })
-          .then((result) => {
-            commit("setUser", result);
-            resolve(JSON.parse(JSON.stringify(result)));
-          }, reject)
-          .finally(() => commit("incrementPendingStateChanges", -1));
-      });
-    },
-    logout({ commit }) {
-      commit("setUser", defaultUser());
-    },
-    notification({ commit }, { message, duration }) {
-      let id = nextNotificationId + 0;
-      nextNotificationId++;
-
-      commit("addNotification", {
-        id,
-        message,
-      });
-      if (duration === undefined) duration = 5000;
-      if (duration)
-        setTimeout(() => commit("removeNotification", id), duration);
-    },
-    welcomeBackMessage({ dispatch }) {
-      dispatch("notification", { message: "Welcome back - Let's advocate!" });
+      if (state.user.email != "") dispatch("user/load", state.user.email);
     },
   },
 });

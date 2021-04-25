@@ -32,7 +32,7 @@ export default {
         from.meta.transitionName ||
         DEFAULT_TRANSITION;
 
-      if (!this.$store.getters.authorized) transitionName = "fade";
+      if (!this.$store.getters["user/authorized"]) transitionName = "fade";
 
       if (transitionName === "slide") {
         transitionName =

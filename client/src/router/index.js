@@ -1,27 +1,62 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 
-import Introduction from "../views/Introduction.vue";
-import PolicyGoals from "../views/PolicyGoals.vue";
+import IL_DCT from "../views/IL-DualCreditToolkit/Toolkit.vue";
+import IL_DCT_Introduction from "../views/IL-DualCreditToolkit/Introduction.vue";
+import IL_DCT_PolicyGoals from "../views/IL-DualCreditToolkit/PolicyGoals.vue";
+
+// import IL_OCT from "../views/IL-OtherToolkit/Toolkit.vue";
+// import IL_OCT_Introduction from "../views/IL-OtherToolkit/Introduction.vue";
+
 import store from "../store";
 
 Vue.use(VueRouter);
 
 const routes = [
   {
-    path: "/",
-    component: Introduction,
-    meta: {
-      position: 0,
-    },
+    path: "/", // "/il-dualCredit",
+    component: IL_DCT,
+    children: [
+      {
+        path: "",
+        component: IL_DCT_Introduction,
+        meta: {
+          position: 0,
+        },
+      },
+      {
+        path: "/policy-goals",
+        component: IL_DCT_PolicyGoals,
+        meta: {
+          position: 1,
+        },
+      },
+    ],
   },
-  {
-    path: "/policy-goals",
-    component: PolicyGoals,
-    meta: {
-      position: 1,
-    },
-  },
+  // {
+  //   path: "/il-other",
+  //   component: IL_OCT,
+  //   beforeEach(to, from, next) {
+  //     const tryNext = () => {
+  //       if (store.state.initialized) {
+  //         console.log(store.getters["user/authorized"]);
+  //         if (!store.getters["user/authorized"] && to.path !== "/") next("/");
+  //         else next();
+  //       } else setTimeout(tryNext, 10);
+  //     };
+
+  //     tryNext();
+  //   },
+  //   children: [
+  //     {
+  //       path: "",
+  //       component: IL_OCT_Introduction,
+  //       meta: {
+  //         position: 0,
+  //       },
+  //     },
+  //   ],
+  // },
 ];
 
 const router = new VueRouter({
@@ -41,7 +76,8 @@ const router = new VueRouter({
 router.beforeEach((to, from, next) => {
   const tryNext = () => {
     if (store.state.initialized) {
-      if (!store.getters.authorized && to.path !== "/") next("/");
+      console.log(store.getters["user/authorized"]);
+      if (!store.getters["user/authorized"] && to.path !== "/") next("/");
       else next();
     } else setTimeout(tryNext, 10);
   };
@@ -49,8 +85,8 @@ router.beforeEach((to, from, next) => {
   tryNext();
 });
 
-router.afterEach((to, from) => {
-  if (store.getters.authorized)
+router.afterEach((to) => {
+  if (store.getters["user/authorized"])
     localStorage.setItem("last_pos:" + store.state.user.email, to.path);
 });
 

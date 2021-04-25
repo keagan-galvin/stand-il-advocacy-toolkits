@@ -41,12 +41,12 @@
 export default {
   computed: {
     notifications() {
-      return this.$store.state.notifications;
+      return this.$store.state.notifications.queue;
     },
   },
   methods: {
     close(id) {
-      this.$store.commit("removeNotification", id);
+      this.$store.commit("notifications/remove", id);
     },
   },
 };

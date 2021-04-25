@@ -114,7 +114,6 @@
                             :disabled="loading"
                             :loading="loading"
                             v-model="user.firstName"
-                            autofocus
                           ></v-text-field>
                         </validation-provider>
                       </v-col>
@@ -246,8 +245,8 @@
 </template>
 
 <script>
-import EmbeddedVideo from "../components/embedded-video.vue";
-import { US_State_Options } from "../utilities/DataUtilitites";
+import EmbeddedVideo from "../../components/embedded-video.vue";
+import { US_State_Options } from "../../utilities/DataUtilitites";
 
 let defaultUser = () => {
   return {
@@ -307,11 +306,9 @@ export default {
       this.loading = true;
 
       return this.$store
-        .dispatch("loadUserDetail", this.user.email)
+        .dispatch("user/load", this.user.email)
         .then((result) => {
           if (result) {
-            this.$store.dispatch("welcomeBackMessage");
-
             var lastPosKey = "last_pos:" + this.user.email;
             let lastPos = localStorage.getItem(lastPosKey);
 
@@ -330,7 +327,7 @@ export default {
       this.loading = true;
 
       return this.$store
-        .dispatch("saveUserDetail", this.user)
+        .dispatch("user/upsert", this.user)
         .then(
           // Success
           () => {

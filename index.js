@@ -9,7 +9,6 @@ const app = express();
 app.use(express.json());
 app.use(express.static("public"));
 
-
 app.use(function (req, res, next) {
   res.successResponse = (data) => {
     return res.send({
@@ -30,7 +29,7 @@ app.use(function (req, res, next) {
     return res
       .status(400)
       .errorResponse("Validation errors where found.", validation.mapped());
-  }
+  };
 
   next();
 });
@@ -43,15 +42,16 @@ db.sequelize.authenticate().then(
   (error) => console.error("DB FAILED TO CONNECT! Error: " + error)
 );
 
-// ROUTING
+// VIEW ROUTING
 app.get("/", function (req, res, next) {
-  res.redirect("/app");
+  res.redirect("/app/");
 });
 
 app.get(["/app", "/app/*"], function (req, res, next) {
   res.sendFile(path.join(__dirname, "./public", "app.html"));
 });
 
+// API ROUTING
 app.use("/api/user", require("./api/user"));
 
 // START
