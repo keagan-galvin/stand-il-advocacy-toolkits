@@ -30,98 +30,37 @@
           </v-btn>
         </div>
         <div class="accent--text px-5 py-4 border-bottom">
-          <h2 class="text-h5">Dual Credit Advocacy Toolkit</h2>
+          <h2 class="text-h5">Toolkit Admin Panel</h2>
         </div>
         <v-divider></v-divider>
         <div class="flex-fill">
           <v-list class="pa-0">
-            <v-list-item to="/">
+            <v-list-item exact :to="{ name: 'admin.dashboard' }">
               <v-list-item-icon>
-                <v-icon>mdi-television-play</v-icon>
+                <v-icon>mdi-home</v-icon>
               </v-list-item-icon>
               <v-list-item-content>
-                <v-list-item-title> Introduction </v-list-item-title>
+                <v-list-item-title> Home </v-list-item-title>
               </v-list-item-content>
             </v-list-item>
-            <v-list-item to="/policy-goals">
+            <v-list-item exact :to="{ name: 'admin.users' }">
               <v-list-item-icon>
-                <v-icon>mdi-format-list-checks</v-icon>
+                <v-icon>mdi-account-group</v-icon>
               </v-list-item-icon>
               <v-list-item-content>
-                <v-list-item-title> Set Your Advocacy Goals </v-list-item-title>
+                <v-list-item-title>Users</v-list-item-title>
               </v-list-item-content>
             </v-list-item>
-
-            <v-list-group no-action :value="true" color="secondary-darken-2">
-              <template v-slot:activator>
-                <v-list-item-icon>
-                  <v-icon>mdi-strategy</v-icon>
-                </v-list-item-icon>
-                <v-list-item-content>
-                  <v-list-item-title> Advocacy Plan </v-list-item-title>
-                </v-list-item-content>
-              </template>
-
-              <v-list-item
-                to="/advocacy-plan/identify-key-players"
-                class="pr-5"
-              >
-                <v-list-item-content>
-                  <v-list-item-title>
-                    #1 - Identify Key Players
-                  </v-list-item-title>
-                </v-list-item-content>
-                <v-list-item-icon>
-                  <v-icon>mdi-account-group</v-icon>
-                </v-list-item-icon>
-              </v-list-item>
-
-              <v-list-item
-                to="/advocacy-plan/make-the-case-for-dual-credit"
-                class="pr-5"
-              >
-                <v-list-item-content>
-                  <v-list-item-title>
-                    #2 - Make the Case for Dual Credit
-                  </v-list-item-title>
-                </v-list-item-content>
-                <v-list-item-icon>
-                  <v-icon>mdi-flask-outline</v-icon>
-                </v-list-item-icon>
-              </v-list-item>
-
-              <v-list-item to="/advocacy-plan/make-connections" class="pr-5">
-                <v-list-item-content>
-                  <v-list-item-title> #3 - Make Connections </v-list-item-title>
-                </v-list-item-content>
-                <v-list-item-icon>
-                  <v-icon>mdi-handshake</v-icon>
-                </v-list-item-icon>
-              </v-list-item>
-
-              <v-list-item to="/advocacy-plan/take-action" class="pr-5">
-                <v-list-item-content>
-                  <v-list-item-title> #4 - Take Action </v-list-item-title>
-                </v-list-item-content>
-                <v-list-item-icon>
-                  <v-icon>mdi-run-fast</v-icon>
-                </v-list-item-icon>
-              </v-list-item>
-
-              <v-list-item to="/advocacy-plan/define-success" class="pr-5">
-                <v-list-item-content>
-                  <v-list-item-title> #5 - Defining Success </v-list-item-title>
-                </v-list-item-content>
-                <v-list-item-icon>
-                  <v-icon>mdi-tune</v-icon>
-                </v-list-item-icon>
-              </v-list-item>
-            </v-list-group>
           </v-list>
         </div>
         <v-divider></v-divider>
         <div class="px-5 py-4 d-flex align-center">
-          <v-icon style="font-size: 50px">mdi-account-circle</v-icon>
+          <v-avatar>
+            <img
+              src="https://external-preview.redd.it/MRPpkMbjs2LfmP5iHHkTFStXaB-ZM8V1tPKg0AhQWgA.jpg?auto=webp&s=38d8ea8ea96ae5be7bc9388b5c5816ecb57550dd"
+              alt="Picard"
+            />
+          </v-avatar>
           <div class="flex-fill ml-2 mr-3">
             <div class="font-weight-bold">
               {{ user.firstName }} {{ user.lastName }}
@@ -165,7 +104,7 @@ import PageTransition from "../../components/page-transition.vue";
 import Notifications from "../../components/notifications.vue";
 
 export default {
-  name: "ilDualCreditToolkit",
+  name: "admin",
   components: { PageTransition, Notifications },
   data: () => ({
     drawer: false,
@@ -185,15 +124,18 @@ export default {
     loading() {
       return this.$store.getters.loading;
     },
+    isAdmin() {
+      return this.user.id === "ADMIN";
+    },
   },
   mounted() {
-    if (this.authorized) {
+    if (this.isAdmin) {
       this.drawer = true;
-      this.$store.dispatch("refresh");
-    }
+    } else if (this.$route.path != "/admin/login")
+      this.$router.push({ name: "admin.login" });
   },
   watch: {
-    authorized(val, prev) {
+    isAdmin(val, prev) {
       if (val === true && val != prev) {
         if (!this.$vuetify.breakpoint.mobile) {
           setTimeout(() => {
@@ -202,7 +144,8 @@ export default {
         }
       } else if (val === false) {
         this.drawer = false;
-        if (this.$route.path != "/") this.$router.push("/");
+        if (this.$route.path != "/admin/login")
+          this.$router.push({ name: "admin.login" });
       }
     },
   },

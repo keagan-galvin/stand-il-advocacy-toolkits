@@ -52,7 +52,9 @@ app.get(["/app", "/app/*"], function (req, res, next) {
 });
 
 // API ROUTING
+app.use("/api/auth", require("./api/authorization"));
 app.use("/api/user", require("./api/user"));
+app.use("/api/admin", require("./api/admin"));
 
 // START
 const port = process.env.PORT || 3000;

@@ -5,6 +5,11 @@ import IL_DCT from "../views/IL-DualCreditToolkit/Toolkit.vue";
 import IL_DCT_Introduction from "../views/IL-DualCreditToolkit/Introduction.vue";
 import IL_DCT_PolicyGoals from "../views/IL-DualCreditToolkit/PolicyGoals.vue";
 
+import Admin from "../views/Admin/Admin.vue";
+import Admin_Login from "../views/Admin/Login.vue";
+import Admin_Dashboard from "../views/Admin/Dashboard.vue";
+import Admin_Users from "../views/Admin/Users.vue";
+
 // import IL_OCT from "../views/IL-OtherToolkit/Toolkit.vue";
 // import IL_OCT_Introduction from "../views/IL-OtherToolkit/Introduction.vue";
 
@@ -14,10 +19,11 @@ Vue.use(VueRouter);
 
 const routes = [
   {
-    path: "/", // "/il-dualCredit",
+    path: "/il-dual-credit",
     component: IL_DCT,
     children: [
       {
+        name: "il-dc.introduction",
         path: "",
         component: IL_DCT_Introduction,
         meta: {
@@ -25,10 +31,41 @@ const routes = [
         },
       },
       {
-        path: "/policy-goals",
+        name: "il-dc.policy-goals",
+        path: "policy-goals",
         component: IL_DCT_PolicyGoals,
         meta: {
           position: 1,
+        },
+      },
+    ],
+  },
+  {
+    path: "/admin",
+    component: Admin,
+    children: [
+      {
+        name: "admin.login",
+        path: "login",
+        component: Admin_Login,
+        meta: {
+          position: 0,
+        },
+      },
+      {
+        name: "admin.dashboard",
+        path: "",
+        component: Admin_Dashboard,
+        meta: {
+          position: 1,
+        },
+      },
+      {
+        name: "admin.users",
+        path: "users",
+        component: Admin_Users,
+        meta: {
+          position: 2,
         },
       },
     ],
@@ -76,18 +113,30 @@ const router = new VueRouter({
 router.beforeEach((to, from, next) => {
   const tryNext = () => {
     if (store.state.initialized) {
-      console.log(store.getters["user/authorized"]);
-      if (!store.getters["user/authorized"] && to.path !== "/") next("/");
-      else next();
+      var paths = {
+        admin: {
+          root: "/admin",
+          login: "/admin/login",
+        },
+        ilDCT: {
+          root: "/il-dual-credit",
+        },
+      };
+
+      if (to.path.startsWith(paths.admin.root)) {
+        if (!store.getters["user/isAdmin"] && to.path !== paths.admin.login)
+          next(paths.admin.login);
+        else if (store.getters["user/isAdmin"] && to.path === paths.admin.login)
+          next(paths.admin.root);
+        else next();
+      } else if (!store.getters["user/authorized"]) {
+        if (to.path != paths.ilDCT.root) next(paths.ilDCT.root);
+        else next();
+      } else next();
     } else setTimeout(tryNext, 10);
   };
 
   tryNext();
-});
-
-router.afterEach((to) => {
-  if (store.getters["user/authorized"])
-    localStorage.setItem("last_pos:" + store.state.user.email, to.path);
 });
 
 export default router;

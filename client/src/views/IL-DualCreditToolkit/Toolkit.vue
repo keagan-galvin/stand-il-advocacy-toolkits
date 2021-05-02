@@ -35,7 +35,7 @@
         <v-divider></v-divider>
         <div class="flex-fill">
           <v-list class="pa-0">
-            <v-list-item to="/">
+            <v-list-item exact :to="{ name: 'il-dc.introduction' }">
               <v-list-item-icon>
                 <v-icon>mdi-television-play</v-icon>
               </v-list-item-icon>
@@ -43,7 +43,7 @@
                 <v-list-item-title> Introduction </v-list-item-title>
               </v-list-item-content>
             </v-list-item>
-            <v-list-item to="/policy-goals">
+            <v-list-item exact :to="{ name: 'il-dc.policy-goals' }">
               <v-list-item-icon>
                 <v-icon>mdi-format-list-checks</v-icon>
               </v-list-item-icon>
@@ -190,14 +190,6 @@ export default {
     if (this.authorized) {
       this.drawer = true;
       this.$store.dispatch("refresh");
-
-      setTimeout(() => {
-        let lastPos = localStorage.getItem(
-          "last_pos:" + this.$store.state.user.email
-        );
-
-        if (lastPos && this.$route.path != lastPos) this.$router.push(lastPos);
-      }, 200);
     }
   },
   watch: {
@@ -210,7 +202,8 @@ export default {
         }
       } else if (val === false) {
         this.drawer = false;
-        if (this.$route.path != "/") this.$router.push("/");
+        if (this.$route.path != "/il-dual-credit")
+          this.$router.push("/il-dual-credit");
       }
     },
   },

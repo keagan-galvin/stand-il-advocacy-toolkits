@@ -30,6 +30,9 @@ export default {
     authorized(state) {
       return state.id !== "";
     },
+    isAdmin(state) {
+      return state.id === "ADMIN";
+    },
   },
   mutations: {
     set(state, data) {
@@ -42,17 +45,19 @@ export default {
     },
   },
   actions: {
-    load({ commit }, email) {
+    load({ commit, dispatch }, email) {
       return new Promise((resolve, reject) => {
         commit("incrementPendingStateChanges", 1);
         handleFetch({
           method: "get",
           url: `/api/user?email=${encodeURI(email)}`,
         })
-          .then((result) => {
-            if (result) {
-              commit("set", result);
-              resolve(JSON.parse(JSON.stringify(result)));
+          .then((user) => {
+            if (user) {
+              dispatch("loadToken", null, { root: true }).then(() => {
+                commit("set", user);
+                resolve(JSON.parse(JSON.stringify(user)));
+              }, reject);
             } else resolve(null);
           }, reject)
           .finally(() => commit("incrementPendingStateChanges", -1));
@@ -74,6 +79,7 @@ export default {
       });
     },
     clear({ commit }) {
+      commit("setJWT", { token: null, expires: null }, { root: true });
       commit("set", defaultUser());
     },
   },

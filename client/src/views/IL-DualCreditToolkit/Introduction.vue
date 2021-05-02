@@ -275,7 +275,7 @@ export default {
       return this.$vuetify.breakpoint.mobile;
     },
     authorized() {
-      return this.$store.getters.authorized;
+      return this.$store.getters["user/authorized"];
     },
     states() {
       return US_State_Options;
@@ -309,17 +309,11 @@ export default {
         .dispatch("user/load", this.user.email)
         .then((result) => {
           if (result) {
-            var lastPosKey = "last_pos:" + this.user.email;
-            let lastPos = localStorage.getItem(lastPosKey);
-
             this.dialog = false;
             setTimeout(() => {
-              if (this.$route.path != lastPos)
-                this.$router.push(lastPos ? lastPos : "policy-goals");
+              this.$router.push({ name: "il-dc.policy-goals" });
             }, 500);
-          } else {
-            this.step++;
-          }
+          } else this.step++;
         })
         .finally(() => (this.loading = false));
     },
@@ -333,7 +327,7 @@ export default {
           () => {
             this.dialog = false;
             setTimeout(() => {
-              this.$router.push("policy-goals");
+              this.$router.push({ name: "il-dc.policy-goals" });
             }, 500);
           },
           // Error
