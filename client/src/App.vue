@@ -38,4 +38,10 @@ export default {};
   display: flex;
   flex-direction: column;
 }
+
+.flush {
+  &.v-expansion-panel-content > div {
+    padding: 0 !important;
+  }
+}
 </style>

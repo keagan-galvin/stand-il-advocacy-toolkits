@@ -1,7 +1,7 @@
 var db = require("../domain/models");
 
 async function getAll() {
-  return await db.User.findAll().toJSON();
+  return await db.User.findAll({ raw: true });
 }
 
 async function getByEmail(email) {

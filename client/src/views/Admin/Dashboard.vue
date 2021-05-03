@@ -1,7 +1,14 @@
 <template>
-  <div>TBD DASHBOARD</div>
+  <div class="pa-6">
+    <v-expansion-panels>
+      <users></users>
+    </v-expansion-panels>
+  </div>
 </template>
 
 <script>
-export default {};
+import Users from "../../components/users.vue";
+export default {
+  components: { Users },
+};
 </script>

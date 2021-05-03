@@ -311,7 +311,10 @@ export default {
           if (result) {
             this.dialog = false;
             setTimeout(() => {
-              this.$router.push({ name: "il-dc.policy-goals" });
+              //this.$router.push({ name: "il-dc.policy-goals" });
+              this.$store.dispatch("notifications/send", {
+                message: "Welcome back - time to advocate!",
+              });
             }, 500);
           } else this.step++;
         })

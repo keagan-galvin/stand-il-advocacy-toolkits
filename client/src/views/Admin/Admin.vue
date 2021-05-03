@@ -1,96 +1,28 @@
 <template>
   <v-app>
-    <v-navigation-drawer
-      id="mainNav"
-      app
-      v-model="drawer"
-      floating
-      class="white"
-      width="420"
-      v-if="authorized"
-    >
-      <div class="d-flex flex-column" style="min-height: 100%">
-        <div class="primary d-flex align-center">
-          <div class="flex-fill">
-            <img
-              class="flex-fill"
-              src="@/assets/logo_primary.png"
-              style="max-width: 350px; width: 100%"
-            />
-          </div>
-          <v-btn
-            elevation="2"
-            fab
-            small
-            @click="drawer = !drawer"
-            class="mr-3"
-            v-if="isMobile"
-          >
-            <v-icon>mdi-close</v-icon>
-          </v-btn>
-        </div>
-        <div class="accent--text px-5 py-4 border-bottom">
-          <h2 class="text-h5">Toolkit Admin Panel</h2>
-        </div>
-        <v-divider></v-divider>
-        <div class="flex-fill">
-          <v-list class="pa-0">
-            <v-list-item exact :to="{ name: 'admin.dashboard' }">
-              <v-list-item-icon>
-                <v-icon>mdi-home</v-icon>
-              </v-list-item-icon>
-              <v-list-item-content>
-                <v-list-item-title> Home </v-list-item-title>
-              </v-list-item-content>
-            </v-list-item>
-            <v-list-item exact :to="{ name: 'admin.users' }">
-              <v-list-item-icon>
-                <v-icon>mdi-account-group</v-icon>
-              </v-list-item-icon>
-              <v-list-item-content>
-                <v-list-item-title>Users</v-list-item-title>
-              </v-list-item-content>
-            </v-list-item>
-          </v-list>
-        </div>
-        <v-divider></v-divider>
-        <div class="px-5 py-4 d-flex align-center">
-          <v-avatar>
-            <img
-              src="https://external-preview.redd.it/MRPpkMbjs2LfmP5iHHkTFStXaB-ZM8V1tPKg0AhQWgA.jpg?auto=webp&s=38d8ea8ea96ae5be7bc9388b5c5816ecb57550dd"
-              alt="Picard"
-            />
-          </v-avatar>
-          <div class="flex-fill ml-2 mr-3">
-            <div class="font-weight-bold">
-              {{ user.firstName }} {{ user.lastName }}
-            </div>
-            <div class="text-caption">{{ user.email }}</div>
-          </div>
-          <v-btn elevation="0" color="accent" rounded small @click="logout"
-            >Logout</v-btn
-          >
-        </div>
-      </div>
-    </v-navigation-drawer>
-    <v-main class="d-flex">
+    <v-main class="d-flex secondary">
       <v-progress-linear
         indeterminate
         color="accent"
         :active="loading"
         style="position: absolute; top: 0; z-index: 3000"
       ></v-progress-linear>
-      <v-toolbar flat class="flex-grow-0">
-        <v-btn
-          color="accent"
-          elevation="2"
-          fab
-          small
-          @click="drawer = !drawer"
-          v-if="authorized"
-          ><v-icon>mdi-menu</v-icon></v-btn
+      <v-app-bar elevate-on-scroll app color="primary" v-if="isAdmin">
+        <v-img
+          contain
+          position="left center"
+          src="@/assets/logo-primary.png"
+          max-height="55"
+          max-width="130"
+        />
+        <v-toolbar-title class="white--text text-center"
+          >Advocacy Toolkit Admin Panel</v-toolbar-title
         >
-      </v-toolbar>
+
+        <v-spacer></v-spacer>
+
+        <v-btn elevation="0" dark rounded small @click="logout">Logout</v-btn>
+      </v-app-bar>
       <page-transition>
         <router-view />
       </page-transition>
@@ -107,7 +39,6 @@ export default {
   name: "admin",
   components: { PageTransition, Notifications },
   data: () => ({
-    drawer: false,
     showContent: true,
     welcome: true,
   }),
@@ -130,20 +61,16 @@ export default {
   },
   mounted() {
     if (this.isAdmin) {
-      this.drawer = true;
-    } else if (this.$route.path != "/admin/login")
+      if (new Date(this.$store.state.jwt.expires - 60000) < new Date()) {
+        this.$store.dispatch("user/clear");
+      }
+    } else if (this.$route.path != "/admin/login") {
       this.$router.push({ name: "admin.login" });
+    }
   },
   watch: {
-    isAdmin(val, prev) {
-      if (val === true && val != prev) {
-        if (!this.$vuetify.breakpoint.mobile) {
-          setTimeout(() => {
-            this.drawer = true;
-          }, 100);
-        }
-      } else if (val === false) {
-        this.drawer = false;
+    isAdmin(val) {
+      if (val === false) {
         if (this.$route.path != "/admin/login")
           this.$router.push({ name: "admin.login" });
       }

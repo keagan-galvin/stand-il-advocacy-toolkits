@@ -50,7 +50,7 @@ export default {
         commit("incrementPendingStateChanges", 1);
         handleFetch({
           method: "get",
-          url: `/api/user?email=${encodeURI(email)}`,
+          url: `/api/users?email=${encodeURI(email)}`,
         })
           .then((user) => {
             if (user) {
@@ -67,7 +67,7 @@ export default {
       return new Promise((resolve, reject) => {
         commit("incrementPendingStateChanges", 1);
         handleFetch({
-          url: "/api/user",
+          url: "/api/users",
           method: "post",
           body: user,
         })
@@ -81,6 +81,16 @@ export default {
     clear({ commit }) {
       commit("setJWT", { token: null, expires: null }, { root: true });
       commit("set", defaultUser());
+    },
+    getAll({ dispatch }) {
+      return dispatch(
+        "handleApiFetch",
+        {
+          mode: "get",
+          url: `/api/users/all`,
+        },
+        { root: true }
+      );
     },
   },
 };

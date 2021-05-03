@@ -18,7 +18,7 @@ function hasScope(req, res, next, scope) {
   if (!bearerToken.startsWith("Bearer ")) return res.sendStatus(403);
 
   return jwt.verify(
-    basicToken.replace("Bearer ", ""),
+    bearerToken.replace("Bearer ", ""),
     process.env.TOKEN_SECRET,
     function (err, data) {
       if (err) return res.sendStatus(403);

@@ -11,13 +11,25 @@
           elevation="6"
           rounded
           width="100%"
-          class="notification d-flex align-center pa-3 mb-3"
+          class="notification d-flex align-center px-4 py-3 mb-3"
+          :class="{
+            'red darken-4': notification.type === 'error',
+          }"
         >
           <div class="flex-fill font-weight-medium text-body-1">
-            {{ notification.message }}
+            <v-icon
+              color="success"
+              v-if="notification.type === 'success'"
+              class="mr-2"
+              >mdi-check-circle</v-icon
+            >
+            <v-icon v-else-if="notification.type === 'error'" class="mr-2"
+              >mdi-alert-circle</v-icon
+            >
+            <span v-html="notification.message"></span>
           </div>
-          <v-btn elevation="0" color="accent" @click="close(notification.id)"
-            >Close</v-btn
+          <v-btn icon @click="close(notification.id)"
+            ><v-icon>mdi-close</v-icon></v-btn
           >
         </v-sheet>
       </v-list-item>

@@ -131,7 +131,7 @@ export default {
               email_optin: true,
             });
 
-            this.$router.push({ name: "admin.dashboard" });
+            this.$router.push({ name: "admin" });
           },
           (error) => {
             this.errorMessage = error.message;

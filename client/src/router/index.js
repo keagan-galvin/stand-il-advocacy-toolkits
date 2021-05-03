@@ -8,7 +8,6 @@ import IL_DCT_PolicyGoals from "../views/IL-DualCreditToolkit/PolicyGoals.vue";
 import Admin from "../views/Admin/Admin.vue";
 import Admin_Login from "../views/Admin/Login.vue";
 import Admin_Dashboard from "../views/Admin/Dashboard.vue";
-import Admin_Users from "../views/Admin/Users.vue";
 
 // import IL_OCT from "../views/IL-OtherToolkit/Toolkit.vue";
 // import IL_OCT_Introduction from "../views/IL-OtherToolkit/Introduction.vue";
@@ -49,23 +48,17 @@ const routes = [
         path: "login",
         component: Admin_Login,
         meta: {
+          transitionName: "fade",
           position: 0,
         },
       },
       {
-        name: "admin.dashboard",
+        name: "admin",
         path: "",
         component: Admin_Dashboard,
         meta: {
+          transitionName: "fade",
           position: 1,
-        },
-      },
-      {
-        name: "admin.users",
-        path: "users",
-        component: Admin_Users,
-        meta: {
-          position: 2,
         },
       },
     ],
@@ -123,16 +116,22 @@ router.beforeEach((to, from, next) => {
         },
       };
 
+      console.log(to.path);
+
       if (to.path.startsWith(paths.admin.root)) {
         if (!store.getters["user/isAdmin"] && to.path !== paths.admin.login)
           next(paths.admin.login);
         else if (store.getters["user/isAdmin"] && to.path === paths.admin.login)
           next(paths.admin.root);
         else next();
-      } else if (!store.getters["user/authorized"]) {
-        if (to.path != paths.ilDCT.root) next(paths.ilDCT.root);
+      } else {
+        if (
+          to.path === "/" ||
+          (to.path != paths.ilDCT.root && !store.getters["user/authorized"])
+        )
+          next(paths.ilDCT.root);
         else next();
-      } else next();
+      }
     } else setTimeout(tryNext, 10);
   };
 

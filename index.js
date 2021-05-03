@@ -51,9 +51,13 @@ app.get(["/app", "/app/*"], function (req, res, next) {
   res.sendFile(path.join(__dirname, "./public", "app.html"));
 });
 
+app.get(["/admin", "/admin/*"], function (req, res, next) {
+  res.redirect("/app/#/admin");
+});
+
 // API ROUTING
 app.use("/api/auth", require("./api/authorization"));
-app.use("/api/user", require("./api/user"));
+app.use("/api/users", require("./api/user"));
 app.use("/api/admin", require("./api/admin"));
 
 // START

@@ -14,7 +14,7 @@
           <div class="flex-fill">
             <img
               class="flex-fill"
-              src="@/assets/logo_primary.png"
+              src="@/assets/il-logo-primary.png"
               style="max-width: 350px; width: 100%"
             />
           </div>

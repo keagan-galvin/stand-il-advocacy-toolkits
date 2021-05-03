@@ -8,12 +8,10 @@ import { handleFetch } from "../utilities/HttpUtilities";
 
 Vue.use(Vuex);
 
-let jwt = null;
-
 let store = new Vuex.Store({
   modules: {
     user,
-    notifications,
+    notifications: notifications.store,
   },
   state() {
     return {
@@ -34,7 +32,7 @@ let store = new Vuex.Store({
     initializeStore(state) {
       if (localStorage.getItem("store")) {
         let data = JSON.parse(localStorage.getItem("store"));
-        data.notifications = [];
+        data.notifications = notifications.defaultState();
         data.pendingStateChanges = 0;
 
         this.replaceState(Object.assign(state, data));
@@ -60,7 +58,7 @@ let store = new Vuex.Store({
         );
       }
     },
-    loadToken({ commit }, username) {
+    loadToken({ state, commit }, username) {
       return new Promise((resolve, reject) => {
         handleFetch({
           url: "/api/auth/token",
@@ -68,43 +66,36 @@ let store = new Vuex.Store({
           headers: [["Authorization", `Basic ${btoa(username)}`]],
         }).then((result) => {
           commit("setJWT", result);
+
+          setInterval(function refreshToken() {
+            return new Promise((resolve, reject) => {
+              handleFetch({
+                url: "/api/auth/refreshToken",
+                method: "get",
+                headers: [["Authorization", `Bearer ${state.jwt.token}`]],
+              }).then((result) => {
+                commit("setJWT", result);
+                resolve(result);
+              }, reject);
+            });
+          }, 59 * 1000 * 60);
+
           resolve(result);
         }, reject);
       });
     },
-    handleApiFetch(
-      { state, commit },
-      { url, headers, body, method, cacheDuration }
-    ) {
+    handleApiFetch({ state }, { url, headers, body, method, cacheDuration }) {
       return new Promise((resolve, reject) => {
-        const next = () =>
-          handleFetch({
-            url,
-            headers: [["Authorization", `Bearer ${jwt.token}`]].concat(
-              headers ?? []
-            ),
-            body,
-            method,
-            cacheDuration,
-          }).then(resolve, reject);
-
-        if (new Date().getTime() >= jwt.expires - 60000) {
-          refreshToken().then(next, reject);
-        } else next();
+        handleFetch({
+          url,
+          headers: [["Authorization", `Bearer ${state.jwt.token}`]].concat(
+            headers ?? []
+          ),
+          body,
+          method,
+          cacheDuration,
+        }).then(resolve, reject);
       });
-
-      function refreshToken() {
-        return new Promise((resolve, reject) => {
-          handleFetch({
-            url: "/api/auth/refreshToken",
-            method: "get",
-            headers: [["Authorization", `Bearer ${state.jwt.token}`]],
-          }).then((result) => {
-            commit("setJWT", result);
-            resolve(result);
-          }, reject);
-        });
-      }
     },
   },
 });
