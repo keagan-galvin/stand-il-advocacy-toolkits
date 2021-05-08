@@ -13,6 +13,7 @@ function generateAccessToken(data) {
 
 function hasScope(req, res, next, scope) {
   var bearerToken = req.get("Authorization");
+  if (!bearerToken) bearerToken = req.query.token;
 
   if (!bearerToken) return res.sendStatus(403);
   if (!bearerToken.startsWith("Bearer ")) return res.sendStatus(403);

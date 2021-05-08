@@ -22,6 +22,16 @@
             <v-btn icon class="mr-2" @click.native.stop="load"
               ><v-icon>mdi-refresh</v-icon></v-btn
             >
+            <v-btn
+              icon
+              class="mr-2"
+              @click.native.stop
+              target="_blank"
+              :href="`/api/users/export?token=${encodeURI(
+                'Bearer ' + jwt.token
+              )}`"
+              ><v-icon>mdi-download</v-icon></v-btn
+            >
           </div>
         </v-slide-x-reverse-transition>
       </div>
@@ -153,6 +163,9 @@ export default {
   computed: {
     isMobile() {
       return this.$vuetify.breakpoint.mobile;
+    },
+    jwt() {
+      return this.$store.state.jwt;
     },
   },
   methods: {

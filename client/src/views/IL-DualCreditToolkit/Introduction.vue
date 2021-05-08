@@ -39,7 +39,7 @@
         :fullscreen="isMobile"
       >
         <template v-slot:activator="{ on, attrs }">
-          <v-btn color="primary" elevation="6" x-large v-bind="attrs" v-on="on">
+          <v-btn color="accent" elevation="0" x-large v-bind="attrs" v-on="on">
             Get Started
           </v-btn>
         </template>

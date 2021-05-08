@@ -8,6 +8,7 @@
       class="white"
       width="420"
       v-if="authorized"
+      style="margin-bottom: 28px"
     >
       <div class="d-flex flex-column" style="min-height: 100%">
         <div class="primary d-flex align-center">
@@ -141,7 +142,26 @@
         :active="loading"
         style="position: absolute; top: 0; z-index: 3000"
       ></v-progress-linear>
-      <v-toolbar flat class="flex-grow-0">
+      <v-app-bar
+        elevate-on-scroll
+        app
+        color="primary"
+        v-if="isMobile || !authorized"
+      >
+        <v-app-bar-nav-icon
+          dark
+          @click="drawer = !drawer"
+          v-if="authorized"
+        ></v-app-bar-nav-icon>
+        <v-img
+          contain
+          position="left center"
+          src="@/assets/il-logo-primary.png"
+          max-height="55"
+          max-width="200"
+        />
+      </v-app-bar>
+      <!-- <v-toolbar flat class="flex-grow-0" v-else>
         <v-btn
           color="accent"
           elevation="2"
@@ -151,14 +171,98 @@
           v-if="authorized"
           ><v-icon>mdi-menu</v-icon></v-btn
         >
-      </v-toolbar>
+      </v-toolbar> -->
       <page-transition>
-        <router-view />
+        <router-view class="flex-fill pt-md-12" />
       </page-transition>
       <notifications />
+      <footer class="py-1">
+        <div class="d-flex">
+          <v-tooltip top>
+            <template v-slot:activator="{ on, attrs }">
+              <v-btn
+                href="http://stand.org/illinois"
+                target="_blank"
+                dark
+                elevation="0"
+                icon
+                plain
+                x-small
+                v-bind="attrs"
+                v-on="on"
+                class="ml-4"
+              >
+                <v-icon>mdi-laptop</v-icon>
+              </v-btn>
+            </template>
+            <span>Website</span>
+          </v-tooltip>
+          <v-tooltip top>
+            <template v-slot:activator="{ on, attrs }">
+              <v-btn
+                href="https://www.facebook.com/standillinois"
+                target="_blank"
+                dark
+                elevation="0"
+                icon
+                plain
+                x-small
+                v-bind="attrs"
+                v-on="on"
+                class="mx-4"
+              >
+                <v-icon>mdi-facebook</v-icon>
+              </v-btn>
+            </template>
+            <span>Facebook</span>
+          </v-tooltip>
+          <v-tooltip top>
+            <template v-slot:activator="{ on, attrs }">
+              <v-btn
+                href="https://twitter.com/illinoisstand"
+                target="_blank"
+                dark
+                elevation="0"
+                icon
+                plain
+                x-small
+                v-bind="attrs"
+                v-on="on"
+              >
+                <v-icon>mdi-twitter</v-icon>
+              </v-btn>
+            </template>
+            <span>Twitter</span>
+          </v-tooltip>
+          <div class="flex-fill text-caption secondary--text px-4 text-center">
+            <span v-if="!isMobile" v-html="copy"></span>
+          </div>
+          <v-btn
+            dark
+            x-small
+            elevation="0"
+            plain
+            href="http://stand.org/privacy"
+            target="_blank"
+            >Privacy Policy</v-btn
+          >
+        </div>
+        <div
+          class="pt-1 caption secondary--text text-center px-2"
+          v-if="isMobile"
+          v-html="copy"
+        ></div>
+      </footer>
     </v-main>
   </v-app>
 </template>
+
+<style scoped>
+footer {
+  background: #404040;
+  z-index: 5;
+}
+</style>
 
 <script>
 import PageTransition from "../../components/page-transition.vue";
@@ -185,17 +289,24 @@ export default {
     loading() {
       return this.$store.getters.loading;
     },
+    year() {
+      return new Date().getFullYear();
+    },
+    copy() {
+      return `&copy;${this.year}. All right reserved. Stand for Children
+              Leadership Center, Inc.`;
+    },
   },
   mounted() {
     if (this.authorized) {
-      this.drawer = true;
+      if (!this.isMobile) this.drawer = true;
       this.$store.dispatch("refresh");
     }
   },
   watch: {
     authorized(val, prev) {
       if (val === true && val != prev) {
-        if (!this.$vuetify.breakpoint.mobile) {
+        if (!this.isMobile) {
           setTimeout(() => {
             this.drawer = true;
           }, 100);

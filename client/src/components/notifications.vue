@@ -1,5 +1,5 @@
 <template>
-  <div class="notifications pb-2">
+  <div class="notifications pb-6">
     <v-scale-transition origin="center" group tag="ul">
       <v-list-item
         v-for="notification in notifications"
