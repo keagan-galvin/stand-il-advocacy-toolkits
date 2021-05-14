@@ -2,7 +2,9 @@
   <v-expansion-panel>
     <v-expansion-panel-header v-slot="{ open }" @keyup.space.prevent>
       <div class="d-flex align-center">
-        <div class="flex-fill text-h5">Users</div>
+        <div class="flex-fill text-h5">
+          <v-icon>mdi-account-multiple</v-icon> Users
+        </div>
         <v-slide-x-reverse-transition>
           <div v-if="open" class="d-flex align-center">
             <v-text-field

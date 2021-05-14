@@ -13,7 +13,7 @@ module.exports = (sequelize, DataTypes) => {
   }
   DualCreditToolkit.init(
     {
-      uerId: DataTypes.UUID,
+      userId: DataTypes.UUID,
     },
     {
       sequelize,
