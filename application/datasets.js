@@ -20,6 +20,8 @@ async function get(key) {
 }
 
 async function refresh(key, data) {
+
+    console.log(key);
   let dataset = dataSets.find((x) => x.key === key);
 
   if (dataset) {

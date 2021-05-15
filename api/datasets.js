@@ -32,6 +32,12 @@ router.post(
         if (data.Telephone === "0") data.Telephone = null;
         if (data.school_website === "0") data.school_website = null;
 
+        for(let key in data) {
+          if (data[key] === '') data[key] = null;
+        }
+
+        console.log(data.P_Student_Enrollment_Children_with_Disabilities);
+
         results.push(data);
       });
       try {

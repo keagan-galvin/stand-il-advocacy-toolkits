@@ -102,7 +102,7 @@ export default {
     let datasets = [
       {
         name: "Illinois Report Card",
-        key: "il-report-card",
+        key: "IL_DualCredit_Entities",
       },
     ].sort((a, b) => {
       let textA = a.name.toUpperCase();
