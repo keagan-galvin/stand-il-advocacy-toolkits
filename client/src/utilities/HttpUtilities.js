@@ -18,7 +18,7 @@ export function handleFetch({
   if (body) {
     if (body instanceof FormData) {
       request.body = body;
-      request.headers = undefined;
+      request.headers = [];
     } else request.body = JSON.stringify(body);
   }
 

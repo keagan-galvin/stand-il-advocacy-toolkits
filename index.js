@@ -59,6 +59,7 @@ app.get(["/admin", "/admin/*"], function (req, res, next) {
 app.use("/api/auth", require("./api/authorization"));
 app.use("/api/users", require("./api/user"));
 app.use("/api/admin", require("./api/admin"));
+app.use("/api/datasets", require("./api/datasets"));
 
 // START
 const port = process.env.PORT || 3000;

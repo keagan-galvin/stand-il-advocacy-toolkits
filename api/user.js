@@ -8,7 +8,7 @@ const { Parser } = require("json2csv");
 // GET ALL
 router.get(
   "/all",
-  (req, res, next) => security.hasScope(req, res, next, "admin"),
+  security.isAdmin,
   async function (req, res) {
     let results = await user.getAll();
     return res.successResponse(results);
@@ -66,7 +66,7 @@ router.post(
 //EXPORT
 router.get(
   "/export",
-  (req, res, next) => security.hasScope(req, res, next, "admin"),
+  security.isAdmin,
   async function (req, res) {
     let data = await user.getAll();
 

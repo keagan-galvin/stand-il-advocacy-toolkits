@@ -86,7 +86,7 @@ export default {
       return dispatch(
         "handleApiFetch",
         {
-          mode: "get",
+          method: "get",
           url: `/api/users/all`,
         },
         { root: true }

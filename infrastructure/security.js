@@ -41,4 +41,5 @@ module.exports = {
   generateAccessToken,
   hasScope,
   refreshToken,
+  isAdmin: (req, res, next) => hasScope(req, res, next, "admin"),
 };

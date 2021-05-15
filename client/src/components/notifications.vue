@@ -16,7 +16,9 @@
             'red darken-4': notification.type === 'error',
           }"
         >
-          <div class="flex-fill font-weight-medium text-body-1">
+          <div
+            class="flex-fill font-weight-medium text-body-1 d-flex align-center"
+          >
             <v-icon
               color="success"
               v-if="notification.type === 'success'"
@@ -26,7 +28,7 @@
             <v-icon v-else-if="notification.type === 'error'" class="mr-2"
               >mdi-alert-circle</v-icon
             >
-            <span v-html="notification.message"></span>
+            <span class="flex-fill" v-html="notification.message"></span>
           </div>
           <v-btn icon @click="close(notification.id)"
             ><v-icon>mdi-close</v-icon></v-btn

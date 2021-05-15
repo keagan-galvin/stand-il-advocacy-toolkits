@@ -22,12 +22,22 @@
         </li>
       </ul>
 
-      <v-dialog v-model="dialog" max-width="400">
+      <v-dialog v-model="dialog" max-width="400" :persistant="loading">
         <v-card class="px-1 pt-1 d-flex flex-column">
-          <v-card-title class="headline"
-            >Upload {{ dataset.name }}</v-card-title
-          >
+          <v-card-title class="headline d-flex">
+            <div class="flex-fill">
+              <v-icon>mdi-cloud-upload</v-icon> Upload Data Set
+            </div>
+            <v-btn icon @click="dialog = false">
+              <v-icon>mdi-close</v-icon>
+            </v-btn>
+          </v-card-title>
           <v-card-text>
+            <p>
+              Upload a <strong>csv</strong> file to refresh the
+              <strong class="primary--text">{{ dataset.name }}</strong> data
+              set.
+            </p>
             <v-file-input
               v-model="file"
               accepts=".csv"
@@ -35,20 +45,32 @@
               placeholder="Select your file"
               :show-size="1000"
               :disabled="loading"
+              :error-messages="errors"
             >
             </v-file-input>
           </v-card-text>
-          <v-card-actions>
+          <v-card-text>
             <v-btn
               block
               color="primary"
-              :disabled="!file || loading"
+              :disabled="!file || loading || errors.length > 0"
               :loading="loading"
               @click="submit"
             >
               Upload
             </v-btn>
-          </v-card-actions>
+
+            <v-btn
+              color="cancel"
+              outlined
+              block
+              text
+              @click="dialog = false"
+              class="mt-3"
+            >
+              Cancel
+            </v-btn>
+          </v-card-text>
         </v-card>
       </v-dialog>
     </v-expansion-panel-content>
@@ -99,18 +121,70 @@ export default {
       loading: false,
     };
   },
+  computed: {
+    errors() {
+      let errors = [];
+
+      if (
+        this.file &&
+        this.file.name.indexOf(".csv") != this.file.name.length - 4
+      ) {
+        errors.push("File must be a .csv");
+      }
+
+      return errors;
+    },
+  },
+  watch: {
+    dialog(val, prev) {
+      if (val != prev && !val) {
+        this.file = null;
+      }
+    },
+  },
   methods: {
     upload(dataset) {
       this.dataset = dataset;
       this.dialog = true;
     },
     submit() {
+      if (!this.file) return;
+
       this.loading = true;
 
-      this.$store.dispatch("handleApiFetch", {
-        mode: "get",
-        url: `/api/datasets/upload`,
-      });
+      let formData = new FormData();
+
+      formData.append("data_set", this.file, this.file.name);
+      formData.append("key", this.dataset.key);
+
+      this.$store
+        .dispatch("handleApiFetch", {
+          method: "post",
+          url: `/api/datasets/upload`,
+          body: formData,
+        })
+        .then(
+          //success
+          () => {
+            this.$store.dispatch("notifications/send", {
+              message: `Successfully refreshed the data set.`,
+              type: "success",
+            });
+
+            this.dialog = false;
+          },
+          //error
+          () => {
+            this.$store.dispatch("notifications/send", {
+              message: `Unexpected error occured while uploading the data set.`,
+              type: "error",
+            });
+            ``;
+          }
+        )
+        .finally(() => {
+          this.loading = false;
+        });
     },
   },
 };
