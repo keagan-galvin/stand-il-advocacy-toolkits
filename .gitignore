@@ -44,6 +44,7 @@ node_modules/
 jspm_packages/
 .DS_Store
 /dist
+/uploads
 
 # TypeScript v1 declaration files
 typings/

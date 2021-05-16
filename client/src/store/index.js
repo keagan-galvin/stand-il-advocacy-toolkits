@@ -3,6 +3,7 @@ import Vuex from "vuex";
 
 import user from "./user";
 import notifications from "./notifications";
+import datasets from "./datasets";
 
 import { handleFetch } from "../utilities/HttpUtilities";
 
@@ -12,6 +13,7 @@ let store = new Vuex.Store({
   modules: {
     user,
     notifications: notifications.store,
+    datasets,
   },
   state() {
     return {

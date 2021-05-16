@@ -1,6 +1,6 @@
 module.exports = {
   name: "IL Dual Credit Entities",
-  key: "IL_DualCredit_Entities",
+  key: "il-dualcredit-entity",
   model: "IL_DualCredit_Entity",
   skipOnError: true,
   transform(data) {

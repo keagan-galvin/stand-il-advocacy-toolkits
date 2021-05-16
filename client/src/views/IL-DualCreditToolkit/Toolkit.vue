@@ -272,6 +272,7 @@ export default {
   name: "ilDualCreditToolkit",
   components: { PageTransition, Notifications },
   data: () => ({
+    isLoading: false,
     drawer: false,
     showContent: true,
     welcome: true,
@@ -287,7 +288,7 @@ export default {
       return this.$vuetify.breakpoint.mobile;
     },
     loading() {
-      return this.$store.getters.loading;
+      return this.$store.getters.loading || this.isLoading;
     },
     year() {
       return new Date().getFullYear();
@@ -301,6 +302,7 @@ export default {
     if (this.authorized) {
       if (!this.isMobile) this.drawer = true;
       this.$store.dispatch("refresh");
+      this.loadDataSets();
     }
   },
   watch: {
@@ -311,6 +313,8 @@ export default {
             this.drawer = true;
           }, 100);
         }
+
+        this.loadDataSets();
       } else if (val === false) {
         this.drawer = false;
         if (this.$route.path != "/il-dual-credit")
@@ -319,6 +323,27 @@ export default {
     },
   },
   methods: {
+    loadDataSets() {
+      this.isLoading = true;
+
+      Promise.all([
+        this.$store.dispatch("datasets/load", "il-dualcredit-entity"),
+      ])
+        .then(
+          () => {},
+          (err) => {
+            console.log(err);
+            this.$store.dispatch("notifications/send", {
+              message:
+                "Unexpected error while loading toolkit datasets! Functionality may be limited.",
+              type: "error",
+            });
+          }
+        )
+        .finally(() => {
+          this.isLoading = false;
+        });
+    },
     logout() {
       this.$store.dispatch("user/clear");
     },

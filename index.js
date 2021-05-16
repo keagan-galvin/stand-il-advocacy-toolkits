@@ -1,11 +1,13 @@
 require("dotenv").config();
 
 const express = require("express");
+const compression = require("compression");
 const path = require("path");
 const constants = require("./constants");
 
 // CONFIGURE
 const app = express();
+app.use(compression());
 app.use(express.json());
 app.use(express.static("public"));
 
