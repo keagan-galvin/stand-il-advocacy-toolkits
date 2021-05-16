@@ -1,28 +1,24 @@
-var db = require("../domain/models");
+var db = require("../../domain/models");
 
-const dataSets = [
-  {
-    name: "IL Dual Credit Entities",
-    key: "IL_DualCredit_Entities",
-    model: "IL_DualCredit_Entity",
-  },
-];
+const dataSets = [require("./il-dualcredit-entity.js")];
 
-function getDataSets() {
+function getAll() {
   return JSON.parse(JSON.stringify(dataSets));
 }
 
-async function get(key) {
-  let dataset = dataSets.find((x) => x.key === key);
+function get(key) {
+  return dataSets.find((x) => x.key === key);
+}
+
+async function getData(key) {
+  let dataset = get(key);
 
   if (dataset) return await db[dataset.model].findAll({ raw: true });
   else throw "Invalid dataset";
 }
 
 async function refresh(key, data) {
-
-    console.log(key);
-  let dataset = dataSets.find((x) => x.key === key);
+  let dataset = get(key);
 
   if (dataset) {
     await db[dataset.model].destroy({ truncate: true });
@@ -32,7 +28,8 @@ async function refresh(key, data) {
 }
 
 module.exports = {
-  getDataSets,
   get,
+  getAll,
+  getData,
   refresh,
 };

@@ -3,7 +3,13 @@
     <v-expansion-panel-header>
       <div class="d-flex align-center">
         <div class="flex-fill text-h5">
-          <v-icon>mdi-database</v-icon> Data Sets
+          <v-icon v-if="!loading">mdi-database</v-icon>
+          <v-progress-circular
+            v-else
+            indeterminate
+            color="primary"
+          ></v-progress-circular>
+          Data Sets
         </div>
       </div>
     </v-expansion-panel-header>
@@ -16,8 +22,17 @@
           v-ripple
         >
           <div class="flex-fill">{{ dataset.name }}</div>
-          <v-btn icon small @click="upload(dataset)"
+          <v-btn icon small class="mr-2" @click="upload(dataset)"
             ><v-icon>mdi-cloud-upload</v-icon></v-btn
+          >
+          <v-btn
+            icon
+            small
+            target="_blank"
+            :href="`/api/datasets/${dataset.key}/export?token=${encodeURI(
+              'Bearer ' + jwt.token
+            )}`"
+            ><v-icon>mdi-download</v-icon></v-btn
           >
         </li>
       </ul>
@@ -99,19 +114,8 @@ ul {
 <script>
 export default {
   data() {
-    let datasets = [
-      {
-        name: "Illinois Report Card",
-        key: "IL_DualCredit_Entities",
-      },
-    ].sort((a, b) => {
-      let textA = a.name.toUpperCase();
-      let textB = b.name.toUpperCase();
-      return textA < textB ? -1 : textA > textB ? 1 : 0;
-    });
-
     return {
-      datasets,
+      datasets: [],
       dataset: {
         name: "",
         key: "",
@@ -134,6 +138,9 @@ export default {
 
       return errors;
     },
+    jwt() {
+      return this.$store.state.jwt;
+    },
   },
   watch: {
     dialog(val, prev) {
@@ -143,6 +150,34 @@ export default {
     },
   },
   methods: {
+    load() {
+      this.loading = true;
+
+      this.$store
+        .dispatch("handleApiFetch", {
+          method: "get",
+          url: `/api/datasets/`,
+        })
+        .then(
+          (results) => {
+            this.datasets = results.sort((a, b) => {
+              let textA = a.name.toUpperCase();
+              let textB = b.name.toUpperCase();
+              return textA < textB ? -1 : textA > textB ? 1 : 0;
+            });
+          },
+          //error
+          () => {
+            this.$store.dispatch("notifications/send", {
+              message: `Unexpected error occured while loading data sets.`,
+              type: "error",
+            });
+          }
+        )
+        .finally(() => {
+          this.loading = false;
+        });
+    },
     upload(dataset) {
       this.dataset = dataset;
       this.dialog = true;
@@ -186,6 +221,9 @@ export default {
           this.loading = false;
         });
     },
+  },
+  mounted() {
+    this.load();
   },
 };
 </script>

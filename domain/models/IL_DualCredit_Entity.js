@@ -67,11 +67,16 @@ module.exports = (sequelize, DataTypes) => {
       N_Dual_Credit_Students_NonIEP: DataTypes.STRING(20),
       N_Dual_Credit_Students_Low_Income: DataTypes.STRING(20),
       N_Dual_Credit_Students_NonLow_Income: DataTypes.STRING(20),
-      N_Students_who_took_Dual_Credit_classes_Grade_9_Total: DataTypes.STRING(20),
-      N_Students_who_took_Dual_Credit_classes_Grade_10_Total: DataTypes.STRING(20),
-      N_Students_who_took_Dual_Credit_classes_Grade_11_Total: DataTypes.STRING(20),
-      N_Students_who_took_Dual_Credit_classes_Grade_12_Total: DataTypes.STRING(20),
-      N_of_Students_who_passed_one_or_more_AP_exam_ALL_GRADES: DataTypes.STRING(20),
+      N_Students_who_took_Dual_Credit_classes_Grade_9_Total:
+        DataTypes.STRING(20),
+      N_Students_who_took_Dual_Credit_classes_Grade_10_Total:
+        DataTypes.STRING(20),
+      N_Students_who_took_Dual_Credit_classes_Grade_11_Total:
+        DataTypes.STRING(20),
+      N_Students_who_took_Dual_Credit_classes_Grade_12_Total:
+        DataTypes.STRING(20),
+      N_of_Students_who_passed_one_or_more_AP_exam_ALL_GRADES:
+        DataTypes.STRING(20),
       AP_pass_rate: DataTypes.STRING(20),
       EBF_P_of_adequacy: DataTypes.STRING(20),
       Administrator: DataTypes.STRING(500),
@@ -136,10 +141,14 @@ module.exports = (sequelize, DataTypes) => {
       SAT_Math_Total_AI_or_AN_Students_Level_2_P: DataTypes.STRING(20),
       SAT_Math_Total_AI_or_AN_Students_Level_3_P: DataTypes.STRING(20),
       SAT_Math_Total_AI_or_AN_Students_Level_4_P: DataTypes.STRING(20),
-      SAT_Reading_Total_Two_or_More_Race_Students_Level_1_P: DataTypes.STRING(20),
-      SAT_Reading_Total_Two_or_More_Race_Students_Level_2_P: DataTypes.STRING(20),
-      SAT_Reading_Total_Two_or_More_Race_Students_Level_3_P: DataTypes.STRING(20),
-      SAT_Reading_Total_Two_or_More_Race_Students_Level_4_P: DataTypes.STRING(20),
+      SAT_Reading_Total_Two_or_More_Race_Students_Level_1_P:
+        DataTypes.STRING(20),
+      SAT_Reading_Total_Two_or_More_Race_Students_Level_2_P:
+        DataTypes.STRING(20),
+      SAT_Reading_Total_Two_or_More_Race_Students_Level_3_P:
+        DataTypes.STRING(20),
+      SAT_Reading_Total_Two_or_More_Race_Students_Level_4_P:
+        DataTypes.STRING(20),
       SAT_Math_Total_Two_or_More_Race_Students_Level_1_P: DataTypes.STRING(20),
       SAT_Math_Total_Two_or_More_Race_Students_Level_2_P: DataTypes.STRING(20),
       SAT_Math_Total_Two_or_More_Race_Students_Level_3_P: DataTypes.STRING(20),

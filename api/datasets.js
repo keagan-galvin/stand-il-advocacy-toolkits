@@ -3,52 +3,106 @@ var router = express.Router();
 var multer = require("multer");
 var fs = require("fs");
 var csv = require("csv-parser");
-var datasets = require("../application/datasets");
-var security = require("../infrastructure/security");
-const db = require("../domain/models");
+const { Parser } = require("json2csv");
+const { promisify } = require("util");
+const unlinkAsync = promisify(fs.unlink);
+
+const datasets = require("../application/datasets");
+const security = require("../infrastructure/security");
 
 var upload = multer({ dest: "uploads/" });
 
 // GET ALL
+router.get("/", security.isAdmin, function (req, res) {
+  return res.successResponse(datasets.getAll());
+});
+
+// Get Data
+router.get("/:key", async function (req, res) {
+  let dataset = datasets.get(req.params.key);
+  if (!dataset) return res.errorResponse("Invalid key!");
+
+  try {
+    let results = await datasets.getData(req.params.key);
+    res.successResponse(results);
+  } catch (e) {
+    console.log(e);
+    return res.errorResponse("Unexpected error occured while retrieving data.");
+  }
+});
+
+// Refresh Data
 router.post(
   "/upload",
   [security.isAdmin, upload.single("data_set")],
   async function (req, res) {
+    let dataset = datasets.get(req.body.key);
+    if (!dataset) return res.errorResponse("Invalid key!");
+
     let results = [];
+    let errors = [];
 
-    await fs
-      .createReadStream(req.file.path, "utf8")
-      .pipe(csv())
-      .on("data", (data) => {
-        if (data.School === "0") data.School === null;
-        if (data.Type === "0") data.Type === null;
-        if (data.School_Name === "0") data.School_Name = null;
-        if (data.City === "0") data.City = null;
-        if (data.County === "0") data.County = null;
-        if (data.School_Type === "0") data;
-        if (data.Administrator === "0") data.Administrator = null;
-        if (data.Mailing_Address === "0") data.Mailing_Address = null;
-        if (data.Zip === "0") data.Zip = null;
-        if (data.Telephone === "0") data.Telephone = null;
-        if (data.school_website === "0") data.school_website = null;
+    let rowIndex = 0;
 
-        for(let key in data) {
-          if (data[key] === '') data[key] = null;
-        }
+    try {
+      await fs
+        .createReadStream(req.file.path, "utf8")
+        .pipe(csv())
+        .on("data", (data) => {
+          let validationResult = dataset.validate(data);
 
-        console.log(data.P_Student_Enrollment_Children_with_Disabilities);
+          if (validationResult.valid) {
+            results.push(dataset.transform(data));
+          } else {
+            errors.push({
+              rowIndex,
+              errors: validationResult.errors,
+            });
+          }
 
-        results.push(data);
-      });
+          rowIndex++;
+        });
+
+      await unlinkAsync(req.file.path);
+
+      if (!dataset.skipOnError && errors.length > 0)
+        return res.errorResponse("File errors found.", errors);
+
       try {
         await datasets.refresh(req.body.key, results);
-        return res.successResponse("success");    
-      }
-      catch(e) {
+        return res.successResponse("success");
+      } catch (e) {
         console.log(e);
-        return res.errorResponse(e);
+        return res.errorResponse(
+          "An unexpected error occured while refreshing data."
+        );
       }
+    } catch (e) {
+      console.log(e);
+      return res.errorResponse(
+        "Unexpected error occured while processing file."
+      );
     }
+  }
 );
+
+//EXPORT Data
+router.get("/:key/export", security.isAdmin, async function (req, res) {
+  let dataset = datasets.get(req.params.key);
+  if (!dataset) return res.errorResponse("Invalid key!");
+
+  try {
+    let data = await datasets.getData(req.params.key);
+
+    const parser = new Parser();
+    const csv = parser.parse(data);
+
+    res.attachment(`${dataset.key}.csv`);
+    res.status(200).send(csv);
+  } catch (e) {
+    console.log(e);
+    return res.errorResponse("Unexpected error occured while exporting data.");
+  }
+});
 
 module.exports = router;
