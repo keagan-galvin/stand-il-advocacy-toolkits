@@ -6,9 +6,11 @@ import vuetify from "./plugins/vuetify";
 
 import "./utilities/vee-validate";
 import VueMask from "v-mask";
+import vueNumeralFilterInstaller from "vue-numeral-filter";
 
 Vue.config.productionTip = false;
 Vue.use(VueMask);
+Vue.use(vueNumeralFilterInstaller, { locale: "en-gb" });
 
 new Vue({
   router,

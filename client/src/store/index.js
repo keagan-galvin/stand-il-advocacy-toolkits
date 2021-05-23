@@ -2,8 +2,9 @@ import Vue from "vue";
 import Vuex from "vuex";
 
 import user from "./user";
-import notifications from "./notifications";
 import datasets from "./datasets";
+import notifications from "./notifications";
+import toolkit from "./toolkit";
 
 import { handleFetch } from "../utilities/HttpUtilities";
 
@@ -12,8 +13,9 @@ Vue.use(Vuex);
 let store = new Vuex.Store({
   modules: {
     user,
-    notifications: notifications.store,
     datasets,
+    notifications: notifications.store,
+    toolkit,
   },
   state() {
     return {

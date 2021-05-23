@@ -41,7 +41,7 @@
 
 <style>
 .notifications {
-  position: absolute;
+  position: fixed;
   z-index: 3000;
   bottom: 0;
   right: 0;

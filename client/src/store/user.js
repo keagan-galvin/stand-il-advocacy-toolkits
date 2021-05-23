@@ -80,6 +80,7 @@ export default {
     },
     clear({ commit }) {
       commit("setJWT", { token: null, expires: null }, { root: true });
+      commit("toolkit/clear", null, { root: true });
       commit("set", defaultUser());
     },
     getAll({ dispatch }) {

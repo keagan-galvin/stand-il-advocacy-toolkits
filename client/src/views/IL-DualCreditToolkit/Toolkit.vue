@@ -52,72 +52,82 @@
                 <v-list-item-title> Set Your Advocacy Goals </v-list-item-title>
               </v-list-item-content>
             </v-list-item>
-
-            <v-list-group no-action :value="true" color="secondary-darken-2">
-              <template v-slot:activator>
-                <v-list-item-icon>
-                  <v-icon>mdi-strategy</v-icon>
-                </v-list-item-icon>
-                <v-list-item-content>
-                  <v-list-item-title> Advocacy Plan </v-list-item-title>
-                </v-list-item-content>
-              </template>
-
-              <v-list-item
-                to="/advocacy-plan/identify-key-players"
-                class="pr-5"
+            <v-slide-y-transition>
+              <v-list-group
+                no-action
+                :value="true"
+                color="secondary-darken-2"
+                v-if="hasPolicyGoals"
               >
-                <v-list-item-content>
-                  <v-list-item-title>
-                    #1 - Identify Key Players
-                  </v-list-item-title>
-                </v-list-item-content>
-                <v-list-item-icon>
-                  <v-icon>mdi-account-group</v-icon>
-                </v-list-item-icon>
-              </v-list-item>
+                <template v-slot:activator>
+                  <v-list-item-icon>
+                    <v-icon>mdi-strategy</v-icon>
+                  </v-list-item-icon>
+                  <v-list-item-content>
+                    <v-list-item-title> Advocacy Plan </v-list-item-title>
+                  </v-list-item-content>
+                </template>
 
-              <v-list-item
-                to="/advocacy-plan/make-the-case-for-dual-credit"
-                class="pr-5"
-              >
-                <v-list-item-content>
-                  <v-list-item-title>
-                    #2 - Make the Case for Dual Credit
-                  </v-list-item-title>
-                </v-list-item-content>
-                <v-list-item-icon>
-                  <v-icon>mdi-flask-outline</v-icon>
-                </v-list-item-icon>
-              </v-list-item>
+                <v-list-item
+                  to="/advocacy-plan/identify-key-players"
+                  class="pr-5"
+                >
+                  <v-list-item-content>
+                    <v-list-item-title>
+                      #1 - Identify Key Players
+                    </v-list-item-title>
+                  </v-list-item-content>
+                  <v-list-item-icon>
+                    <v-icon>mdi-account-group</v-icon>
+                  </v-list-item-icon>
+                </v-list-item>
 
-              <v-list-item to="/advocacy-plan/make-connections" class="pr-5">
-                <v-list-item-content>
-                  <v-list-item-title> #3 - Make Connections </v-list-item-title>
-                </v-list-item-content>
-                <v-list-item-icon>
-                  <v-icon>mdi-handshake</v-icon>
-                </v-list-item-icon>
-              </v-list-item>
+                <v-list-item
+                  to="/advocacy-plan/make-the-case-for-dual-credit"
+                  class="pr-5"
+                >
+                  <v-list-item-content>
+                    <v-list-item-title>
+                      #2 - Make the Case for Dual Credit
+                    </v-list-item-title>
+                  </v-list-item-content>
+                  <v-list-item-icon>
+                    <v-icon>mdi-flask-outline</v-icon>
+                  </v-list-item-icon>
+                </v-list-item>
 
-              <v-list-item to="/advocacy-plan/take-action" class="pr-5">
-                <v-list-item-content>
-                  <v-list-item-title> #4 - Take Action </v-list-item-title>
-                </v-list-item-content>
-                <v-list-item-icon>
-                  <v-icon>mdi-run-fast</v-icon>
-                </v-list-item-icon>
-              </v-list-item>
+                <v-list-item to="/advocacy-plan/make-connections" class="pr-5">
+                  <v-list-item-content>
+                    <v-list-item-title>
+                      #3 - Make Connections
+                    </v-list-item-title>
+                  </v-list-item-content>
+                  <v-list-item-icon>
+                    <v-icon>mdi-handshake</v-icon>
+                  </v-list-item-icon>
+                </v-list-item>
 
-              <v-list-item to="/advocacy-plan/define-success" class="pr-5">
-                <v-list-item-content>
-                  <v-list-item-title> #5 - Defining Success </v-list-item-title>
-                </v-list-item-content>
-                <v-list-item-icon>
-                  <v-icon>mdi-tune</v-icon>
-                </v-list-item-icon>
-              </v-list-item>
-            </v-list-group>
+                <v-list-item to="/advocacy-plan/take-action" class="pr-5">
+                  <v-list-item-content>
+                    <v-list-item-title> #4 - Take Action </v-list-item-title>
+                  </v-list-item-content>
+                  <v-list-item-icon>
+                    <v-icon>mdi-run-fast</v-icon>
+                  </v-list-item-icon>
+                </v-list-item>
+
+                <v-list-item to="/advocacy-plan/define-success" class="pr-5">
+                  <v-list-item-content>
+                    <v-list-item-title>
+                      #5 - Defining Success
+                    </v-list-item-title>
+                  </v-list-item-content>
+                  <v-list-item-icon>
+                    <v-icon>mdi-tune</v-icon>
+                  </v-list-item-icon>
+                </v-list-item>
+              </v-list-group>
+            </v-slide-y-transition>
           </v-list>
         </div>
         <v-divider></v-divider>
@@ -176,6 +186,9 @@
         <router-view class="flex-fill pt-md-12" />
       </page-transition>
       <notifications />
+      <v-expand-transition>
+        <step-actions v-show="authorized" />
+      </v-expand-transition>
       <footer class="py-1">
         <div class="d-flex">
           <v-tooltip top>
@@ -265,12 +278,15 @@ footer {
 </style>
 
 <script>
-import PageTransition from "../../components/page-transition.vue";
 import Notifications from "../../components/notifications.vue";
+import PageTransition from "../../components/page-transition.vue";
+import StepActions from "../../components/step-actions.vue";
+
+import { hasPolicyGoals } from "./helpers.js";
 
 export default {
   name: "ilDualCreditToolkit",
-  components: { PageTransition, Notifications },
+  components: { Notifications, PageTransition, StepActions },
   data: () => ({
     isLoading: false,
     drawer: false,
@@ -297,6 +313,9 @@ export default {
       return `&copy;${this.year}. All right reserved. Stand for Children
               Leadership Center, Inc.`;
     },
+    hasPolicyGoals() {
+      return hasPolicyGoals(this.$store.state.toolkit.loaded);
+    },
   },
   mounted() {
     if (this.authorized) {
@@ -317,7 +336,11 @@ export default {
         this.loadDataSets();
       } else if (val === false) {
         this.drawer = false;
-        if (this.$route.path != "/il-dual-credit")
+        console.log(this.$route.path);
+        if (
+          this.$route.path != "/il-dual-credit" &&
+          this.$route.path != "/il-dual-credit/"
+        )
           this.$router.push("/il-dual-credit");
       }
     },

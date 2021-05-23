@@ -116,8 +116,6 @@ router.beforeEach((to, from, next) => {
         },
       };
 
-      console.log(to.path);
-
       if (to.path.startsWith(paths.admin.root)) {
         if (!store.getters["user/isAdmin"] && to.path !== paths.admin.login)
           next(paths.admin.login);

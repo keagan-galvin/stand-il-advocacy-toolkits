@@ -31,7 +31,6 @@
         help your find allies, make connections with key decision makers, and
         mobilize the community to help bring change to your school.
       </p>
-
       <v-dialog
         v-if="!authorized"
         v-model="dialog"
@@ -214,9 +213,7 @@
             >
               Next
             </v-btn>
-            <v-btn color="cancel" outlined block text @click="dialog = false">
-              Cancel
-            </v-btn>
+            <v-btn outlined block text @click="dialog = false"> Cancel </v-btn>
           </v-card-text>
           <v-card-text v-else class="d-flex">
             <v-spacer></v-spacer>
@@ -245,6 +242,8 @@
 </template>
 
 <script>
+import StepBus from "../../step-bus.js";
+
 import EmbeddedVideo from "../../components/embedded-video.vue";
 import { US_State_Options } from "../../utilities/DataUtilitites";
 
@@ -340,6 +339,20 @@ export default {
         )
         .finally(() => (this.loading = false));
     },
+    go(name) {
+      this.$router.push({ name });
+    },
+  },
+  beforeRouteLeave(to, from, next) {
+    StepBus.$off("next");
+    StepBus.$off("prev");
+    next();
+  },
+  mounted() {
+    this.$nextTick(() => {
+      StepBus.$emit("configure", { showPrev: false });
+      StepBus.$on("next", () => this.go("il-dc.policy-goals"));
+    });
   },
 };
 </script>
