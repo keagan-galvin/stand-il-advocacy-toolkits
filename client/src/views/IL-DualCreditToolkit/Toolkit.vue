@@ -64,13 +64,71 @@
                     <v-icon>mdi-strategy</v-icon>
                   </v-list-item-icon>
                   <v-list-item-content>
-                    <v-list-item-title> Advocacy Plan </v-list-item-title>
+                    <v-list-item-title>
+                      {{ user.firstName }}'s Advocacy Plan
+                    </v-list-item-title>
                   </v-list-item-content>
                 </template>
+                <v-divider></v-divider>
+                <v-list-item class="pt-4 px-4">
+                  <v-alert border="left" color="accent lighten-3">
+                    <v-list-item-content class="pa-0">
+                      <v-list-item two-line dense>
+                        <v-list-item-content>
+                          <v-list-item-title class="font-weight-bold">
+                            School Name
+                          </v-list-item-title>
+                          <div>{{ entity.School_Name }}</div>
+                        </v-list-item-content>
+                      </v-list-item>
+                      <v-list-item two-line dense>
+                        <v-list-item-content>
+                          <v-list-item-title class="font-weight-bold">
+                            Policy Goal
+                          </v-list-item-title>
+                          <div>{{ policyGoal }}</div>
+                        </v-list-item-content>
+                      </v-list-item>
+                      <v-list-item two-line dense>
+                        <v-list-item-content>
+                          <v-list-item-title class="font-weight-bold">
+                            Current Landscape
+                          </v-list-item-title>
+                          <div v-if="dualCreditEnrollment === 0">
+                            {{ entity.School_Name }} did not offer dual credit
+                            courses last school year.
+                          </div>
+                          <div v-else>
+                            {{ entity.School_Name }} offered dual credit courses
+                            last school year that enrolled
+                            {{ dualCreditEnrollment | numeral("0,0") }}
+                            students.
+                          </div>
+                        </v-list-item-content>
+                      </v-list-item>
+                    </v-list-item-content></v-alert
+                  >
+                </v-list-item>
+                <v-divider></v-divider>
+                <v-list-item
+                  exact
+                  :to="{ name: 'il-dc.school-profile' }"
+                  class="pr-5"
+                >
+                  <v-list-item-content>
+                    <v-list-item-title>
+                      School Dual Credit Profile
+                    </v-list-item-title>
+                  </v-list-item-content>
+                  <v-list-item-icon>
+                    <v-icon>mdi-school</v-icon>
+                  </v-list-item-icon>
+                </v-list-item>
 
                 <v-list-item
-                  to="/advocacy-plan/identify-key-players"
                   class="pr-5"
+                  exact
+                  :to="{ name: 'il-dc.key-players' }"
                 >
                   <v-list-item-content>
                     <v-list-item-title>
@@ -281,6 +339,7 @@ footer {
 import Notifications from "../../components/notifications.vue";
 import PageTransition from "../../components/page-transition.vue";
 import StepActions from "../../components/step-actions.vue";
+import { datasets } from "../../common/constants.js";
 
 import { hasPolicyGoals } from "./helpers.js";
 
@@ -315,6 +374,25 @@ export default {
     },
     hasPolicyGoals() {
       return hasPolicyGoals(this.$store.state.toolkit.loaded);
+    },
+    entity() {
+      let entities = this.$store.state.datasets.loaded.find(
+        (x) => x.key === datasets.il_dualcredit_entity
+      );
+
+      if (entities) return entities.data.find((x) => x.RCDTS === this.rcdts);
+      else return null;
+    },
+    dualCreditEnrollment() {
+      if (this.entity) {
+        return +this.entity.N_Students_who_took_Dual_Credit_classes_912_Total;
+      } else return 0;
+    },
+    rcdts() {
+      return this.$store.state.toolkit.loaded.rcdts;
+    },
+    policyGoal() {
+      return this.$store.state.toolkit.loaded.policyGoal;
     },
   },
   mounted() {

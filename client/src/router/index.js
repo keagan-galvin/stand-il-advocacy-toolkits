@@ -4,6 +4,8 @@ import VueRouter from "vue-router";
 import IL_DCT from "../views/IL-DualCreditToolkit/Toolkit.vue";
 import IL_DCT_Introduction from "../views/IL-DualCreditToolkit/Introduction.vue";
 import IL_DCT_PolicyGoals from "../views/IL-DualCreditToolkit/PolicyGoals.vue";
+import IL_DCT_SchoolProfile from "../views/IL-DualCreditToolkit/SchoolProfile.vue";
+import IL_DCT_KeyPlayers from "../views/IL-DualCreditToolkit/KeyPlayers.vue";
 
 import Admin from "../views/Admin/Admin.vue";
 import Admin_Login from "../views/Admin/Login.vue";
@@ -35,6 +37,22 @@ const routes = [
         component: IL_DCT_PolicyGoals,
         meta: {
           position: 1,
+        },
+      },
+      {
+        name: "il-dc.school-profile",
+        path: "school-profile",
+        component: IL_DCT_SchoolProfile,
+        meta: {
+          position: 2,
+        },
+      },
+      {
+        name: "il-dc.key-players",
+        path: "key-players",
+        component: IL_DCT_KeyPlayers,
+        meta: {
+          position: 3,
         },
       },
     ],

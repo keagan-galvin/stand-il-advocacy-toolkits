@@ -350,7 +350,9 @@ export default {
   },
   mounted() {
     this.$nextTick(() => {
-      StepBus.$emit("configure", { showPrev: false });
+      StepBus.$emit("configure", {
+        showPrev: false,
+      });
       StepBus.$on("next", () => this.go("il-dc.policy-goals"));
     });
   },

@@ -3,7 +3,7 @@
     <v-divider></v-divider>
     <v-container>
       <div class="px-2 px-lg-16" :class="{ 'd-flex': !isMobile }">
-        <v-fade-transition origin="center">
+        <v-scale-transition origin="center">
           <v-btn
             v-if="showPrev"
             @click="StepBusEvent('prev')"
@@ -15,7 +15,7 @@
           >
             <v-icon v-if="prevIcon">{{ prevIcon }}</v-icon> {{ labelA }}
           </v-btn>
-        </v-fade-transition>
+        </v-scale-transition>
 
         <v-spacer v-if="!isMobile"></v-spacer>
         <v-fade-transition origin="center">
@@ -93,7 +93,7 @@ export default {
     },
   },
   mounted() {
-    StepBus.$on("configure", (payload) => {
+    StepBus.$on("configure", (payload = {}) => {
       let defaults = defaultSettings();
       for (let key in defaults) {
         Vue.set(this, key, payload[key] ?? defaults[key]);
