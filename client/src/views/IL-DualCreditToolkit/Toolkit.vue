@@ -380,8 +380,9 @@ export default {
         (x) => x.key === datasets.il_dualcredit_entity
       );
 
-      if (entities) return entities.data.find((x) => x.RCDTS === this.rcdts);
-      else return null;
+      let target;
+      if (entities) target = entities.data.find((x) => x.RCDTS === this.rcdts);
+      return target ?? {};
     },
     dualCreditEnrollment() {
       if (this.entity) {

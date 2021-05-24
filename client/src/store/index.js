@@ -105,7 +105,9 @@ let store = new Vuex.Store({
 });
 
 store.subscribe((mutation, state) => {
-  localStorage.setItem("store", JSON.stringify(state));
+  let safe = JSON.parse(JSON.stringify(state));
+  safe.datasets.loaded = [];
+  localStorage.setItem("store", JSON.stringify(safe));
 });
 
 export default store;

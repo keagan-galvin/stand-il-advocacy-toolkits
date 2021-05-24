@@ -79,6 +79,10 @@
         many allies as possible and get creative on where to search for allies.
       </p>
 
+      <v-alert border="left" color="primary lighten-5" elevation="0">
+        <v-text-field label="Allies" solo dense></v-text-field>
+      </v-alert>
+
       <h5 class="text-h6 primary--text mt-12">
         Who will be your school's higher learning partner?
       </h5>
@@ -90,6 +94,18 @@
         or a four-year college or university. Your local community college is
         the most likely partner, but not your only option.
       </p>
+      <v-text-field
+        label="Your Community College"
+        outlined
+        class="flex-filled mt-8"
+        v-model="communityCollege"
+      >
+        <template v-slot:append>
+          <v-btn icon small @click="openCollegeSearch">
+            <v-icon>mdi-search-web</v-icon>
+          </v-btn>
+        </template>
+      </v-text-field>
 
       <v-alert border="left" color="primary lighten-5" elevation="0">
         <div class="font-weight-bold mb-3">
@@ -165,10 +181,24 @@ export default {
     rcdts() {
       return this.$store.state.toolkit.loaded.rcdts;
     },
+    communityCollege: {
+      get() {
+        return this.$store.state.toolkit.loaded.communityCollege;
+      },
+      set(value) {
+        this.updateToolkit("communityCollege", value);
+      },
+    },
   },
   methods: {
     go(name) {
       this.$router.push({ name });
+    },
+    openCollegeSearch() {
+      window.open("http://iccbdbsrv.iccb.org/zipcodes/home.cfm", "_blank");
+    },
+    updateToolkit(key, value) {
+      this.$store.commit("toolkit/updateLoadedProp", { key, value });
     },
   },
   beforeRouteLeave(to, from, next) {

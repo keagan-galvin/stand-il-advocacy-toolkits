@@ -140,7 +140,7 @@
 <script>
 import StepBus from "../../step-bus.js";
 import { datasets } from "../../common/constants.js";
-import { hasPolicyGoals } from "./helpers.js";
+import { hasPolicyGoals, getSchoolEntities } from "./helpers.js";
 
 export default {
   data() {
@@ -164,14 +164,11 @@ export default {
         (x) => x.key === datasets.il_dualcredit_entity
       );
 
-      return target
-        ? target.data
-            .slice()
-            .sort((a, b) => (a.School_Name > b.School_Name ? 1 : -1))
-        : [];
+      return target ? getSchoolEntities(target.data) : [];
     },
     entity() {
-      return this.entities.find((x) => x.RCDTS === this.rcdts);
+      let target = this.entities.find((x) => x.RCDTS === this.rcdts);
+      return target ?? {};
     },
     dualCreditEnrollment() {
       if (this.entity) {
