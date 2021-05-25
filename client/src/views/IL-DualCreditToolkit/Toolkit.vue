@@ -229,23 +229,14 @@
           max-width="200"
         />
       </v-app-bar>
-      <!-- <v-toolbar flat class="flex-grow-0" v-else>
-        <v-btn
-          color="accent"
-          elevation="2"
-          fab
-          small
-          @click="drawer = !drawer"
-          v-if="authorized"
-          ><v-icon>mdi-menu</v-icon></v-btn
-        >
-      </v-toolbar> -->
-      <page-transition>
-        <router-view class="flex-fill pt-md-12" />
-      </page-transition>
+      <div class="d-flex flex-fill">
+        <page-transition>
+          <router-view v-if="initialized" class="flex-fill pt-md-12" />
+        </page-transition>
+      </div>
       <notifications />
       <v-expand-transition>
-        <step-actions v-show="authorized" />
+        <step-actions v-show="authorized && initialized" />
       </v-expand-transition>
       <footer class="py-1">
         <div class="d-flex">
@@ -347,10 +338,12 @@ export default {
   name: "ilDualCreditToolkit",
   components: { Notifications, PageTransition, StepActions },
   data: () => ({
+    initialized: false,
     isLoading: false,
     drawer: false,
     showContent: true,
     welcome: true,
+    transitionName: "scroll-y",
   }),
   computed: {
     user() {
@@ -429,7 +422,10 @@ export default {
       this.isLoading = true;
 
       Promise.all([
-        this.$store.dispatch("datasets/load", "il-dualcredit-entity"),
+        this.$store.dispatch("datasets/load", {
+          key: "il-dualcredit-entity",
+          config: { resultType: "slim" },
+        }),
       ])
         .then(
           () => {},
@@ -444,11 +440,23 @@ export default {
         )
         .finally(() => {
           this.isLoading = false;
+          this.initialized = true;
         });
     },
     logout() {
       this.$store.dispatch("user/clear");
     },
+  },
+  created() {
+    this.$router.beforeEach((to, from, next) => {
+      if (!this.$store.getters["user/authorized"]) this.transitionName = "fade";
+      else
+        this.transitionNametransitionName =
+          to.meta.position < from.meta.position
+            ? "scroll-y"
+            : "scroll-y-reverse";
+      next();
+    });
   },
 };
 </script>

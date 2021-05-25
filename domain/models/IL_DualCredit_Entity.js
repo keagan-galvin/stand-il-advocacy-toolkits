@@ -81,7 +81,6 @@ module.exports = (sequelize, DataTypes) => {
       EBF_P_of_adequacy: DataTypes.STRING(20),
       Administrator: DataTypes.STRING(500),
       Mailing_Address: DataTypes.STRING(500),
-      City: DataTypes.STRING(500),
       Zip: DataTypes.STRING(500),
       Telephone: DataTypes.STRING(500),
       school_website: DataTypes.STRING(500),

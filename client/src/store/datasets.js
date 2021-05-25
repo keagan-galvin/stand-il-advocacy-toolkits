@@ -21,24 +21,80 @@ export default {
         Vue.set(state.loaded, index, { key, data });
       } else state.loaded.push({ key, data });
     },
+    patchLoaded(state, { key, rowKey, data }) {
+      let datasetIndex = state.loaded.findIndex((x) => x.key === key);
+
+      console.log(datasetIndex);
+
+      if (datasetIndex > -1) {
+        for (let i = 0; i < data.length; i++) {
+          let targetIndex = state.loaded[datasetIndex].data.findIndex(
+            (x) => x[rowKey] === data[i][rowKey]
+          );
+
+          console.log(targetIndex);
+
+          if (targetIndex > -1) {
+            Vue.set(state.loaded[datasetIndex].data, targetIndex, data[i]);
+          } else {
+            state.loaded[datasetIndex].data.push(data[i]);
+          }
+        }
+      } else state.loaded.push({ key, data });
+    },
     incrementPendingStateChanges(state, data) {
       state.pendingStateChanges += data;
     },
   },
   actions: {
-    load({ commit, dispatch }, key) {
+    load({ commit, dispatch }, { key, config = {} }) {
       return new Promise((resolve, reject) => {
+        let queryStrings = [];
+
+        for (let key in config) {
+          queryStrings.push(`${key}=${encodeURI(config[key])}`);
+        }
+
         commit("incrementPendingStateChanges", 1);
         dispatch(
           "handleApiFetch",
           {
             method: "get",
-            url: `/api/datasets/${key}`,
+            url: `/api/datasets/${key}${
+              queryStrings.length > 0 ? `?${queryStrings.join("&")}` : ""
+            }`,
           },
           { root: true }
         )
           .then((results) => {
             commit("setLoaded", { key, data: results });
+            resolve(results);
+          }, reject)
+          .finally(() => commit("incrementPendingStateChanges", -1));
+      });
+    },
+    patchLoaded({ commit, dispatch }, { key, rowKey, config = {} }) {
+      return new Promise((resolve, reject) => {
+        let queryStrings = [];
+
+        for (let key in config) {
+          queryStrings.push(`${key}=${encodeURI(config[key])}`);
+        }
+
+        commit("incrementPendingStateChanges", 1);
+        dispatch(
+          "handleApiFetch",
+          {
+            method: "get",
+            url: `/api/datasets/${key}${
+              queryStrings.length > 0 ? `?${queryStrings.join("&")}` : ""
+            }`,
+          },
+          { root: true }
+        )
+          .then((results) => {
+            if (!Array.isArray(results)) results = [results];
+            commit("patchLoaded", { key, rowKey, data: results });
             resolve(results);
           }, reject)
           .finally(() => commit("incrementPendingStateChanges", -1));

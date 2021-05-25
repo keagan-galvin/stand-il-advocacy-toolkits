@@ -20,6 +20,9 @@ export default {
     updateLoadedProp(state, { key, value }) {
       Vue.set(state.loaded, key, value);
     },
+    pushLoadedProp(state, { key, value }) {
+      Vue.set(state.loaded, key, value);
+    },
     incrementPendingStateChanges(state, data) {
       state.pendingStateChanges += data;
     },

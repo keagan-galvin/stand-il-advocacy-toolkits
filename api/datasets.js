@@ -23,7 +23,7 @@ router.get("/:key", async function (req, res) {
   if (!dataset) return res.errorResponse("Invalid key!");
 
   try {
-    let results = await datasets.getData(req.params.key);
+    let results = await datasets.getData(req.params.key, req.query);
     res.successResponse(results);
   } catch (e) {
     console.log(e);

@@ -115,7 +115,6 @@ module.exports = {
       EBF_P_of_adequacy: { type: Sequelize.STRING(20) },
       Administrator: { type: Sequelize.STRING(500) },
       Mailing_Address: { type: Sequelize.STRING(500) },
-      City: { type: Sequelize.STRING(500) },
       Zip: { type: Sequelize.STRING(500) },
       Telephone: { type: Sequelize.STRING(500) },
       school_website: { type: Sequelize.STRING(500) },
