@@ -8,13 +8,12 @@ import IL_DCT_SchoolProfile from "../views/IL-DualCreditToolkit/SchoolProfile.vu
 import IL_DCT_KeyPlayers from "../views/IL-DualCreditToolkit/KeyPlayers.vue";
 import IL_DCT_CaseForDualCredit from "../views/IL-DualCreditToolkit/CaseForDualCredit.vue";
 import IL_DCT_MakeConnections from "../views/IL-DualCreditToolkit/MakeConnections.vue";
+import IL_DCT_TakeAction from "../views/IL-DualCreditToolkit/TakeAction.vue";
+import IL_DCT_DefineSuccess from "../views/IL-DualCreditToolkit/DefineSuccess.vue";
 
 import Admin from "../views/Admin/Admin.vue";
 import Admin_Login from "../views/Admin/Login.vue";
 import Admin_Dashboard from "../views/Admin/Dashboard.vue";
-
-// import IL_OCT from "../views/IL-OtherToolkit/Toolkit.vue";
-// import IL_OCT_Introduction from "../views/IL-OtherToolkit/Introduction.vue";
 
 import store from "../store";
 
@@ -31,6 +30,7 @@ const routes = [
         component: IL_DCT_Introduction,
         meta: {
           position: 0,
+          title: "Dual Credit Advocacy Toolkit - Introduction",
         },
       },
       {
@@ -39,6 +39,7 @@ const routes = [
         component: IL_DCT_PolicyGoals,
         meta: {
           position: 1,
+          title: "Dual Credit Advocacy Toolkit - Set Your Policy Goals",
         },
       },
       {
@@ -47,6 +48,7 @@ const routes = [
         component: IL_DCT_SchoolProfile,
         meta: {
           position: 2,
+          title: "Dual Credit Advocacy Toolkit - School Profile",
         },
       },
       {
@@ -55,6 +57,7 @@ const routes = [
         component: IL_DCT_KeyPlayers,
         meta: {
           position: 3,
+          title: "Dual Credit Advocacy Toolkit - Identify Key Players",
         },
       },
       {
@@ -63,6 +66,7 @@ const routes = [
         component: IL_DCT_CaseForDualCredit,
         meta: {
           position: 4,
+          title: "Dual Credit Advocacy Toolkit - Make the Case for Dual Credit",
         },
       },
       {
@@ -71,6 +75,25 @@ const routes = [
         component: IL_DCT_MakeConnections,
         meta: {
           position: 5,
+          title: "Dual Credit Advocacy Toolkit - Make Connections",
+        },
+      },
+      {
+        name: "il-dc.take-action",
+        path: "take-action",
+        component: IL_DCT_TakeAction,
+        meta: {
+          position: 6,
+          title: "Dual Credit Advocacy Toolkit - Take Action",
+        },
+      },
+      {
+        name: "il-dc.define-success",
+        path: "define-success",
+        component: IL_DCT_DefineSuccess,
+        meta: {
+          position: 7,
+          title: "Dual Credit Advocacy Toolkit - Define Success",
         },
       },
     ],
@@ -170,6 +193,15 @@ router.beforeEach((to, from, next) => {
   };
 
   tryNext();
+});
+
+const DEFAULT_TITLE = "Stand Advocacy Toolkits";
+router.afterEach((to) => {
+  // Use next tick to handle router history correctly
+  // see: https://github.com/vuejs/vue-router/issues/914#issuecomment-384477609
+  Vue.nextTick(() => {
+    document.title = to.meta.title || DEFAULT_TITLE;
+  });
 });
 
 export default router;

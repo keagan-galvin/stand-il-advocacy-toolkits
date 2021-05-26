@@ -3,6 +3,7 @@ import App from "./App.vue";
 import router from "./router";
 import store from "./store";
 import vuetify from "./plugins/vuetify";
+import VueConfetti from "vue-confetti";
 
 import "./utilities/vee-validate";
 import VueMask from "v-mask";
@@ -11,6 +12,7 @@ import vueNumeralFilterInstaller from "vue-numeral-filter";
 Vue.config.productionTip = false;
 Vue.use(VueMask);
 Vue.use(vueNumeralFilterInstaller, { locale: "en-gb" });
+Vue.use(VueConfetti);
 
 new Vue({
   router,

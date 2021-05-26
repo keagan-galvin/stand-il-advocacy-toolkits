@@ -7,4 +7,10 @@ module.exports = {
       fix: true,
     });
   },
+  pages: {
+    index: {
+      entry: 'src/main.js',
+      title: 'Stand Advocacy Toolkits'
+    }
+  }
 };

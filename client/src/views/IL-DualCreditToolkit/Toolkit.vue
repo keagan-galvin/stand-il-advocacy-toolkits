@@ -170,7 +170,11 @@
                   </v-list-item-icon>
                 </v-list-item>
 
-                <v-list-item to="/advocacy-plan/take-action" class="pr-5">
+                <v-list-item
+                  exact
+                  :to="{ name: 'il-dc.take-action' }"
+                  class="pr-5"
+                >
                   <v-list-item-content>
                     <v-list-item-title> #4 - Take Action </v-list-item-title>
                   </v-list-item-content>
@@ -179,7 +183,11 @@
                   </v-list-item-icon>
                 </v-list-item>
 
-                <v-list-item to="/advocacy-plan/define-success" class="pr-5">
+                <v-list-item
+                  exact
+                  :to="{ name: 'il-dc.define-success' }"
+                  class="pr-5"
+                >
                   <v-list-item-content>
                     <v-list-item-title>
                       #5 - Defining Success
