@@ -44,4 +44,8 @@ export default {};
     padding: 0 !important;
   }
 }
+
+.pointer {
+  cursor: pointer;
+}
 </style>

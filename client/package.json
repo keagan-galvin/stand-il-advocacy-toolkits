@@ -9,6 +9,7 @@
     "lint": "vue-cli-service lint --fix"
   },
   "dependencies": {
+    "aos": "^2.3.4",
     "core-js": "^3.6.5",
     "v-mask": "^2.2.4",
     "vee-validate": "^3.4.5",

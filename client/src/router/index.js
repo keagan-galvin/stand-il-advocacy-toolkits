@@ -6,6 +6,8 @@ import IL_DCT_Introduction from "../views/IL-DualCreditToolkit/Introduction.vue"
 import IL_DCT_PolicyGoals from "../views/IL-DualCreditToolkit/PolicyGoals.vue";
 import IL_DCT_SchoolProfile from "../views/IL-DualCreditToolkit/SchoolProfile.vue";
 import IL_DCT_KeyPlayers from "../views/IL-DualCreditToolkit/KeyPlayers.vue";
+import IL_DCT_CaseForDualCredit from "../views/IL-DualCreditToolkit/CaseForDualCredit.vue";
+import IL_DCT_MakeConnections from "../views/IL-DualCreditToolkit/MakeConnections.vue";
 
 import Admin from "../views/Admin/Admin.vue";
 import Admin_Login from "../views/Admin/Login.vue";
@@ -53,6 +55,22 @@ const routes = [
         component: IL_DCT_KeyPlayers,
         meta: {
           position: 3,
+        },
+      },
+      {
+        name: "il-dc.case-for-dual-credit",
+        path: "case-for-dual-credit",
+        component: IL_DCT_CaseForDualCredit,
+        meta: {
+          position: 4,
+        },
+      },
+      {
+        name: "il-dc.make-connections",
+        path: "make-connections",
+        component: IL_DCT_MakeConnections,
+        meta: {
+          position: 5,
         },
       },
     ],

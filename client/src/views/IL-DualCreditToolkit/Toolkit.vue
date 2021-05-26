@@ -71,7 +71,7 @@
                 </template>
                 <v-divider></v-divider>
                 <v-list-item class="pt-4 px-4">
-                  <v-alert border="left" color="accent lighten-3">
+                  <v-alert border="left" color="secondary">
                     <v-list-item-content class="pa-0">
                       <v-list-item two-line dense>
                         <v-list-item-content>
@@ -141,7 +141,8 @@
                 </v-list-item>
 
                 <v-list-item
-                  to="/advocacy-plan/make-the-case-for-dual-credit"
+                  exact
+                  :to="{ name: 'il-dc.case-for-dual-credit' }"
                   class="pr-5"
                 >
                   <v-list-item-content>
@@ -154,7 +155,11 @@
                   </v-list-item-icon>
                 </v-list-item>
 
-                <v-list-item to="/advocacy-plan/make-connections" class="pr-5">
+                <v-list-item
+                  exact
+                  :to="{ name: 'il-dc.make-connections' }"
+                  class="pr-5"
+                >
                   <v-list-item-content>
                     <v-list-item-title>
                       #3 - Make Connections
@@ -230,9 +235,11 @@
         />
       </v-app-bar>
       <div class="d-flex flex-fill">
+        <!-- <v-scroll-y-transition> -->
         <page-transition>
           <router-view v-if="initialized" class="flex-fill pt-md-12" />
         </page-transition>
+        <!-- </v-scroll-y-transition> -->
       </div>
       <notifications />
       <v-expand-transition>
@@ -327,6 +334,8 @@ footer {
 </style>
 
 <script>
+import AOS from "aos";
+import "aos/dist/aos.css";
 import Notifications from "../../components/notifications.vue";
 import PageTransition from "../../components/page-transition.vue";
 import StepActions from "../../components/step-actions.vue";
@@ -390,10 +399,11 @@ export default {
     },
   },
   mounted() {
+    this.loadDataSets();
+
     if (this.authorized) {
       if (!this.isMobile) this.drawer = true;
       this.$store.dispatch("refresh");
-      this.loadDataSets();
     }
   },
   watch: {
@@ -448,6 +458,7 @@ export default {
     },
   },
   created() {
+    AOS.init();
     this.$router.beforeEach((to, from, next) => {
       if (!this.$store.getters["user/authorized"]) this.transitionName = "fade";
       else
