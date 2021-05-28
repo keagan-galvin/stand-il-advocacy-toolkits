@@ -5,9 +5,9 @@
       app
       v-model="drawer"
       floating
-      class="white"
+      class="white d-print-none"
       width="420"
-      v-if="authorized"
+      v-if="authorized && !printing"
       style="margin-bottom: 28px"
     >
       <div class="d-flex flex-column" style="min-height: 100%">
@@ -227,7 +227,7 @@
         elevate-on-scroll
         app
         color="primary"
-        v-if="isMobile || !authorized"
+        v-if="isMobile || !authorized || printing"
       >
         <v-app-bar-nav-icon
           dark
@@ -251,7 +251,7 @@
       </div>
       <notifications />
       <v-expand-transition>
-        <step-actions v-show="authorized && initialized" />
+        <step-actions class="d-print-none" v-show="authorized && initialized" />
       </v-expand-transition>
       <footer class="py-1">
         <div class="d-flex">
@@ -267,7 +267,7 @@
                 x-small
                 v-bind="attrs"
                 v-on="on"
-                class="ml-4"
+                class="ml-4 d-print-none"
               >
                 <v-icon>mdi-laptop</v-icon>
               </v-btn>
@@ -286,7 +286,7 @@
                 x-small
                 v-bind="attrs"
                 v-on="on"
-                class="mx-4"
+                class="mx-4 d-print-none"
               >
                 <v-icon>mdi-facebook</v-icon>
               </v-btn>
@@ -305,6 +305,7 @@
                 x-small
                 v-bind="attrs"
                 v-on="on"
+                class="d-print-none"
               >
                 <v-icon>mdi-twitter</v-icon>
               </v-btn>
@@ -321,6 +322,7 @@
             plain
             href="http://stand.org/privacy"
             target="_blank"
+            class="d-print-none"
             >Privacy Policy</v-btn
           >
         </div>
@@ -361,6 +363,7 @@ export default {
     showContent: true,
     welcome: true,
     transitionName: "scroll-y",
+    printing: false,
   }),
   computed: {
     user() {
@@ -467,6 +470,16 @@ export default {
   },
   created() {
     AOS.init();
+
+    window.addEventListener("beforeprint", () => {
+      this.printing = true;
+      console.log("started print");
+    });
+    window.addEventListener("afterprint", () => {
+      console.log("cancelled print");
+      this.printing = false;
+    });
+
     this.$router.beforeEach((to, from, next) => {
       if (!this.$store.getters["user/authorized"]) this.transitionName = "fade";
       else

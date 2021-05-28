@@ -48,4 +48,9 @@ export default {};
 .pointer {
   cursor: pointer;
 }
+
+* {
+  color-adjust: exact;
+  -webkit-print-color-adjust: exact;
+}
 </style>

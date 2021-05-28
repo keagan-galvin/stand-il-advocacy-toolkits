@@ -128,9 +128,14 @@
                         </v-col>
 
                         <v-col cols="12">
-                          <validation-provider v-slot="{ errors }" name="Phone">
+                          <validation-provider
+                            v-slot="{ errors }"
+                            name="Phone"
+                            rules="required"
+                          >
                             <v-text-field
-                              label="Phone Number"
+                              required
+                              label="Phone Number*"
                               v-mask="'###-###-####'"
                               :error-messages="errors"
                               :disabled="loading"
@@ -144,10 +149,11 @@
                           <validation-provider
                             v-slot="{ errors }"
                             name="City"
-                            rules=""
+                            rules="required"
                           >
                             <v-text-field
-                              label="City"
+                              label="City*"
+                              required
                               :error-messages="errors"
                               :disabled="loading"
                               :loading="loading"
@@ -157,13 +163,17 @@
                         </v-col>
 
                         <v-col cols="12" md="2">
-                          <validation-provider name="State" rules="max:2">
+                          <validation-provider
+                            name="State"
+                            rules="max:2|required"
+                          >
                             <v-select
+                              required
                               v-model="user.state"
                               :items="states"
                               item-text="text"
                               item-value="text"
-                              label="State"
+                              label="State*"
                             ></v-select>
                           </validation-provider>
                         </v-col>
@@ -171,10 +181,11 @@
                           <validation-provider
                             v-slot="{ errors }"
                             name="Zip"
-                            rules="zip"
+                            rules="zip|required"
                           >
                             <v-text-field
-                              label="Zip"
+                              label="Zip*"
+                              required
                               placeholder="00000"
                               :error-messages="errors"
                               :disabled="loading"
