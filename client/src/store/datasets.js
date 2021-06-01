@@ -24,15 +24,11 @@ export default {
     patchLoaded(state, { key, rowKey, data }) {
       let datasetIndex = state.loaded.findIndex((x) => x.key === key);
 
-      console.log(datasetIndex);
-
       if (datasetIndex > -1) {
         for (let i = 0; i < data.length; i++) {
           let targetIndex = state.loaded[datasetIndex].data.findIndex(
             (x) => x[rowKey] === data[i][rowKey]
           );
-
-          console.log(targetIndex);
 
           if (targetIndex > -1) {
             Vue.set(state.loaded[datasetIndex].data, targetIndex, data[i]);

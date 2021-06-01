@@ -5,13 +5,19 @@
         <h2 class="text-md-h4 text-h5 primary--text mb-12">School Profile</h2>
 
         <v-row>
-          <v-col cols="6" lg="4" sm="6">
-            <v-card class="flex-fill">
+          <v-col cols="12" sm="6">
+            <v-card
+              class="flex-fill"
+              data-aos="fade-right"
+              data-aos-duration="500"
+              data-aos-delay="500"
+            >
               <v-card-text class="d-flex flex-column">
                 <v-sheet
                   elevation="3"
-                  class="text-h1 text-nowrap pa-4 rounded info text-center"
+                  class="text-nowrap pa-4 rounded info text-center"
                   style="margin-top: -30px"
+                  :class="{ 'text-h1': !isMobile, 'text-h3': isMobile }"
                 >
                   {{ percentageInDualCredit }}%
                 </v-sheet>
@@ -29,19 +35,26 @@
               </v-card-text>
             </v-card>
           </v-col>
-          <v-col cols="6" lg="4" sm="6">
-            <v-card class="flex-fill" style="height: 100%">
+          <v-col cols="12" sm="6">
+            <v-card
+              class="flex-fill"
+              style="height: 100%"
+              data-aos="fade-left"
+              data-aos-duration="500"
+              data-aos-delay="500"
+            >
               <v-card-text class="d-flex flex-column">
                 <v-sheet
                   elevation="3"
                   class="
-                    text-h1 text-nowrap
+                    text-nowrap
                     pa-4
                     rounded
                     primary
                     white--text
                     text-center
                   "
+                  :class="{ 'text-h1': !isMobile, 'text-h3': isMobile }"
                   style="margin-top: -30px"
                 >
                   {{ apPassRate }}%
@@ -54,19 +67,26 @@
               </v-card-text>
             </v-card>
           </v-col>
-          <v-col cols="6" lg="4" sm="6">
-            <v-card class="flex-fill" style="height: 100%">
+          <v-col cols="12" sm="6">
+            <v-card
+              class="flex-fill"
+              style="height: 100%"
+              data-aos="fade-right"
+              data-aos-duration="500"
+              data-aos-delay="600"
+            >
               <v-card-text class="d-flex flex-column">
                 <v-sheet
                   elevation="3"
                   class="
-                    text-h1 text-nowrap
+                    text-nowrap
                     pa-4
                     rounded
                     success
                     white--text
                     text-center
                   "
+                  :class="{ 'text-h1': !isMobile, 'text-h3': isMobile }"
                   style="margin-top: -30px"
                 >
                   {{ collegeWithin12Mo }}%
@@ -80,8 +100,14 @@
               </v-card-text>
             </v-card>
           </v-col>
-          <v-col cols="6" lg="4" sm="6">
-            <v-card class="flex-fill" style="height: 100%">
+          <v-col cols="12" sm="6">
+            <v-card
+              class="flex-fill"
+              style="height: 100%"
+              data-aos="fade-left"
+              data-aos-duration="500"
+              data-aos-delay="600"
+            >
               <v-card-text class="d-flex flex-column">
                 <v-sheet
                   elevation="3"
@@ -93,21 +119,27 @@
                     white--text
                     text-center
                   "
+                  :class="{ 'text-h1': !isMobile, 'text-h3': isMobile }"
                   style="margin-top: -30px"
                 >
                   {{ inRemediation }}%
                 </v-sheet>
                 <div class="flex-fill mt-4 text-center">
                   <div class="text-h6">
-                    Students enrolling in college within 12 months of graduating
-                    high school
+                    Students required to take non-credit bearing remedial
+                    courses at community colleges
                   </div>
                 </div>
               </v-card-text>
             </v-card>
           </v-col>
-          <v-col cols="6" lg="4" sm="6">
-            <v-card class="flex-fill">
+          <v-col cols="12" sm="6">
+            <v-card
+              class="flex-fill"
+              data-aos="fade-right"
+              data-aos-duration="500"
+              data-aos-delay="700"
+            >
               <v-card-text class="d-flex flex-column">
                 <canvas id="studentPopChart" width="400" height="400"></canvas>
                 <div class="flex-fill mt-4 text-center">
@@ -116,6 +148,34 @@
                     <span class="font-weight-bold">200</span>
                   </div>
                 </div>
+              </v-card-text>
+            </v-card>
+          </v-col>
+          <v-col cols="12" sm="6" style="overflow: hidden">
+            <v-card
+              class="flex-fill"
+              data-aos="fade-left"
+              data-aos-duration="500"
+              data-aos-delay="700"
+            >
+              <v-card-text class="d-flex flex-column">
+                <split-percentage-bar
+                  bar-label="Overall SAT Proficiency - MATH"
+                  :level_1="+entity.SAT_Math_Total_Students_Level_1_P"
+                  :level_2="+entity.SAT_Math_Total_Students_Level_2_P"
+                  :level_3="+entity.SAT_Math_Total_Students_Level_3_P"
+                  :level_4="+entity.SAT_Math_Total_Students_Level_4_P"
+                ></split-percentage-bar>
+              </v-card-text>
+              <v-divider></v-divider>
+              <v-card-text class="d-flex flex-column">
+                <split-percentage-bar
+                  bar-label="Overall SAT Proficiency - ELA"
+                  :level_1="+entity.SAT_Reading_Total_Students_Level_1_P"
+                  :level_2="+entity.SAT_Reading_Total_Students_Level_2_P"
+                  :level_3="+entity.SAT_Reading_Total_Students_Level_3_P"
+                  :level_4="+entity.SAT_Reading_Total_Students_Level_4_P"
+                ></split-percentage-bar>
               </v-card-text>
             </v-card>
           </v-col>
@@ -130,8 +190,12 @@ import StepBus from "../../step-bus.js";
 import { datasets } from "../../common/constants.js";
 
 import Chart from "chart.js/auto";
+import SplitPercentageBar from "../../components/split-percentage-bar.vue";
 
 export default {
+  components: {
+    SplitPercentageBar,
+  },
   data() {
     return {
       loading: false,
@@ -168,6 +232,11 @@ export default {
       let backgroundColor = [];
 
       let popProps = {
+        lowIncome: {
+          label: "Low Income",
+          count: +this.entity.N_Low_Income,
+          bgColor: "rgb(255,155,143)",
+        },
         americanIndian: {
           label: "American Indian",
           count: +this.entity.N_American_Indian,
@@ -236,6 +305,9 @@ export default {
     inRemediation() {
       let result = +this.entity.P_Community_College_Remediation;
       return isNaN(result) ? 0 : result;
+    },
+    isMobile() {
+      return this.$vuetify.breakpoint.mobile;
     },
   },
   watch: {

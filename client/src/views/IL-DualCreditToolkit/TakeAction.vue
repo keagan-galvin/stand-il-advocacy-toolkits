@@ -552,8 +552,8 @@
               If it is a letter to the editor you can begin by, "Dear Editor"
             </li>
             <li class="mb-4">
-              Dear editor: find the paper, look up parameters (word count and
-              submission format)
+              If you're writing a letter to the editor double check the
+              requirements for submission like word count and format.
             </li>
             <li class="mb-4">
               Include your name and address on both your letter and envelope

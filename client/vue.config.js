@@ -12,5 +12,10 @@ module.exports = {
       entry: 'src/main.js',
       title: 'Stand Advocacy Toolkits'
     }
+  },
+  chainWebpack: config => {
+    config.module.rule('pdf')
+      .test(/\.pdf$/)
+      .use('file-loader').loader('file-loader')
   }
 };

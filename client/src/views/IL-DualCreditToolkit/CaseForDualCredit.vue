@@ -28,107 +28,22 @@
             <v-divider class="mb-4"></v-divider>
             <v-row :dense="isMobile">
               <v-col cols="12" xl="4" lg="6" md="6">
-                <v-sheet
-                  color="primary"
-                  class="
-                    white--text
-                    rounded
-                    py-1
-                    px-1
-                    text-center text-button
-                    pointer
-                  "
-                  v-ripple
-                  elevation="2"
-                >
-                  The basics
-                </v-sheet>
+                <case-for-dual-credit></case-for-dual-credit>
               </v-col>
               <v-col cols="12" xl="4" lg="6" md="6">
-                <v-sheet
-                  color="primary"
-                  class="
-                    white--text
-                    rounded
-                    py-1
-                    px-1
-                    text-center text-button
-                    pointer
-                  "
-                  v-ripple
-                  elevation="2"
-                >
-                  District Best Practices
-                </v-sheet>
+                <district-best-practices></district-best-practices>
               </v-col>
               <v-col cols="12" xl="4" lg="6" md="6">
-                <v-sheet
-                  color="primary"
-                  class="
-                    white--text
-                    rounded
-                    py-1
-                    px-1
-                    text-center text-button
-                    pointer
-                  "
-                  v-ripple
-                  elevation="2"
-                  @click="go('il-dc.school-profile')"
-                >
-                  School Dual Credit Profile
-                </v-sheet>
+                <school-profile></school-profile>
               </v-col>
               <v-col cols="12" xl="4" lg="6" md="6">
-                <v-sheet
-                  color="primary"
-                  class="
-                    white--text
-                    rounded
-                    py-1
-                    px-1
-                    text-center text-button
-                    pointer
-                  "
-                  v-ripple
-                  elevation="2"
-                >
-                  Dual Credit Quality Act Summary
-                </v-sheet>
+                <dual-credit-qualitcy-act></dual-credit-qualitcy-act>
               </v-col>
               <v-col cols="12" xl="4" lg="6" md="6">
-                <v-sheet
-                  color="primary"
-                  class="
-                    white--text
-                    rounded
-                    py-1
-                    px-1
-                    text-center text-button
-                    pointer
-                  "
-                  v-ripple
-                  elevation="2"
-                >
-                  Model Partnership Agreement Overview
-                </v-sheet>
+                <model-partnership-agreement></model-partnership-agreement>
               </v-col>
               <v-col cols="12" xl="4" lg="6" md="6">
-                <v-sheet
-                  color="primary"
-                  class="
-                    white--text
-                    rounded
-                    py-1
-                    px-1
-                    text-center text-button
-                    pointer
-                  "
-                  v-ripple
-                  elevation="2"
-                >
-                  Cost Saving Policies
-                </v-sheet>
+                <cost-saving-policies></cost-saving-policies>
               </v-col>
             </v-row>
           </v-alert>
@@ -201,107 +116,22 @@
             <v-divider class="mb-4"></v-divider>
             <v-row :dense="isMobile">
               <v-col cols="12" xl="4" lg="6" md="6">
-                <v-sheet
-                  color="primary"
-                  class="
-                    white--text
-                    rounded
-                    py-1
-                    px-1
-                    text-center text-button
-                    pointer
-                  "
-                  v-ripple
-                  elevation="2"
-                >
-                  The basics
-                </v-sheet>
+                <case-for-dual-credit></case-for-dual-credit>
               </v-col>
               <v-col cols="12" xl="4" lg="6" md="6">
-                <v-sheet
-                  color="primary"
-                  class="
-                    white--text
-                    rounded
-                    py-1
-                    px-1
-                    text-center text-button
-                    pointer
-                  "
-                  v-ripple
-                  elevation="2"
-                >
-                  District Best Practices
-                </v-sheet>
+                <district-best-practices></district-best-practices>
               </v-col>
               <v-col cols="12" xl="4" lg="6" md="6">
-                <v-sheet
-                  color="primary"
-                  class="
-                    white--text
-                    rounded
-                    py-1
-                    px-1
-                    text-center text-button
-                    pointer
-                  "
-                  v-ripple
-                  elevation="2"
-                  @click="go('il-dc.school-profile')"
-                >
-                  School Dual Credit Profile
-                </v-sheet>
+                <school-profile></school-profile>
               </v-col>
               <v-col cols="12" xl="4" lg="6" md="6">
-                <v-sheet
-                  color="primary"
-                  class="
-                    white--text
-                    rounded
-                    py-1
-                    px-1
-                    text-center text-button
-                    pointer
-                  "
-                  v-ripple
-                  elevation="2"
-                >
-                  Dual Credit Quality Act Summary
-                </v-sheet>
+                <dual-credit-qualitcy-act></dual-credit-qualitcy-act>
               </v-col>
               <v-col cols="12" xl="4" lg="6" md="6">
-                <v-sheet
-                  color="primary"
-                  class="
-                    white--text
-                    rounded
-                    py-1
-                    px-1
-                    text-center text-button
-                    pointer
-                  "
-                  v-ripple
-                  elevation="2"
-                >
-                  Model Partnership Agreement Overview
-                </v-sheet>
+                <model-partnership-agreement></model-partnership-agreement>
               </v-col>
               <v-col cols="12" xl="4" lg="6" md="6">
-                <v-sheet
-                  color="primary"
-                  class="
-                    white--text
-                    rounded
-                    py-1
-                    px-1
-                    text-center text-button
-                    pointer
-                  "
-                  v-ripple
-                  elevation="2"
-                >
-                  Cost Saving Policies
-                </v-sheet>
+                <cost-saving-policies></cost-saving-policies>
               </v-col>
             </v-row>
           </v-alert>
@@ -402,9 +232,8 @@
           Sharing this data with decision makers will make sure everyone
           understands the problem you are seeking to solve.
         </p>
-
-        ## NEEDS EQUITY PROFILE ##
-
+        <equity-profile></equity-profile>
+        <div style="height: 25px"></div>
         <p>
           Also included in this section are printable materials with
           research-based talking points to help you make your case and share
@@ -427,88 +256,19 @@
             <v-divider class="mb-4"></v-divider>
             <v-row :dense="isMobile">
               <v-col cols="12" xl="4" lg="6" md="6">
-                <v-sheet
-                  color="primary"
-                  class="
-                    white--text
-                    rounded
-                    py-1
-                    px-1
-                    text-center text-button
-                    pointer
-                  "
-                  v-ripple
-                  elevation="2"
-                >
-                  The basics
-                </v-sheet>
+                <case-for-dual-credit></case-for-dual-credit>
               </v-col>
               <v-col cols="12" xl="4" lg="6" md="6">
-                <v-sheet
-                  color="primary"
-                  class="
-                    white--text
-                    rounded
-                    py-1
-                    px-1
-                    text-center text-button
-                    pointer
-                  "
-                  v-ripple
-                  elevation="2"
-                >
-                  District Best Practices
-                </v-sheet>
+                <district-best-practices></district-best-practices>
               </v-col>
               <v-col cols="12" xl="4">
-                <v-sheet
-                  color="primary"
-                  class="
-                    white--text
-                    rounded
-                    py-1
-                    px-1
-                    text-center text-button
-                    pointer
-                  "
-                  v-ripple
-                  elevation="2"
-                  @click="go('il-dc.school-profile')"
-                >
-                  School Dual Credit Profile
-                </v-sheet>
+                <school-profile></school-profile>
               </v-col>
               <v-col cols="12" xl="6">
-                <v-sheet
-                  color="primary"
-                  class="
-                    white--text
-                    rounded
-                    py-1
-                    px-1
-                    text-center text-button
-                    pointer
-                  "
-                  v-ripple
-                  elevation="2"
-                  >Multiple Eligibility Measures Research Rundown
-                </v-sheet>
+                <case-for-broad-eligibility></case-for-broad-eligibility>
               </v-col>
               <v-col cols="12" xl="6">
-                <v-sheet
-                  color="primary"
-                  class="
-                    white--text
-                    rounded
-                    py-1
-                    px-1
-                    text-center text-button
-                    pointer
-                  "
-                  v-ripple
-                  elevation="2"
-                  >Academic Acceleration Factsheet
-                </v-sheet>
+                <academic-acceleration-factsheet></academic-acceleration-factsheet>
               </v-col>
             </v-row>
           </v-alert>
@@ -588,7 +348,7 @@
           understands the problem you are seeking to solve.
         </p>
 
-        ## NEEDS EQUITY PROFILE ##
+        <equity-profile></equity-profile>
 
         <p>
           Also included in this section are printable materials with
@@ -611,88 +371,19 @@
             <v-divider class="mb-4"></v-divider>
             <v-row :dense="isMobile">
               <v-col cols="12" xl="4" lg="6" md="6">
-                <v-sheet
-                  color="primary"
-                  class="
-                    white--text
-                    rounded
-                    py-1
-                    px-1
-                    text-center text-button
-                    pointer
-                  "
-                  v-ripple
-                  elevation="2"
-                >
-                  The basics
-                </v-sheet>
+                <case-for-dual-credit></case-for-dual-credit>
               </v-col>
               <v-col cols="12" xl="4" lg="6" md="6">
-                <v-sheet
-                  color="primary"
-                  class="
-                    white--text
-                    rounded
-                    py-1
-                    px-1
-                    text-center text-button
-                    pointer
-                  "
-                  v-ripple
-                  elevation="2"
-                >
-                  District Best Practices
-                </v-sheet>
+                <district-best-practices></district-best-practices>
               </v-col>
               <v-col cols="12" xl="4" lg="6" md="6">
-                <v-sheet
-                  color="primary"
-                  class="
-                    white--text
-                    rounded
-                    py-1
-                    px-1
-                    text-center text-button
-                    pointer
-                  "
-                  v-ripple
-                  elevation="2"
-                  @click="go('il-dc.school-profile')"
-                >
-                  School Dual Credit Profile
-                </v-sheet>
+                <school-profile></school-profile>
               </v-col>
               <v-col cols="12" xl="4" lg="6" md="6">
-                <v-sheet
-                  color="primary"
-                  class="
-                    white--text
-                    rounded
-                    py-1
-                    px-1
-                    text-center text-button
-                    pointer
-                  "
-                  v-ripple
-                  elevation="2"
-                  >Model Partnership Agreement Overview
-                </v-sheet>
+                <model-partnership-agreement></model-partnership-agreement>
               </v-col>
               <v-col cols="12" xl="4" lg="6" md="6">
-                <v-sheet
-                  color="primary"
-                  class="
-                    white--text
-                    rounded
-                    py-1
-                    px-1
-                    text-center text-button
-                    pointer
-                  "
-                  v-ripple
-                  elevation="2"
-                  >Cost Saving Policies
-                </v-sheet>
+                <cost-saving-policies></cost-saving-policies>
               </v-col>
             </v-row>
           </v-alert>
@@ -755,8 +446,27 @@
 
 <script>
 import StepBus from "../../step-bus.js";
+import EquityProfile from "./EquityProfile.vue";
+
+import AcademicAccelerationFactsheet from "./sharable-materials/AcademicAccelerationFactsheet.vue";
+import CaseForBroadEligibility from "./sharable-materials/CaseForBroadEligibility.vue";
+import CaseForDualCredit from "./sharable-materials/CaseForDualCredit.vue";
+import DistrictBestPractices from "./sharable-materials/DistrictBestPractices.vue";
+import DualCreditQualitcyAct from "./sharable-materials/DualCreditQualitcyAct.vue";
+import ModelPartnershipAgreement from "./sharable-materials/ModelPartnershipAgreement.vue";
+import SchoolProfile from "./sharable-materials/SchoolProfile.vue";
 
 export default {
+  components: {
+    AcademicAccelerationFactsheet,
+    CaseForBroadEligibility,
+    DistrictBestPractices,
+    DualCreditQualitcyAct,
+    CaseForDualCredit,
+    ModelPartnershipAgreement,
+    SchoolProfile,
+    EquityProfile,
+  },
   data() {
     return {
       loading: false,

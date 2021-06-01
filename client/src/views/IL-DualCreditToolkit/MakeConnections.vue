@@ -551,10 +551,9 @@
                     If not, is the school aware of the cost saving policies in
                     the Dual Credit Quality Act?
                     <br />
-                    <span class="text-caption"
-                      >Be prepared to discuss the Cost Savings Policies
-                      brief.</span
-                    >
+                    <span>
+                      Be prepared to discuss the Cost Savings Policies brief.
+                    </span>
                   </li>
                 </ul>
               </li>

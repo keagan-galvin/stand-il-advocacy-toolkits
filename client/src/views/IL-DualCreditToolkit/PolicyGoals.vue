@@ -2,7 +2,7 @@
   <v-container>
     <div class="px-2 px-lg-16">
       <h2 class="text-md-h4 text-h5 primary--text mb-5">
-        SET YOUR POLICY GOALS
+        SET YOUR ADVOCACY GOALS
       </h2>
       <p>
         This toolkit will guide you as you advocate for expanding dual credit in
@@ -34,7 +34,7 @@
           <v-slide-y-transition mode="out-in">
             <v-col cols="12" class="mt-6" v-if="rcdts && offersDualCredit">
               <h6 class="text-h6 primary--text mb-2">
-                What is your policy goal?
+                What is your advocacy goal?
               </h6>
               <p class="mb-6">
                 According to ISBE data,
@@ -46,36 +46,14 @@
                 credit programs should be promoted within the school and be
                 available to all qualified students.
               </p>
-              <v-slide-y-transition mode="out-in">
-                <div v-if="useSuggestedPolicyGoal === null && !policyGoal">
-                  <p class="mb-6">
-                    An advocacy goal to expand the eligibility criteria of
-                    <span class="font-weight-medium"
-                      >{{ this.entity.School_Name }}'s</span
-                    >
-                    dual credit program would work to enroll more students in
-                    the program. Does this sound like the right goal?
-                  </p>
-                  <v-btn
-                    color="primary"
-                    class="mr-2"
-                    @click="
-                      useSuggestedPolicyGoal = true;
-                      policyGoal = policyGoals[1];
-                    "
-                    >Yes</v-btn
-                  >
-                  <v-btn @click="useSuggestedPolicyGoal = false">No</v-btn>
-                </div>
-                <v-select
-                  v-else
-                  v-model="policyGoal"
-                  :items="policyGoals"
-                  placeholder="Select your policy goal"
-                  :disabled="!rcdts"
-                  :readonly="!offersDualCredit"
-                ></v-select>
-              </v-slide-y-transition>
+
+              <v-select
+                v-model="policyGoal"
+                :items="policyGoals"
+                placeholder="Select your policy goal"
+                :disabled="!rcdts"
+                :readonly="!offersDualCredit"
+              ></v-select>
             </v-col>
             <v-col
               cols="12"
@@ -83,7 +61,7 @@
               v-else-if="rcdts && !offersDualCredit"
             >
               <h6 class="text-h6 primary--text mb-2">
-                What is your policy goal?
+                What is your advocacy goal?
               </h6>
               <p class="mb-6">
                 According to ISBE data,
@@ -92,48 +70,20 @@
                 }}</span>
                 didn't offer dual credit courses last school year.
               </p>
-              <v-slide-y-transition mode="out-in">
-                <div
-                  v-if="
-                    useSuggestedPolicyGoal === null &&
-                    policyGoals.length > 1 &&
-                    !policyGoal
-                  "
-                >
-                  <p class="mb-6">
-                    An advocacy goal to start a new dual credit program at
-                    <span class="font-weight-medium">
-                      {{ this.entity.School_Name }}'s
-                    </span>
-                    would be the first step. Does this sound like the right
-                    goal?
-                  </p>
-                  <v-btn
-                    color="primary"
-                    class="mr-2"
-                    @click="
-                      useSuggestedPolicyGoal = true;
-                      policyGoal = policyGoals[0];
-                    "
-                    >Yes</v-btn
-                  >
-                  <v-btn @click="useSuggestedPolicyGoal = false">No</v-btn>
-                </div>
-                <v-select
-                  v-else
-                  v-model="policyGoal"
-                  :items="policyGoals"
-                  placeholder="Select your policy goal"
-                  :readonly="policyGoals.length === 1"
-                  :messages="
-                    policyGoals.length === 1
-                      ? `An advocacy goal to start a new dual credit program at
+
+              <v-select
+                v-model="policyGoal"
+                :items="policyGoals"
+                placeholder="Select your policy goal"
+                :readonly="policyGoals.length === 1"
+                :messages="
+                  policyGoals.length === 1
+                    ? `An advocacy goal to start a new dual credit program at
                       ${entity.School_Name}'s
                     is where you should start. `
-                      : ''
-                  "
-                ></v-select>
-              </v-slide-y-transition>
+                    : ''
+                "
+              ></v-select>
             </v-col>
           </v-slide-y-transition>
         </v-row>
@@ -209,8 +159,8 @@ export default {
     },
     policyGoals() {
       let options = [];
-      let teacherOption =
-        "Secure a Dual Credit endorsement on your teaching license";
+      // let teacherOption =
+      //   "Secure a Dual Credit endorsement on your teaching license";
 
       if (this.offersDualCredit) {
         options = [
@@ -222,7 +172,7 @@ export default {
         options = ["Start a new dual credit program"];
       }
 
-      if (this.role === "Teacher") options.push([teacherOption]);
+      //if (this.role === "Teacher") options.push([teacherOption]);
 
       return options;
     },

@@ -2,7 +2,7 @@
   <v-container>
     <embedded-video width="950px">
       <iframe
-        src="https://www.youtube.com/embed/B1CPE6WWsAQ"
+        src="https://www.youtube.com/embed/hWDvrKJcNc4?autoplay=1"
         title="YouTube video player"
         frameborder="0"
         allow=""
@@ -320,7 +320,7 @@ export default {
             setTimeout(() => {
               //this.$router.push({ name: "il-dc.policy-goals" });
               this.$store.dispatch("notifications/send", {
-                message: "Welcome back - time to advocate!",
+                message: "Welcome back - let's get to work!",
               });
             }, 500);
           } else this.step++;

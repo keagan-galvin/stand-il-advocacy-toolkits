@@ -30,8 +30,19 @@ export default {};
   }
 }
 
+@media screen and (max-width: 800px) {
+  [data-aos-delay] {
+    transition-delay: 0s !important;
+    transition-duration: 0s !important;
+  }
+}
+
 .w-100 {
   width: 100%;
+}
+
+.h-100 {
+  height: 100%;
 }
 
 .v-main__wrap {
@@ -52,5 +63,13 @@ export default {};
 * {
   color-adjust: exact;
   -webkit-print-color-adjust: exact;
+}
+
+.position-relative {
+  position: relative;
+}
+
+.position-absolute {
+  position: absolute;
 }
 </style>

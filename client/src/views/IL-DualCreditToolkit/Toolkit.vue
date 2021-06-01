@@ -84,7 +84,7 @@
                       <v-list-item two-line dense>
                         <v-list-item-content>
                           <v-list-item-title class="font-weight-bold">
-                            Policy Goal
+                            Advocacy Goal
                           </v-list-item-title>
                           <div>{{ policyGoal }}</div>
                         </v-list-item-content>
@@ -189,9 +189,7 @@
                   class="pr-5"
                 >
                   <v-list-item-content>
-                    <v-list-item-title>
-                      #5 - Defining Success
-                    </v-list-item-title>
+                    <v-list-item-title> #5 - Define Success </v-list-item-title>
                   </v-list-item-content>
                   <v-list-item-icon>
                     <v-icon>mdi-tune</v-icon>
@@ -227,7 +225,7 @@
         elevate-on-scroll
         app
         color="primary"
-        v-if="isMobile || !authorized || printing"
+        v-if="isMobile || !authorized"
       >
         <v-app-bar-nav-icon
           dark
@@ -253,7 +251,7 @@
       <v-expand-transition>
         <step-actions class="d-print-none" v-show="authorized && initialized" />
       </v-expand-transition>
-      <footer class="py-1">
+      <footer class="py-1" v-if="!printing">
         <div class="d-flex">
           <v-tooltip top>
             <template v-slot:activator="{ on, attrs }">
@@ -469,7 +467,7 @@ export default {
     },
   },
   created() {
-    AOS.init();
+    AOS.init({ once: true });
 
     window.addEventListener("beforeprint", () => {
       this.printing = true;
