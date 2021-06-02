@@ -135,9 +135,9 @@ export default {
         lowIncome: {
           label: "Low Income",
           enrollmentPercentage:
-            +this.entity.P_Student_Enrollment_AI_or_AN * 0.01,
+            +this.entity.P_Student_Enrollment_Low_Income * 0.01,
           dualCreditPercentage: getDualCreditPercentage(
-            +this.entity.N_Dual_Credit_Students_AI_or_AN
+            +this.entity.N_Dual_Credit_Students_Low_Income
           ),
           satMath: {
             level_1: +this.entity.SAT_Math_Total_Low_Income_Students_Level_1_P,
