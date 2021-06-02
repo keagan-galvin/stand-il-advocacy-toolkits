@@ -5,7 +5,8 @@
     v-ripple
     elevation="2"
     @click="download"
-  >Cost Saving Policies
+  >
+    Cost Saving Policies
     <a class="d-none" ref="link" :href="pdf" target="_blank"></a>
   </v-sheet>
 </template>

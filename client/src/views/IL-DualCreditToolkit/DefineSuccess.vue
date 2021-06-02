@@ -35,11 +35,13 @@
               <ol>
                 <li class="mb-2">
                   Email
-                  <a href="mailto:agalvin@stand.org"
-                    >Aimee Galvin (agalvin@stand.org)</a
-                  >about your advocacy victory so Stand for Children can help
-                  you get the word out through social media posts, blog posts,
-                  or notifying your elected officials.
+                  <a href="mailto:agalvin@stand.org">
+                    Aimee Galvin (agalvin@stand.org)</a
+                  >
+
+                  about your advocacy victory so Stand for Children can help you
+                  get the word out through social media posts, blog posts, or
+                  notifying your elected officials.
                 </li>
                 <li>
                   Thank your decision makers. Anyone who helped you achieve your

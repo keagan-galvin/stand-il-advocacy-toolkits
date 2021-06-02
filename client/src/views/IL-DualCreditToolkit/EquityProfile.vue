@@ -56,6 +56,8 @@
             </v-card-text>
             <v-divider v-if="i != satMath.length - 1"></v-divider>
           </div>
+          <v-divider></v-divider>
+          <v-card-text><split-percentage-bar-key /></v-card-text>
         </v-card>
       </v-col>
       <v-col cols="12" sm="6">
@@ -79,6 +81,8 @@
             </v-card-text>
             <v-divider v-if="i != satELA.length - 1"></v-divider>
           </div>
+          <v-divider></v-divider>
+          <v-card-text><split-percentage-bar-key /></v-card-text>
         </v-card>
       </v-col>
     </v-row>
@@ -88,12 +92,14 @@
 <script>
 import PercentageDialComparison from "../../components/percentage-dial-comparison.vue";
 import SplitPercentageBar from "../../components/split-percentage-bar.vue";
+import SplitPercentageBarKey from "../../components/split-percentage-bar-key.vue";
 import { datasets } from "../../common/constants.js";
 
 export default {
   components: {
     PercentageDialComparison,
     SplitPercentageBar,
+    SplitPercentageBarKey,
   },
   data() {
     return {

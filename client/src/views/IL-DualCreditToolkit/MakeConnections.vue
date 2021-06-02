@@ -255,7 +255,7 @@
                 </ul>
               </li>
               <li class="mb-2">
-                Should you met with the district superintendent?
+                Should you meet with the district superintendent?
                 <ul class="mt-2">
                   <li class="mt-1">Would they be supportive?</li>
                 </ul>

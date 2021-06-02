@@ -5,10 +5,10 @@
         <h2 class="text-md-h4 text-h5 primary--text mb-12">School Profile</h2>
 
         <v-row>
-          <v-col cols="12" sm="6">
+          <v-col :cols="printing ? 6 : 12" sm="6">
             <v-card
               class="flex-fill"
-              data-aos="fade-right"
+              :data-aos="printing ? '' : 'fade-right'"
               data-aos-duration="500"
               data-aos-delay="500"
             >
@@ -17,7 +17,10 @@
                   elevation="3"
                   class="text-nowrap pa-4 rounded info text-center"
                   style="margin-top: -30px"
-                  :class="{ 'text-h1': !isMobile, 'text-h3': isMobile }"
+                  :class="{
+                    'text-h1': !isMobile && !printing,
+                    'text-h3': isMobile || printing,
+                  }"
                 >
                   {{ percentageInDualCredit }}%
                 </v-sheet>
@@ -35,11 +38,11 @@
               </v-card-text>
             </v-card>
           </v-col>
-          <v-col cols="12" sm="6">
+          <v-col :cols="printing ? 6 : 12" sm="6">
             <v-card
               class="flex-fill"
               style="height: 100%"
-              data-aos="fade-left"
+              :data-aos="printing ? '' : 'fade-left'"
               data-aos-duration="500"
               data-aos-delay="500"
             >
@@ -54,7 +57,10 @@
                     white--text
                     text-center
                   "
-                  :class="{ 'text-h1': !isMobile, 'text-h3': isMobile }"
+                  :class="{
+                    'text-h1': !isMobile && !printing,
+                    'text-h3': isMobile || printing,
+                  }"
                   style="margin-top: -30px"
                 >
                   {{ apPassRate }}%
@@ -67,11 +73,11 @@
               </v-card-text>
             </v-card>
           </v-col>
-          <v-col cols="12" sm="6">
+          <v-col :cols="printing ? 6 : 12" sm="6">
             <v-card
               class="flex-fill"
               style="height: 100%"
-              data-aos="fade-right"
+              :data-aos="printing ? '' : 'fade-right'"
               data-aos-duration="500"
               data-aos-delay="600"
             >
@@ -86,7 +92,10 @@
                     white--text
                     text-center
                   "
-                  :class="{ 'text-h1': !isMobile, 'text-h3': isMobile }"
+                  :class="{
+                    'text-h1': !isMobile && !printing,
+                    'text-h3': isMobile || printing,
+                  }"
                   style="margin-top: -30px"
                 >
                   {{ collegeWithin12Mo }}%
@@ -100,11 +109,11 @@
               </v-card-text>
             </v-card>
           </v-col>
-          <v-col cols="12" sm="6">
+          <v-col :cols="printing ? 6 : 12" sm="6">
             <v-card
               class="flex-fill"
               style="height: 100%"
-              data-aos="fade-left"
+              :data-aos="printing ? '' : 'fade-left'"
               data-aos-duration="500"
               data-aos-delay="600"
             >
@@ -119,7 +128,10 @@
                     white--text
                     text-center
                   "
-                  :class="{ 'text-h1': !isMobile, 'text-h3': isMobile }"
+                  :class="{
+                    'text-h1': !isMobile && !printing,
+                    'text-h3': isMobile || printing,
+                  }"
                   style="margin-top: -30px"
                 >
                   {{ inRemediation }}%
@@ -133,28 +145,36 @@
               </v-card-text>
             </v-card>
           </v-col>
-          <v-col cols="12" sm="6">
+          <v-col :cols="printing ? 7 : 12" sm="6">
             <v-card
               class="flex-fill"
-              data-aos="fade-right"
+              :data-aos="printing ? '' : 'fade-right'"
               data-aos-duration="500"
               data-aos-delay="700"
             >
               <v-card-text class="d-flex flex-column">
-                <canvas id="studentPopChart" width="400" height="400"></canvas>
+                <div class="mx-auto" style="max-width: 350px">
+                  <canvas
+                    id="studentPopChart"
+                    width="400"
+                    height="400"
+                  ></canvas>
+                </div>
                 <div class="flex-fill mt-4 text-center">
                   <div class="text-h5">
                     Total Student Enrollment:
-                    <span class="font-weight-bold">200</span>
+                    <span class="font-weight-bold">{{
+                      totalStudents | numeral("0,0")
+                    }}</span>
                   </div>
                 </div>
               </v-card-text>
             </v-card>
           </v-col>
-          <v-col cols="12" sm="6" style="overflow: hidden">
+          <v-col :cols="printing ? 5 : 12" sm="6">
             <v-card
               class="flex-fill"
-              data-aos="fade-left"
+              :data-aos="printing ? '' : 'fade-left'"
               data-aos-duration="500"
               data-aos-delay="700"
             >
@@ -177,6 +197,7 @@
                   :level_4="+entity.SAT_Reading_Total_Students_Level_4_P"
                 ></split-percentage-bar>
               </v-card-text>
+              <v-card-text><split-percentage-bar-key /></v-card-text>
             </v-card>
           </v-col>
         </v-row>
@@ -191,14 +212,17 @@ import { datasets } from "../../common/constants.js";
 
 import Chart from "chart.js/auto";
 import SplitPercentageBar from "../../components/split-percentage-bar.vue";
+import SplitPercentageBarKey from "../../components/split-percentage-bar-key.vue";
 
 export default {
   components: {
     SplitPercentageBar,
+    SplitPercentageBarKey,
   },
   data() {
     return {
       loading: false,
+      printing: false,
     };
   },
   computed: {
@@ -234,42 +258,42 @@ export default {
       let popProps = {
         lowIncome: {
           label: "Low Income",
-          count: +this.entity.N_Low_Income,
+          count: +this.entity.P_Student_Enrollment_Low_Income,
           bgColor: "rgb(255,155,143)",
         },
         americanIndian: {
           label: "American Indian",
-          count: +this.entity.N_American_Indian,
+          count: +this.entity.P_Student_Enrollment_AI_or_AN,
           bgColor: "rgb(71,0,62)",
         },
         asian: {
           label: "Asian",
-          count: +this.entity.N_Asian,
+          count: +this.entity.P_Student_Enrollment_Asian,
           bgColor: "rgb(1,101,76)",
         },
         black: {
           label: "Black",
-          count: +this.entity.N_Black,
+          count: +this.entity.P_Student_Enrollment_B_or_AA,
           bgColor: "rgb(241,179,0)",
         },
         hispanic: {
           label: "Hispanic",
-          count: +this.entity.N_Latino,
+          count: +this.entity.P_Student_Enrollment_H_or_L,
           bgColor: "rgb(204,68,37)",
         },
         pacificIslander: {
           label: "Pacific Islander",
-          count: +this.entity.N_Native,
+          count: +this.entity.P_Student_Enrollment_NH_or_Other_PI,
           bgColor: "rgb(255,64,105)",
         },
         twoOrMore: {
           label: "Two or More Races",
-          count: +this.entity.N_Two_or_More,
+          count: +this.entity.P_Student_Enrollment_Two_or_More_Races,
           bgColor: "rgb(120,170,0)",
         },
         white: {
           label: "White",
-          count: +this.entity.N_White,
+          count: +this.entity.P_Student_Enrollment_White,
           bgColor: "rgb(0,62,90)",
         },
       };
@@ -315,6 +339,17 @@ export default {
       new Chart(document.querySelector("#studentPopChart"), {
         type: "doughnut",
         data: this.studentPopulationDataset,
+        options: {
+          plugins: {
+            tooltip: {
+              callbacks: {
+                label: function (context) {
+                  return ` ${context.label} - ${context.formattedValue}%`;
+                },
+              },
+            },
+          },
+        },
       });
     },
   },
@@ -353,6 +388,14 @@ export default {
     next();
   },
   mounted() {
+    window.addEventListener("beforeprint", () => {
+      this.printing = true;
+      console.log("started print");
+    });
+    window.addEventListener("afterprint", () => {
+      console.log("cancelled print");
+      this.printing = false;
+    });
     this.load();
     this.$nextTick(() => {
       StepBus.$emit("configure");

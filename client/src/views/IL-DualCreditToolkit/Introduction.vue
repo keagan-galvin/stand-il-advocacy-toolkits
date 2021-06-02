@@ -89,8 +89,7 @@
                   >
                     <v-card-text>
                       By providing some contact information we'll be able to
-                      create personalized handouts and other materials you'll
-                      use through out the process.
+                      create a personalized advocacy plan and save your work.
                     </v-card-text>
                     <v-card-text>
                       <v-row>
@@ -197,7 +196,7 @@
                         <v-col cols="12">
                           <v-checkbox
                             v-model="user.email_optin"
-                            label="Send me periodic emails about stuff and things"
+                            label="Sign me up for emails"
                           ></v-checkbox>
                         </v-col>
                       </v-row>

@@ -348,8 +348,6 @@
           understands the problem you are seeking to solve.
         </p>
 
-        <equity-profile></equity-profile>
-
         <p>
           Also included in this section are printable materials with
           research-based talking points to help you make your case and share
@@ -451,6 +449,7 @@ import EquityProfile from "./EquityProfile.vue";
 import AcademicAccelerationFactsheet from "./sharable-materials/AcademicAccelerationFactsheet.vue";
 import CaseForBroadEligibility from "./sharable-materials/CaseForBroadEligibility.vue";
 import CaseForDualCredit from "./sharable-materials/CaseForDualCredit.vue";
+import CostSavingPolicies from "./sharable-materials/CostSavingPolicies.vue";
 import DistrictBestPractices from "./sharable-materials/DistrictBestPractices.vue";
 import DualCreditQualitcyAct from "./sharable-materials/DualCreditQualitcyAct.vue";
 import ModelPartnershipAgreement from "./sharable-materials/ModelPartnershipAgreement.vue";
@@ -463,6 +462,7 @@ export default {
     DistrictBestPractices,
     DualCreditQualitcyAct,
     CaseForDualCredit,
+    CostSavingPolicies,
     ModelPartnershipAgreement,
     SchoolProfile,
     EquityProfile,
