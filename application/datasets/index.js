@@ -17,7 +17,7 @@ async function getData(key, config) {
   if (dataset) {
     let results = await db[dataset.model].findAll({ raw: true });
 
-    if (config.resultType && dataset.resultType[config.resultType]) {
+    if (config && config.resultType && dataset.resultType[config.resultType]) {
       return dataset.resultType[config.resultType](results, config);
     } else return results;
   } else throw "Invalid dataset";

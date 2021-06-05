@@ -501,9 +501,8 @@ export default {
 
       if (entities)
         target = entities.data.find(
-          (x) => this.entity.District === x.School_Name
+          (x) => this.entity.District === x.District && x.Type === "district"
         );
-
       return target ? target : {};
     },
     rcdts() {

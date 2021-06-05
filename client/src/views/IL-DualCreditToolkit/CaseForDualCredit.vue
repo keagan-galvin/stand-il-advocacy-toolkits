@@ -45,6 +45,9 @@
               <v-col cols="12" xl="4" lg="6" md="6">
                 <cost-saving-policies></cost-saving-policies>
               </v-col>
+              <v-col cols="12" xl="4" lg="6" md="6">
+                <dual-credit-equity-report></dual-credit-equity-report>
+              </v-col>
             </v-row>
           </v-alert>
         </div>
@@ -66,8 +69,10 @@
                 schools to offer dual credit?
               </li>
               <li>
-                Review your school's dual credit profile, does any data point
-                jump out at you?
+                Review your
+                <router-link :to="{ name: 'il-dc.school-profile' }"
+                  >School's Dual Credit Profile</router-link
+                >, does any data point jump out at you?
                 <ol class="mt-2">
                   <li class="mb-2">What are the bright spots?</li>
                   <li class="mb-2">What can the school be doing better?</li>
@@ -97,13 +102,17 @@
           existing courses, insufficient student interest, high costs, and the
           location of instruction are often the sticking points for schools
           trying to expand their dual credit programs. To prepare, consider the
-          context of your school. Your school's dual credit profile, below, will
-          help you understand the unique challenges your school faces. Also
-          included in this section are printable materials with research-based
-          talking points to help you make your case and share with prospective
-          partners and key decision makers. Not all of these talking points may
-          resonate with you or your school's community, that's ok, use the
-          materials that make sense in the context of your school.
+          context of your school. Your
+          <router-link
+            :to="{ name: 'il-dc.school-profile', query: { print: true } }"
+            >School's Dual Credit Profile</router-link
+          >, below, will help you understand the unique challenges your school
+          faces. Also included in this section are printable materials with
+          research-based talking points to help you make your case and share
+          with prospective partners and key decision makers. Not all of these
+          talking points may resonate with you or your school's community,
+          that's ok, use the materials that make sense in the context of your
+          school.
         </p>
 
         <div style="height: 50px"></div>
@@ -132,6 +141,9 @@
               </v-col>
               <v-col cols="12" xl="4" lg="6" md="6">
                 <cost-saving-policies></cost-saving-policies>
+              </v-col>
+              <v-col cols="12" xl="4" lg="6" md="6">
+                <dual-credit-equity-report></dual-credit-equity-report>
               </v-col>
             </v-row>
           </v-alert>
@@ -183,8 +195,10 @@
                 to help students get a jump start on their college credit.
               </li>
               <li>
-                Review your school's dual credit profile, does any data point
-                jump out at you?
+                Review your
+                <router-link :to="{ name: 'il-dc.school-profile' }"
+                  >School's Dual Credit Profile</router-link
+                >, does any data point jump out at you?
                 <ol class="mt-2">
                   <li class="mb-2">
                     Is your school fully funded? If not, be prepared to talk
@@ -225,25 +239,44 @@
           dual credit program.
         </p>
         <p>
-          The graphic below, your school's equity profile, will help you
-          demonstrate a lack of access. This tool uses publicly available
-          Illinois Report Card data to illustrate the disparities in your
-          school's dual credit enrollment. Notice any trends? Places to improve?
-          Sharing this data with decision makers will make sure everyone
-          understands the problem you are seeking to solve.
+          The graphic below is your school's equity profile. This tool uses
+          publicly available Illinois Report Card data to call out student
+          groups that are currently underrepresented in dual credit courses at
+          your school. For example, if students from low income families
+          represent 40% of all students enrolled at your school, we'd hope to
+          see approximately 40% of dual credit students also from low income
+          families. Take a look at the dials below, notice any trends? Places to
+          improve? Sharing this data with decision makers will make sure
+          everyone understands the problem you are seeking to solve.
         </p>
         <equity-profile></equity-profile>
         <div style="height: 25px"></div>
         <p>
           Also included in this section are printable materials with
           research-based talking points to help you make your case and share
-          with prospective partners and key decision makers. The Academic
-          Acceleration Factsheet and Multiple Eligibility Measures Research
-          Rundown map out how your school can amend its eligibility requirements
-          to enroll more students in dual credit courses while maintaining high
-          standards and college-level rigor. Not all of these talking points may
-          resonate with you or your school's community, that's ok, use the
-          materials that make sense in the context of your school.
+          with prospective partners and key decision makers. The resources below
+          map out how your school can amend its eligibility requirements to
+          enroll more students in dual credit courses while maintaining high
+          standards and college-level rigor.
+        </p>
+
+        <p>
+          The Academic Acceleration Factsheet outlines a new policy that allows
+          districts to automatically enroll a student in an available dual
+          credit course if they test at or above proficiency. The SAT
+          proficiency bars are intended to illustrate the number of
+          underrepresented students who may be ready for a college course. Of
+          course, a single test is not wholly representative of a student's
+          academic ability so we recommend using SAT scores as a floor not a
+          ceiling, check out Making the Case for Broad Eligibility Criteria to
+          learn more about the many eligibility measures schools can use to
+          determine a student's dual credit readiness.
+        </p>
+
+        <p>
+          Not all of these talking points may resonate with you or your school's
+          community, that's ok, use the materials that make sense in the context
+          of your school.
         </p>
 
         <div style="height: 50px"></div>
@@ -270,6 +303,9 @@
               <v-col cols="12" xl="6">
                 <academic-acceleration-factsheet></academic-acceleration-factsheet>
               </v-col>
+              <v-col cols="12" xl="4" lg="6" md="6">
+                <dual-credit-equity-report></dual-credit-equity-report>
+              </v-col>
             </v-row>
           </v-alert>
         </div>
@@ -293,8 +329,10 @@
                 offered at the college campus.
               </li>
               <li>
-                Review your school's dual credit profile, does any data point
-                jump out at you?
+                Review your
+                <router-link :to="{ name: 'il-dc.school-profile' }"
+                  >School's Dual Credit Profile</router-link
+                >, does any data point jump out at you?
                 <ol class="mt-2">
                   <li class="mb-2">
                     What percentage of students are enrolling in college? Dual
@@ -339,24 +377,16 @@
           some students out. It'll be your job to make the case on why lower
           costs strengthen a dual credit program.
         </p>
-        <p>
-          The graphic below, your school's equity profile, will help you
-          demonstrate a lack of access. This tool uses publicly available
-          Illinois Report Card data to illustrate the disparities in your
-          school's dual credit enrollment. Notice any trends? Places to improve?
-          Sharing this data with decision makers will make sure everyone
-          understands the problem you are seeking to solve.
-        </p>
 
         <p>
-          Also included in this section are printable materials with
-          research-based talking points to help you make your case and share
-          with prospective partners and key decision makers. The Dual Credit
-          Quality Act introduced three cost saving measures which are reviewed
-          in detail in the Cost Savings Policies brief included below. Not all
-          of these talking points may resonate with you or your school's
-          community, that's ok, use the materials that make sense in the context
-          of your school.
+          Included in this section are printable materials with research-based
+          talking points to help you make your case and share with prospective
+          partners and key decision makers. The Dual Credit Quality Act
+          introduced three cost saving measures which are reviewed in detail in
+          the Cost Savings Policies brief included below. Not all of these
+          talking points may resonate with you or your school's community,
+          that's ok, use the materials that make sense in the context of your
+          school.
         </p>
 
         <div style="height: 50px"></div>
@@ -382,6 +412,9 @@
               </v-col>
               <v-col cols="12" xl="4" lg="6" md="6">
                 <cost-saving-policies></cost-saving-policies>
+              </v-col>
+              <v-col cols="12" xl="4" lg="6" md="6">
+                <dual-credit-equity-report></dual-credit-equity-report>
               </v-col>
             </v-row>
           </v-alert>
@@ -417,8 +450,10 @@
                 </ol>
               </li>
               <li>
-                Review your school's dual credit profile, does any data point
-                jump out at you?
+                Review your
+                <router-link :to="{ name: 'il-dc.school-profile' }"
+                  >School's Dual Credit Profile</router-link
+                >, does any data point jump out at you?
                 <ol class="mt-2">
                   <li class="mb-2">What are the bright spots?</li>
                   <li class="mb-2">
@@ -451,6 +486,7 @@ import CaseForBroadEligibility from "./sharable-materials/CaseForBroadEligibilit
 import CaseForDualCredit from "./sharable-materials/CaseForDualCredit.vue";
 import CostSavingPolicies from "./sharable-materials/CostSavingPolicies.vue";
 import DistrictBestPractices from "./sharable-materials/DistrictBestPractices.vue";
+import DualCreditEquityReport from "./sharable-materials/DualCreditEquityReport.vue";
 import DualCreditQualitcyAct from "./sharable-materials/DualCreditQualitcyAct.vue";
 import ModelPartnershipAgreement from "./sharable-materials/ModelPartnershipAgreement.vue";
 import SchoolProfile from "./sharable-materials/SchoolProfile.vue";
@@ -460,6 +496,7 @@ export default {
     AcademicAccelerationFactsheet,
     CaseForBroadEligibility,
     DistrictBestPractices,
+    DualCreditEquityReport,
     DualCreditQualitcyAct,
     CaseForDualCredit,
     CostSavingPolicies,

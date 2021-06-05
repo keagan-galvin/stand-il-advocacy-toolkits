@@ -54,9 +54,12 @@
             Below you'll find a few key questions that may help guide your
             conversation but don't be afraid to go off-script. Send or bring any
             materials from step two that you think will be helpful throughout
-            your discussion. Your school's dual credit profile is a great
-            conversation starter. Don't forget to take notes so you can
-            reference your discussion later on.
+            your discussion. Your
+            <router-link :to="{ name: 'il-dc.school-profile' }"
+              >School's Dual Credit Profile</router-link
+            >
+            is a great conversation starter. Don't forget to take notes so you
+            can reference your discussion later on.
           </p>
 
           <v-alert border="left" color="secondary" elevation="2">
@@ -126,9 +129,12 @@
             Below you'll find a few key questions that may help guide your
             conversation but don't be afraid to go off-script. Send or bring any
             materials from step two that you think will be helpful throughout
-            your discussion. Your school's dual credit profile is a great
-            conversation starter. Don't forget to take notes so you can
-            reference your discussion later on.
+            your discussion. Your
+            <router-link :to="{ name: 'il-dc.school-profile' }"
+              >School's Dual Credit Profile</router-link
+            >
+            is a great conversation starter. Don't forget to take notes so you
+            can reference your discussion later on.
           </p>
 
           <v-alert border="left" color="secondary" elevation="0">
@@ -201,9 +207,12 @@
             Below you'll find a few key questions that may help guide your
             conversation but don't be afraid to go off-script. Send or bring any
             materials from step two that you think will be helpful throughout
-            your discussion. Your school's dual credit profile is a great
-            conversation starter. Don't forget to take notes so you can
-            reference your discussion later on.
+            your discussion. Your
+            <router-link :to="{ name: 'il-dc.school-profile' }"
+              >School's Dual Credit Profile</router-link
+            >
+            is a great conversation starter. Don't forget to take notes so you
+            can reference your discussion later on.
           </p>
 
           <v-alert border="left" color="secondary" elevation="2">
@@ -361,9 +370,12 @@
             Below you'll find a few key questions that may help guide your
             conversation but don't be afraid to go off-script. Send or bring any
             materials from step two that you think will be helpful throughout
-            your discussion. Your school's dual credit profile is a great
-            conversation starter. Don't forget to take notes so you can
-            reference your discussion later on.
+            your discussion. Your
+            <router-link :to="{ name: 'il-dc.school-profile' }"
+              >School's Dual Credit Profile</router-link
+            >
+            is a great conversation starter. Don't forget to take notes so you
+            can reference your discussion later on.
           </p>
 
           <v-alert border="left" color="secondary" elevation="2">
@@ -514,9 +526,12 @@
             Below you'll find a few key questions that may help guide your
             conversation but don't be afraid to go off-script. Send or bring any
             materials from step two that you think will be helpful throughout
-            your discussion. Your school's dual credit profile is a great
-            conversation starter. Don't forget to take notes so you can
-            reference your discussion later on.
+            your discussion. Your
+            <router-link :to="{ name: 'il-dc.school-profile' }"
+              >School's Dual Credit Profile</router-link
+            >
+            is a great conversation starter. Don't forget to take notes so you
+            can reference your discussion later on.
           </p>
 
           <v-alert border="left" color="secondary" elevation="2">

@@ -2,13 +2,44 @@
   <div class="grey lighten-4">
     <v-container>
       <div class="px-2 px-lg-16">
-        <h2 class="text-md-h4 text-h5 primary--text mb-12">School Profile</h2>
+        <h2
+          class="text-md-h4 text-h5 primary--text d-flex"
+          :class="{ 'mb-2': printing, 'mb-12': !printing }"
+        >
+          <span class="flex-fill">School Profile</span>
+          <v-btn
+            v-if="!printing"
+            color="primary"
+            small
+            elevation="2"
+            fab
+            @click="print()"
+            ><v-icon>mdi-printer</v-icon></v-btn
+          >
+        </h2>
 
         <v-row>
-          <v-col :cols="printing ? 6 : 12" sm="6">
+          <v-col :cols="12">
             <v-card
               class="flex-fill"
-              :data-aos="printing ? '' : 'fade-right'"
+              :data-aos="'fade-down'"
+              data-aos-duration="500"
+              data-aos-delay="500"
+            >
+              <v-card-text
+                class="text-center text-subtitle-1 font-weight-normal"
+              >
+                This dististrict is at
+                <span class="primary--text font-weight-medium"
+                  >{{ ebf_Adequacy }}%</span
+                >
+                of funding adequacy
+              </v-card-text>
+            </v-card> </v-col
+          ><v-col :cols="printing ? 6 : 12" sm="6">
+            <v-card
+              class="flex-fill"
+              :data-aos="'fade-right'"
               data-aos-duration="500"
               data-aos-delay="500"
             >
@@ -30,7 +61,8 @@
                   </div>
                   <div class="text-h5">
                     <span class="font-weight-bold">{{
-                      totalStudents | numeral("0,0")
+                      entity.N_Students_who_took_Dual_Credit_classes_912_Total
+                        | numeral("0,0")
                     }}</span>
                     students
                   </div>
@@ -42,7 +74,7 @@
             <v-card
               class="flex-fill"
               style="height: 100%"
-              :data-aos="printing ? '' : 'fade-left'"
+              :data-aos="'fade-left'"
               data-aos-duration="500"
               data-aos-delay="500"
             >
@@ -77,7 +109,7 @@
             <v-card
               class="flex-fill"
               style="height: 100%"
-              :data-aos="printing ? '' : 'fade-right'"
+              :data-aos="'fade-right'"
               data-aos-duration="500"
               data-aos-delay="600"
             >
@@ -113,7 +145,7 @@
             <v-card
               class="flex-fill"
               style="height: 100%"
-              :data-aos="printing ? '' : 'fade-left'"
+              :data-aos="'fade-left'"
               data-aos-duration="500"
               data-aos-delay="600"
             >
@@ -148,7 +180,7 @@
           <v-col :cols="printing ? 7 : 12" sm="6">
             <v-card
               class="flex-fill"
-              :data-aos="printing ? '' : 'fade-right'"
+              :data-aos="'fade-right'"
               data-aos-duration="500"
               data-aos-delay="700"
             >
@@ -174,7 +206,7 @@
           <v-col :cols="printing ? 5 : 12" sm="6">
             <v-card
               class="flex-fill"
-              :data-aos="printing ? '' : 'fade-left'"
+              :data-aos="'fade-left'"
               data-aos-duration="500"
               data-aos-delay="700"
             >
@@ -201,6 +233,7 @@
             </v-card>
           </v-col>
         </v-row>
+        <p class="text-caption text-center mt-4">Illinois Report Card, 2019</p>
       </div>
     </v-container>
   </div>
@@ -248,7 +281,7 @@ export default {
       let result = Math.round(
         (this.numberInDualCredit / this.totalStudents) * 100
       );
-      return isNaN(result) ? 0 : result;
+      return isNaN(result) ? 0 : Math.round(result);
     },
     studentPopulationDataset() {
       let labels = [];
@@ -256,11 +289,11 @@ export default {
       let backgroundColor = [];
 
       let popProps = {
-        lowIncome: {
-          label: "Low Income",
-          count: +this.entity.P_Student_Enrollment_Low_Income,
-          bgColor: "rgb(255,155,143)",
-        },
+        // lowIncome: {
+        //   label: "Low Income",
+        //   count: +this.entity.P_Student_Enrollment_Low_Income,
+        //   bgColor: "rgb(255,155,143)",
+        // },
         americanIndian: {
           label: "American Indian",
           count: +this.entity.P_Student_Enrollment_AI_or_AN,
@@ -320,18 +353,21 @@ export default {
     },
     apPassRate() {
       let result = Math.round(+this.entity.AP_pass_rate * 100);
-      return isNaN(result) ? 0 : result;
+      return isNaN(result) ? 0 : Math.round(result);
     },
     collegeWithin12Mo() {
       let result = +this.entity.P_Postsecondary_Institution_within_12_months;
-      return isNaN(result) ? 0 : result;
+      return isNaN(result) ? 0 : Math.round(result);
     },
     inRemediation() {
       let result = +this.entity.P_Community_College_Remediation;
-      return isNaN(result) ? 0 : result;
+      return isNaN(result) ? 0 : Math.round(result);
     },
     isMobile() {
       return this.$vuetify.breakpoint.mobile;
+    },
+    ebf_Adequacy() {
+      return Math.round(this.entity.EBF_P_of_adequacy);
     },
   },
   watch: {
@@ -381,6 +417,13 @@ export default {
     go(name) {
       this.$router.push({ name });
     },
+    print() {
+      this.$emit("printing");
+      this.printing = true;
+      setTimeout(() => {
+        window.print();
+      }, 300);
+    },
   },
   beforeRouteLeave(to, from, next) {
     StepBus.$off("next");
@@ -402,6 +445,14 @@ export default {
       StepBus.$on("prev", () => this.go("il-dc.policy-goals"));
       StepBus.$on("next", () => this.go("il-dc.key-players"));
     });
+
+    if (this.$route.query.print) {
+      this.$emit("printing");
+      this.printing = true;
+      setTimeout(() => {
+        window.print();
+      }, 1500);
+    }
   },
 };
 </script>

@@ -243,7 +243,11 @@
       <div class="d-flex flex-fill">
         <!-- <v-scroll-y-transition> -->
         <page-transition>
-          <router-view v-if="initialized" class="flex-fill pt-md-12" />
+          <router-view
+            v-if="initialized"
+            class="flex-fill pt-md-12"
+            @printing="printing = true"
+          />
         </page-transition>
         <!-- </v-scroll-y-transition> -->
       </div>

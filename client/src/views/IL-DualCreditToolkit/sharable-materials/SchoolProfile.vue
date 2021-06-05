@@ -14,7 +14,12 @@
 export default {
   methods: {
     go(name) {
-      this.$router.push({ name });
+      this.$router.push({
+        name,
+        query: {
+          print: true,
+        },
+      });
     },
   },
 };

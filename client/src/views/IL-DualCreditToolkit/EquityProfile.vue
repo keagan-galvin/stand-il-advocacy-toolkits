@@ -1,11 +1,14 @@
 <template>
   <div>
     <div v-if="underRepresented.length > 0" class="mb-8">
-      <p>
+      <p class="primary--text font-weight-medium">
         {{ entity.School_Name }} offers dual credit courses that enrolled
-        {{ +entity.N_Student_Enrollment | numeral("0,0") }} students in 2020 but
-        {{ underRepresentedStatement }} students were underrepresented in dual
-        credit courses.
+        {{
+          +entity.N_Students_who_took_Dual_Credit_classes_912_Total
+            | numeral("0,0")
+        }}
+        students in 2020 but {{ underRepresentedStatement }} students were
+        underrepresented in dual credit courses.
       </p>
       <div
         class="d-flex flex-wrap mx-auto justify-center mt-8"
@@ -86,6 +89,7 @@
         </v-card>
       </v-col>
     </v-row>
+    <p class="text-caption text-center mt-4">Illinois Report Card, 2019</p>
   </div>
 </template>
 
@@ -352,7 +356,7 @@ export default {
 
       for (var key in this.population) {
         let target = this.population[key];
-        if (target.enrollmentPercentage > target.dualCreditPercentage)
+        if (target.enrollmentPercentage > target.dualCreditPercentage + 0.03)
           results.push({ ...target });
       }
 

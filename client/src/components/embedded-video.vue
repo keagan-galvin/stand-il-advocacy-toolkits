@@ -1,7 +1,11 @@
 <template>
   <div
     class="secondary alignment mx-auto"
-    :style="`width: ${width}; height: ${height}; max-width: 100%`"
+    :style="`width: ${width}; height: ${height}; max-width: 100%; ${
+      backgroundImagePath
+        ? `background-image: url(${backgroundImagePath}); background-size: contain`
+        : ''
+    }`"
     v-resize="onResize"
   >
     <v-btn v-if="!show" fab x-large color="accent" @click="show = true"
@@ -21,6 +25,7 @@ export default {
       type: String,
       default: "560px",
     },
+    backgroundImagePath: String,
   },
   methods: {
     onResize() {

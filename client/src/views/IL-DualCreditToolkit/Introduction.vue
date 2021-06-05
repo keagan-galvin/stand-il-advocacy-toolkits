@@ -1,6 +1,9 @@
 <template>
   <v-container>
-    <embedded-video width="950px">
+    <embedded-video
+      width="950px"
+      :backgroundImagePath="require('@/assets/il-dc/Video-Thumbnail.jpg')"
+    >
       <iframe
         src="https://www.youtube.com/embed/hWDvrKJcNc4?autoplay=1"
         title="YouTube video player"
@@ -18,6 +21,15 @@
         schools have become trailblazers in expanding their dual credit
         programs, other schools continue to face challenges to launch or expand
         dual credit coursework. That's where you come in!
+      </p>
+      <p class="mx-auto" style="max-width: 950px">
+        Looking to learn more about dual credit in Illinois? Check out Stand for
+        Children's report,
+        <a href="https://dualcreditequity.org/" target="_blank"
+          >Expanding Equity in Dual Credit</a
+        >
+      </p>
+      <p class="mx-auto" style="max-width: 950px">
         <v-dialog
           v-if="!authorized"
           v-model="dialog"
@@ -93,7 +105,7 @@
                     </v-card-text>
                     <v-card-text>
                       <v-row>
-                        <v-col cols="12" md="6">
+                        <v-col cols="12" md="5">
                           <validation-provider
                             v-slot="{ errors }"
                             name="FirstName"
@@ -109,7 +121,7 @@
                             ></v-text-field>
                           </validation-provider>
                         </v-col>
-                        <v-col cols="12" md="6">
+                        <v-col cols="12" md="5">
                           <validation-provider
                             v-slot="{ errors }"
                             name="LastName"
@@ -126,7 +138,7 @@
                           </validation-provider>
                         </v-col>
 
-                        <v-col cols="12">
+                        <!-- <v-col cols="12">
                           <validation-provider
                             v-slot="{ errors }"
                             name="Phone"
@@ -175,8 +187,8 @@
                               label="State*"
                             ></v-select>
                           </validation-provider>
-                        </v-col>
-                        <v-col cols="12" md="4">
+                        </v-col> -->
+                        <v-col cols="12" md="2">
                           <validation-provider
                             v-slot="{ errors }"
                             name="Zip"
