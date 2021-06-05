@@ -10,6 +10,7 @@ import IL_DCT_CaseForDualCredit from "../views/IL-DualCreditToolkit/CaseForDualC
 import IL_DCT_MakeConnections from "../views/IL-DualCreditToolkit/MakeConnections.vue";
 import IL_DCT_TakeAction from "../views/IL-DualCreditToolkit/TakeAction.vue";
 import IL_DCT_DefineSuccess from "../views/IL-DualCreditToolkit/DefineSuccess.vue";
+import IL_DCT_CertificationPlan from "../views/IL-DualCreditToolkit/CertificationPlan.vue";
 
 import Admin from "../views/Admin/Admin.vue";
 import Admin_Login from "../views/Admin/Login.vue";
@@ -40,6 +41,15 @@ const routes = [
         meta: {
           position: 1,
           title: "Dual Credit Advocacy Toolkit - Set Your Policy Goals",
+        },
+      },
+      {
+        name: "il-dc.certification-plan",
+        path: "certification-plan",
+        component: IL_DCT_CertificationPlan,
+        meta: {
+          position: 2,
+          title: "Dual Credit Advocacy Toolkit - Certification Plan",
         },
       },
       {

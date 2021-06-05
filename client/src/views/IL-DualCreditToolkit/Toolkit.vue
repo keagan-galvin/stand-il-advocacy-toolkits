@@ -49,15 +49,15 @@
                 <v-icon>mdi-format-list-checks</v-icon>
               </v-list-item-icon>
               <v-list-item-content>
-                <v-list-item-title> Set Your Advocacy Goals </v-list-item-title>
+                <v-list-item-title> Set Your Goals </v-list-item-title>
               </v-list-item-content>
             </v-list-item>
-            <v-slide-y-transition>
+            <v-slide-y-transition mode="out-in">
               <v-list-group
                 no-action
                 :value="true"
                 color="secondary-darken-2"
-                v-if="hasPolicyGoals"
+                v-if="hasPolicyGoals && !hasTeacherGoal"
               >
                 <template v-slot:activator>
                   <v-list-item-icon>
@@ -196,6 +196,20 @@
                   </v-list-item-icon>
                 </v-list-item>
               </v-list-group>
+              <v-list-item
+                v-else-if="hasTeacherGoal && hasQualifyingTeacherPath"
+                exact
+                :to="{ name: 'il-dc.certification-plan' }"
+              >
+                <v-list-item-icon>
+                  <v-icon>mdi-format-list-checks</v-icon>
+                </v-list-item-icon>
+                <v-list-item-content>
+                  <v-list-item-title>
+                    {{ user.firstName }}'s Certification Plan
+                  </v-list-item-title>
+                </v-list-item-content>
+              </v-list-item>
             </v-slide-y-transition>
           </v-list>
         </div>
@@ -353,7 +367,7 @@ import PageTransition from "../../components/page-transition.vue";
 import StepActions from "../../components/step-actions.vue";
 import { datasets } from "../../common/constants.js";
 
-import { hasPolicyGoals } from "./helpers.js";
+import { hasPolicyGoals, hasQualifyingTeacherPath } from "./helpers.js";
 
 export default {
   name: "ilDualCreditToolkit",
@@ -389,6 +403,15 @@ export default {
     },
     hasPolicyGoals() {
       return hasPolicyGoals(this.$store.state.toolkit.loaded);
+    },
+    hasTeacherGoal() {
+      return (
+        this.$store.state.toolkit.loaded.policyGoal ===
+        "Secure a Dual Credit endorsement on your teaching license"
+      );
+    },
+    hasQualifyingTeacherPath() {
+      return hasQualifyingTeacherPath(this.$store.state.toolkit.loaded);
     },
     entity() {
       let entities = this.$store.state.datasets.loaded.find(

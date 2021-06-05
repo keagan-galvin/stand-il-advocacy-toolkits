@@ -2,6 +2,14 @@ export function hasPolicyGoals(toolkit) {
   return toolkit.rcdts && toolkit.policyGoal && toolkit.role ? true : false;
 }
 
+export function hasQualifyingTeacherPath(toolkit) {
+  return toolkit.teachCTE === "Yes" ||
+    toolkit.hasMastersDegree === "No" ||
+    toolkit.hasSpecifiedDegree === "Yes"
+    ? true
+    : false;
+}
+
 export function getSchoolEntities(dataset) {
   return dataset
     .slice()

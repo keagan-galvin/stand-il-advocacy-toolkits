@@ -5,17 +5,20 @@
     v-ripple
     elevation="2"
     @click="download"
-    >Dual Credit Quality Act Summary
-    <a class="d-none" ref="link" :href="pdf" target="_blank"></a>
+    >ICCB faculty qualification requirements
+    <a
+      class="d-none"
+      ref="link"
+      href="https://www.iccb.org/iccb/wp-content/pdfs/academic_affairs/Faculty_Qualifications_Requirements_Dual_Credit_3-12-18.pdf"
+      target="_blank"
+    ></a>
   </v-sheet>
 </template>
 
 <script>
 export default {
   data() {
-    return {
-      pdf: require("../../../assets/il-dc/DualCreditAdvocacyToolkit_DCQASummary.pdf"),
-    };
+    return {};
   },
   methods: {
     download() {

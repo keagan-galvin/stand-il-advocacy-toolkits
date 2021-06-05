@@ -5,17 +5,21 @@
     v-ripple
     elevation="2"
     @click="download"
-    >Dual Credit Quality Act Summary
-    <a class="d-none" ref="link" :href="pdf" target="_blank"></a>
+  >
+    ISBE dual credit endorsement FAQ
+    <a
+      class="d-none"
+      ref="link"
+      href="https://www.isbe.net/Documents/FAQ-Dual-Credit.pdf"
+      target="_blank"
+    ></a>
   </v-sheet>
 </template>
 
 <script>
 export default {
   data() {
-    return {
-      pdf: require("../../../assets/il-dc/DualCreditAdvocacyToolkit_DCQASummary.pdf"),
-    };
+    return {};
   },
   methods: {
     download() {

@@ -1,9 +1,7 @@
 <template>
   <v-container>
     <div class="px-2 px-lg-16">
-      <h2 class="text-md-h4 text-h5 primary--text mb-5">
-        SET YOUR ADVOCACY GOALS
-      </h2>
+      <h2 class="text-md-h4 text-h5 primary--text mb-5">SET YOUR GOALS</h2>
       <p>
         This toolkit will guide you as you advocate for expanding dual credit in
         your school. Whether you want to lower costs, expand access, introduce a
@@ -33,9 +31,7 @@
 
           <v-slide-y-transition mode="out-in">
             <v-col cols="12" class="mt-6" v-if="rcdts && offersDualCredit">
-              <h6 class="text-h6 primary--text mb-2">
-                What is your advocacy goal?
-              </h6>
+              <h6 class="text-h6 primary--text mb-2">What is your goal?</h6>
               <p class="mb-6">
                 According to ISBE data,
                 <span class="font-weight-medium">{{
@@ -86,6 +82,69 @@
               ></v-select>
             </v-col>
           </v-slide-y-transition>
+
+          <v-slide-y-transition>
+            <v-col cols="12" class="mt-6" v-if="policyGoal === teacherOption">
+              <v-select
+                v-model="highSchoolTeacher"
+                :items="['Yes', 'No']"
+                label="Are you a licensed high school teacher?"
+              ></v-select>
+            </v-col>
+          </v-slide-y-transition>
+
+          <v-slide-y-transition mode="out-in">
+            <v-col
+              cols="12"
+              class="mt-6"
+              v-if="policyGoal === teacherOption && highSchoolTeacher === 'Yes'"
+            >
+              <v-select
+                v-model="hasMastersDegree"
+                :items="['Yes', 'No']"
+                label="Do you have a Master's degree?"
+              ></v-select>
+              <v-slide-y-transition>
+                <p class="mt-12" v-if="hasMastersDegree === 'Yes'">
+                  Is your Master's degree in one of the following: biology,
+                  calculus, english, composition, english literature, general
+                  math, history, psycology, speech, or statistics?"
+                </p>
+              </v-slide-y-transition>
+              <v-slide-y-transition>
+                <v-select
+                  v-if="hasMastersDegree === 'Yes'"
+                  v-model="hasSpecifiedDegree"
+                  :items="['Yes', 'No']"
+                  placeholder="Is your degree in one of the above areas?"
+                ></v-select>
+              </v-slide-y-transition>
+            </v-col>
+            <v-col
+              cols="12"
+              class="mt-6"
+              v-else-if="
+                policyGoal === teacherOption && highSchoolTeacher === 'No'
+              "
+            >
+              <v-select
+                v-model="teachCTE"
+                :items="['Yes', 'No']"
+                label="Do you want to teach a Career and Technical Education course for dual credit?"
+              ></v-select>
+              <v-slide-y-transition>
+                <v-alert
+                  v-if="teachCTE === 'No'"
+                  border="left"
+                  color="red lighten-2"
+                  dark
+                >
+                  <v-icon>mdi-alert-circle</v-icon> Unfortunately you do not
+                  qualify to teach dual credit.
+                </v-alert>
+              </v-slide-y-transition>
+            </v-col>
+          </v-slide-y-transition>
         </v-row>
       </div>
     </div>
@@ -95,7 +154,11 @@
 <script>
 import StepBus from "../../step-bus.js";
 import { datasets } from "../../common/constants.js";
-import { hasPolicyGoals, getSchoolEntities } from "./helpers.js";
+import {
+  hasPolicyGoals,
+  hasQualifyingTeacherPath,
+  getSchoolEntities,
+} from "./helpers.js";
 
 export default {
   data() {
@@ -157,10 +220,43 @@ export default {
         this.updateToolkit("role", value);
       },
     },
+    highSchoolTeacher: {
+      get() {
+        return this.$store.state.toolkit.loaded.highSchoolTeacher;
+      },
+      set(value) {
+        this.updateToolkit("highSchoolTeacher", value);
+      },
+    },
+    hasMastersDegree: {
+      get() {
+        return this.$store.state.toolkit.loaded.hasMastersDegree;
+      },
+      set(value) {
+        this.updateToolkit("hasMastersDegree", value);
+      },
+    },
+    hasSpecifiedDegree: {
+      get() {
+        return this.$store.state.toolkit.loaded.hasSpecifiedDegree;
+      },
+      set(value) {
+        this.updateToolkit("hasSpecifiedDegree", value);
+      },
+    },
+    teachCTE: {
+      get() {
+        return this.$store.state.toolkit.loaded.teachCTE;
+      },
+      set(value) {
+        this.updateToolkit("teachCTE", value);
+      },
+    },
+    teacherOption() {
+      return "Secure a Dual Credit endorsement on your teaching license";
+    },
     policyGoals() {
       let options = [];
-      // let teacherOption =
-      //   "Secure a Dual Credit endorsement on your teaching license";
 
       if (this.offersDualCredit) {
         options = [
@@ -172,7 +268,7 @@ export default {
         options = ["Start a new dual credit program"];
       }
 
-      //if (this.role === "Teacher") options.push([teacherOption]);
+      if (this.role === "Teacher") options.push(this.teacherOption);
 
       return options;
     },
@@ -187,11 +283,19 @@ export default {
     hasPolicyGoals() {
       return hasPolicyGoals(this.$store.state.toolkit.loaded);
     },
+    hasQualifyingTeacherPath() {
+      return hasQualifyingTeacherPath(this.$store.state.toolkit.loaded);
+    },
   },
   watch: {
     hasPolicyGoals(val, prev) {
       if (val != prev) {
-        StepBus.$emit("patch", { canNext: val });
+        this.setCanNext();
+      }
+    },
+    hasQualifyingTeacherPath(val, prev) {
+      if (val != prev) {
+        this.setCanNext();
       }
     },
     role(val, prev) {
@@ -199,6 +303,29 @@ export default {
     },
     rcdts(val, prev) {
       if (val != prev) this.setPolicyGoalState();
+    },
+    policyGoal(val, prev) {
+      if (val != prev) {
+        this.setCanNext();
+        this.highSchoolTeacher = "";
+        this.hasMastersDegree = "";
+        this.hasSpecifiedDegree = "";
+        this.teachCTE = "";
+      }
+    },
+    hasMastersDegree(val, prev) {
+      if (val != prev) {
+        this.setCanNext();
+        this.hasSpecifiedDegree = "";
+        this.teachCTE = "";
+      }
+    },
+    highSchoolTeacher(val, prev) {
+      if (val != prev) {
+        this.hasMastersDegree = "";
+        this.hasSpecifiedDegree = "";
+        this.teachCTE = "";
+      }
     },
   },
   methods: {
@@ -215,6 +342,16 @@ export default {
     go(name) {
       this.$router.push({ name });
     },
+    setCanNext() {
+      StepBus.$off("next");
+      if (this.policyGoal === this.teacherOption) {
+        StepBus.$emit("patch", { canNext: this.hasQualifyingTeacherPath });
+        StepBus.$on("next", () => this.go("il-dc.certification-plan"));
+      } else {
+        StepBus.$emit("patch", { canNext: this.hasPolicyGoals });
+        StepBus.$on("next", () => this.go("il-dc.school-profile"));
+      }
+    },
   },
   beforeRouteLeave(to, from, next) {
     StepBus.$off("next");
@@ -229,6 +366,8 @@ export default {
       });
       StepBus.$on("prev", () => this.go("il-dc.introduction"));
       StepBus.$on("next", () => this.go("il-dc.school-profile"));
+
+      this.setCanNext();
     });
   },
 };

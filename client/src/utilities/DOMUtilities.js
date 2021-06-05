@@ -1,21 +1,21 @@
-export function transitionDuration(target, mode = 'ms') {
+export function transitionDuration(target, mode = "ms") {
   let styles = window.getComputedStyle(target);
   let delay =
-    durationInMS(styles.getPropertyValue('transition-duration')) +
-    durationInMS(styles.getPropertyValue('transition-delay'));
+    durationInMS(styles.getPropertyValue("transition-duration")) +
+    durationInMS(styles.getPropertyValue("transition-delay"));
 
-  return mode == 'ms' ? delay : delay / 1000;
+  return mode == "ms" ? delay : delay / 1000;
 
   function durationInMS(duration) {
     var ms = 0;
-    duration = duration.split(',')[0];
-    if (duration.endsWith('ms') || !duration.endsWith('s')) {
-      duration = duration.replace('ms', '');
+    duration = duration.split(",")[0];
+    if (duration.endsWith("ms") || !duration.endsWith("s")) {
+      duration = duration.replace("ms", "");
       ms = +duration;
     }
 
-    if (duration.endsWith('s')) {
-      duration = duration.replace('s', '');
+    if (duration.endsWith("s")) {
+      duration = duration.replace("s", "");
       ms = +duration * 1000;
     }
 
@@ -24,21 +24,20 @@ export function transitionDuration(target, mode = 'ms') {
 }
 
 export function getHighestZIndex(selector) {
-  if (!selector) selector = '*';
+  if (!selector) selector = "*";
   var elements = Array.from(document.querySelectorAll(selector));
 
   var highest = 0;
   for (var i = 0; i < elements.length; i++) {
     var zIndex = document.defaultView
       .getComputedStyle(elements[i], null)
-      .getPropertyValue('z-index');
-    if (zIndex != 'auto' && Number(zIndex) > highest) {
+      .getPropertyValue("z-index");
+    if (zIndex != "auto" && Number(zIndex) > highest) {
       highest = Number(zIndex);
     }
   }
   return highest;
 }
-
 
 /**
  * Search the starting element and its parentNode tree. The first qualifying element is returned, if none are found 'null'.
@@ -64,28 +63,28 @@ export function SeekElementInBranch(
   let target = startingElement;
 
   switch (searchMethod) {
-    case 'hasId': {
+    case "hasId": {
       while (target) {
         if (target.id == searchTerm) break;
         target = target.parentElement;
       }
       break;
     }
-    case 'hasClass': {
+    case "hasClass": {
       while (target) {
         if (target.classList && target.classList.contains(searchTerm)) break;
         target = target.parentElement;
       }
       break;
     }
-    case 'hasAttribute': {
+    case "hasAttribute": {
       while (target) {
         if (target.hasAttribute && target.hasAttribute(searchTerm)) break;
         target = target.parentElement;
       }
       break;
     }
-    case 'hasNodeName': {
+    case "hasNodeName": {
       while (target) {
         if (target.nodeName && target.nodeName == searchTerm.toUpperCase())
           break;
@@ -93,14 +92,14 @@ export function SeekElementInBranch(
       }
       break;
     }
-    case 'hasDataSet': {
+    case "hasDataSet": {
       while (target) {
         if (target.dataset && target.dataset[searchTerm]) break;
         target = target.parentElement;
       }
       break;
     }
-    case 'hasDataSetValue': {
+    case "hasDataSetValue": {
       while (target) {
         if (target.dataset && target.dataset[searchTerm]) {
           if (target.dataset[searchTerm] == dataSetValue) break;
@@ -111,7 +110,7 @@ export function SeekElementInBranch(
       break;
     }
     default:
-      throw 'Invalid searchMethod';
+      throw "Invalid searchMethod";
   }
 
   return target ? target : null;
@@ -133,7 +132,7 @@ export const Colors = {
    */
   hexToRgb: HexToRgb,
 
-  rgbFromString: RGBFromString
+  rgbFromString: RGBFromString,
 };
 
 function Brightness(rgb) {
@@ -150,13 +149,13 @@ function HexToRgb(hex) {
   });
 
   var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
-  return result ?
-    new RGB(
-      parseInt(result[1], 16),
-      parseInt(result[2], 16),
-      parseInt(result[3], 16)
-    ) :
-    null;
+  return result
+    ? new RGB(
+        parseInt(result[1], 16),
+        parseInt(result[2], 16),
+        parseInt(result[3], 16)
+      )
+    : null;
 }
 
 /**
@@ -164,14 +163,14 @@ function HexToRgb(hex) {
  */
 function RGBFromString(color) {
   color = color.toLowerCase();
-  if (color.startsWith('#')) return HexToRgb(color);
-  if (color.startsWith('rgb')) {
-    color = color.replace('rgb', '');
-    color = color.replace('a', '');
-    color = color.replace('(', '');
-    color = color.replace(')', '');
-    color = color.replace(' ', '');
-    let colorParts = color.split(',').map(x => Number(x));
+  if (color.startsWith("#")) return HexToRgb(color);
+  if (color.startsWith("rgb")) {
+    color = color.replace("rgb", "");
+    color = color.replace("a", "");
+    color = color.replace("(", "");
+    color = color.replace(")", "");
+    color = color.replace(" ", "");
+    let colorParts = color.split(",").map((x) => Number(x));
     return RGB(colorParts[0], colorParts[1], colorParts[2]);
   }
 
@@ -209,7 +208,7 @@ function RGB(r, b, g) {
      */
     get isLight() {
       return this.brightness > this.brightnessThreshold;
-    }
+    },
   };
 
   return rgb;
