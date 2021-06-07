@@ -378,7 +378,6 @@ export default {
   },
   methods: {
     load() {
-      console.log("loading");
       this.loading = true;
 
       Promise.all([

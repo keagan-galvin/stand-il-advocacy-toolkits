@@ -101,7 +101,6 @@ export default {
     });
 
     StepBus.$on("patch", (payload) => {
-      console.log(payload);
       let defaults = defaultSettings();
 
       for (let key in payload) {

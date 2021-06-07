@@ -323,7 +323,9 @@ export default {
       if (val != prev) this.setPolicyGoalState();
     },
     rcdts(val, prev) {
-      if (val != prev) this.setPolicyGoalState();
+      if (val != prev) {
+        this.setPolicyGoalState();
+      }
     },
     policyGoal(val, prev) {
       if (val != prev) {

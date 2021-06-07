@@ -15,7 +15,6 @@ let store = {
       state.nextNotificationId++;
     },
     add(state, data) {
-      console.log(state);
       state.queue.push(data);
     },
     remove(state, id) {

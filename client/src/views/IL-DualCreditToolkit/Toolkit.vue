@@ -454,7 +454,6 @@ export default {
         this.loadDataSets();
       } else if (val === false) {
         this.drawer = false;
-        console.log(this.$route.path);
         if (
           this.$route.path != "/il-dual-credit" &&
           this.$route.path != "/il-dual-credit/"
@@ -462,35 +461,68 @@ export default {
           this.$router.push("/il-dual-credit");
       }
     },
+    rcdts(val, prev) {
+      if (val != prev) {
+        this.isLoading = true;
+        this.loadEntityProfile().finally((this.isLoading = false));
+      }
+    },
   },
   methods: {
     loadDataSets() {
       this.isLoading = true;
 
-      Promise.all([
-        this.$store.dispatch("datasets/load", {
-          key: "il-dualcredit-entity",
-          config: { resultType: "slim" },
-        }),
-      ])
-        .then(
-          () => {},
-          (err) => {
-            console.log(err);
-            this.$store.dispatch("notifications/send", {
-              message:
-                "Unexpected error while loading toolkit datasets! Functionality may be limited.",
-              type: "error",
-            });
-          }
-        )
-        .finally(() => {
-          this.isLoading = false;
-          this.initialized = true;
-        });
+      new Promise((resolve, reject) => {
+        this.$store
+          .dispatch("datasets/load", {
+            key: "il-dualcredit-entity",
+            config: { resultType: "slim" },
+          })
+          .then(
+            () => {
+              this.loadEntityProfile().then(resolve, reject);
+            },
+            (err) => {
+              console.log(err);
+              this.$store.dispatch("notifications/send", {
+                message:
+                  "Unexpected error while loading toolkit datasets! Functionality may be limited.",
+                type: "error",
+              });
+
+              reject();
+            }
+          );
+      }).finally(() => {
+        this.isLoading = false;
+        this.initialized = true;
+      });
     },
     logout() {
       this.$store.dispatch("user/clear");
+    },
+    loadEntityProfile() {
+      return new Promise((resolve, reject) => {
+        let rcdts = this.$store.state.toolkit.loaded.rcdts;
+
+        if (rcdts && rcdts.length > 0) {
+          this.$store
+            .dispatch("datasets/patchLoaded", {
+              key: "il-dualcredit-entity",
+              config: { resultType: "single", RCDTS: rcdts },
+            })
+            .then(resolve, (err) => {
+              console.log(err);
+              this.$store.dispatch("notifications/send", {
+                message:
+                  "Unexpected error while loading entity profile! Functionality may be limited.",
+                type: "error",
+              });
+
+              reject();
+            });
+        } else resolve();
+      });
     },
   },
   created() {
@@ -498,10 +530,8 @@ export default {
 
     window.addEventListener("beforeprint", () => {
       this.printing = true;
-      console.log("started print");
     });
     window.addEventListener("afterprint", () => {
-      console.log("cancelled print");
       this.printing = false;
     });
 

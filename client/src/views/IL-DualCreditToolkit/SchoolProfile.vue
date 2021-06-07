@@ -59,7 +59,12 @@
                   <div class="text-body-2 font-weight-medium mb-2">
                     # of students enrolled in Dual Credit Courses
                   </div>
-                  <div class="text-h5">
+                  <div
+                    :class="{
+                      'text-h6': !isMobile && !printing,
+                      'text-body-1 font-weight-medium': isMobile || printing,
+                    }"
+                  >
                     <span class="font-weight-bold">{{
                       entity.N_Students_who_took_Dual_Credit_classes_912_Total
                         | numeral("0,0")
@@ -98,7 +103,12 @@
                   {{ apPassRate }}%
                 </v-sheet>
                 <div class="flex-fill mt-4 text-center">
-                  <div class="text-h6">
+                  <div
+                    :class="{
+                      'text-h6': !isMobile && !printing,
+                      'text-body-1 font-weight-medium': isMobile || printing,
+                    }"
+                  >
                     AP courses resulting in college credit
                   </div>
                 </div>
@@ -133,7 +143,12 @@
                   {{ collegeWithin12Mo }}%
                 </v-sheet>
                 <div class="flex-fill mt-4 text-center">
-                  <div class="text-h6">
+                  <div
+                    :class="{
+                      'text-h6': !isMobile && !printing,
+                      'text-body-1 font-weight-medium': isMobile || printing,
+                    }"
+                  >
                     Students enrolling in college within 12 months of graduating
                     high school
                   </div>
@@ -169,7 +184,12 @@
                   {{ inRemediation }}%
                 </v-sheet>
                 <div class="flex-fill mt-4 text-center">
-                  <div class="text-h6">
+                  <div
+                    :class="{
+                      'text-h6': !isMobile && !printing,
+                      'text-body-1 font-weight-medium': isMobile || printing,
+                    }"
+                  >
                     Students required to take non-credit bearing remedial
                     courses at community colleges
                   </div>
@@ -433,10 +453,8 @@ export default {
   mounted() {
     window.addEventListener("beforeprint", () => {
       this.printing = true;
-      console.log("started print");
     });
     window.addEventListener("afterprint", () => {
-      console.log("cancelled print");
       this.printing = false;
     });
     this.load();
