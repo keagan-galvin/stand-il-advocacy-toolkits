@@ -274,7 +274,7 @@ export default {
       },
     },
     teacherOption() {
-      return "Secure a dual credit endorsement on your teaching license";
+      return "Explore dual credit credentialing options";
     },
     policyGoals() {
       let options = [];

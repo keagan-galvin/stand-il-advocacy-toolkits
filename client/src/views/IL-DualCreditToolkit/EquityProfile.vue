@@ -24,7 +24,7 @@
           :valueA="item.dualCreditPercentage"
           labelA="<span class='text-body-2'>Dual Credit <br/> Students</span>"
           :valueB="item.enrollmentPercentage"
-          labelB="<span class='text-body-2'>Total Students <br/> Population</span>"
+          labelB="<span class='text-body-2'>Total Student <br/> Population</span>"
           :delay="400"
         ></percentage-dial-comparison>
       </div>

@@ -407,7 +407,7 @@ export default {
     hasTeacherGoal() {
       return (
         this.$store.state.toolkit.loaded.policyGoal ===
-        "Secure a dual credit endorsement on your teaching license"
+        "Explore dual credit credentialing options"
       );
     },
     hasQualifyingTeacherPath() {
