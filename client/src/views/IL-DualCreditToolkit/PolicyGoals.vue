@@ -108,7 +108,7 @@
                 <p class="mt-12" v-if="hasMastersDegree === 'Yes'">
                   Is your Master's degree in one of the following: biology,
                   calculus, english, composition, english literature, general
-                  math, history, psycology, speech, or statistics?"
+                  math, history, psycology, speech, or statistics?
                 </p>
               </v-slide-y-transition>
               <v-slide-y-transition>
@@ -117,6 +117,19 @@
                   v-model="hasSpecifiedDegree"
                   :items="['Yes', 'No']"
                   placeholder="Is your degree in one of the above areas?"
+                ></v-select>
+              </v-slide-y-transition>
+
+              <v-slide-y-transition>
+                <v-select
+                  v-if="hasSpecifiedDegree === 'No'"
+                  v-model="teacherOptionToExplore"
+                  :items="[
+                    'What dual credit courses am I eligible to teach?',
+                    `My school's dual credit higher learning partner is rejecting my credentials, what are my options?`,
+                  ]"
+                  label="Which option would you like to explore?"
+                  class="mt-10"
                 ></v-select>
               </v-slide-y-transition>
             </v-col>
@@ -244,6 +257,14 @@ export default {
         this.updateToolkit("hasSpecifiedDegree", value);
       },
     },
+    teacherOptionToExplore: {
+      get() {
+        return this.$store.state.toolkit.loaded.teacherOptionToExplore;
+      },
+      set(value) {
+        this.updateToolkit("teacherOptionToExplore", value);
+      },
+    },
     teachCTE: {
       get() {
         return this.$store.state.toolkit.loaded.teachCTE;
@@ -253,7 +274,7 @@ export default {
       },
     },
     teacherOption() {
-      return "Secure a Dual Credit endorsement on your teaching license";
+      return "Secure a dual credit endorsement on your teaching license";
     },
     policyGoals() {
       let options = [];
@@ -310,6 +331,7 @@ export default {
         this.highSchoolTeacher = "";
         this.hasMastersDegree = "";
         this.hasSpecifiedDegree = "";
+        this.teacherOptionToExplore = "";
         this.teachCTE = "";
       }
     },
@@ -317,6 +339,14 @@ export default {
       if (val != prev) {
         this.setCanNext();
         this.hasSpecifiedDegree = "";
+        this.teacherOptionToExplore = "";
+        this.teachCTE = "";
+      }
+    },
+    hasSpecifiedDegree(val, prev) {
+      if (val != prev) {
+        this.setCanNext();
+        this.teacherOptionToExplore = "";
         this.teachCTE = "";
       }
     },
@@ -324,6 +354,7 @@ export default {
       if (val != prev) {
         this.hasMastersDegree = "";
         this.hasSpecifiedDegree = "";
+        this.teacherOptionToExplore = "";
         this.teachCTE = "";
       }
     },

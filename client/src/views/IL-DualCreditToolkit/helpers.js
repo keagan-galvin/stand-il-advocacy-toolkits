@@ -5,7 +5,8 @@ export function hasPolicyGoals(toolkit) {
 export function hasQualifyingTeacherPath(toolkit) {
   return toolkit.teachCTE === "Yes" ||
     toolkit.hasMastersDegree === "No" ||
-    toolkit.hasSpecifiedDegree === "Yes"
+    toolkit.hasSpecifiedDegree === "Yes" ||
+    (toolkit.teacherOptionToExplore && toolkit.teacherOptionToExplore != "")
     ? true
     : false;
 }
