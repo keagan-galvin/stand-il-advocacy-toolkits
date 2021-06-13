@@ -5,7 +5,7 @@ module.exports = {
   toEntity(data) {
     let escapedAllies = [];
     if (Array.isArray(data.allies)) {
-      for(let i = 0; i < data.allies; i++) {
+      for(let i = 0; i < data.allies.length; i++) {
         escapedAllies.push(`${data.allies[i].type} - ${data.allies[i].name}`);
       }      
     }
@@ -16,7 +16,7 @@ module.exports = {
     let allies = [];
     let temp = data.allies.split('|');
     
-    for(let i = 0; i < temp.legth; i++){
+    for(let i = 0; i < temp.length; i++){
       let parts = temp[i].split(' - ');
       allies.push({
         type: parts[0],

@@ -445,8 +445,13 @@ export default {
     Promise.all(queue).finally(() => {
       if (this.authorized) {
         if (!this.isMobile) this.drawer = true;
-        this.initialized = true;
+      } else if (this.$route.path != "/il-dual-credit") {
+        this.$router.push({ path: "/il-dual-credit" });
       }
+
+      console.log(this.$route.path);
+
+      this.initialized = true;
     });
   },
   watch: {
@@ -558,7 +563,7 @@ export default {
       to.path === "/" ||
       (to.path != "/il-dual-credit" && !this.$store.getters["user/authorized"])
     )
-      next(paths.ilDCT.root);
+      next("/il-dual-credit");
     else next();
   },
 };

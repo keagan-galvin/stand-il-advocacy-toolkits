@@ -4,6 +4,7 @@ import router from "./router";
 import store from "./store";
 import vuetify from "./plugins/vuetify";
 import VueConfetti from "vue-confetti";
+import VueGtag from "vue-gtag";
 
 import "./utilities/vee-validate";
 import VueMask from "v-mask";
@@ -13,6 +14,14 @@ import OffsetFull from "./directives/offset.full.js";
 import OffsetCentered from "./directives/offset.centered.js";
 
 Vue.config.productionTip = false;
+
+Vue.use(
+  VueGtag,
+  {
+    config: { id: "G-NK9C5FM41X" },
+  },
+  router
+);
 
 Vue.use(VueMask);
 Vue.use(vueNumeralFilterInstaller, { locale: "en-gb" });

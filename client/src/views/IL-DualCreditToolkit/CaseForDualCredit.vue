@@ -288,16 +288,16 @@
 
             <v-divider class="mb-4"></v-divider>
             <v-row :dense="isMobile">
-              <v-col cols="12" xl="4" lg="6" md="6">
+              <v-col cols="12" md="6">
                 <case-for-dual-credit></case-for-dual-credit>
               </v-col>
-              <v-col cols="12" xl="4" lg="6" md="6">
+              <v-col cols="12" md="6">
                 <district-best-practices></district-best-practices>
               </v-col>
-              <v-col xl="4" lg="6" md="6">
+              <v-col cols="12" md="6">
                 <school-profile></school-profile>
               </v-col>
-              <v-col cols="12" xl="4" lg="6" md="6">
+              <v-col cols="12" md="6">
                 <dual-credit-qualitcy-act></dual-credit-qualitcy-act>
               </v-col>
               <v-col cols="12" xl="6">
@@ -306,7 +306,7 @@
               <v-col cols="12" xl="6">
                 <academic-acceleration-factsheet></academic-acceleration-factsheet>
               </v-col>
-              <v-col cols="12">
+              <v-col cols="12" xl="6">
                 <dual-credit-equity-report></dual-credit-equity-report>
               </v-col>
             </v-row>

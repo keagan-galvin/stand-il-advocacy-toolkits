@@ -79,10 +79,6 @@
               <li class="mb-2">
                 What are the barriers we must overcome to offer dual credit
                 courses at our school?
-              </li>
-              <li class="mb-2">
-                What are the barriers we must overcome to offer dual credit
-                courses at our school?
                 <ul class="mt-2">
                   <li class="mt-1">
                     Get their names if you can. These will be great allies as
@@ -101,7 +97,7 @@
                 >?
               </li>
               <li class="mb-2">
-                Should you met with the district superintendent?
+                Should you meet with the district superintendent?
                 <ul class="mt-2">
                   <li class="mt-1">Would they be supportive?</li>
                 </ul>

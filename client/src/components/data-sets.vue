@@ -22,13 +22,14 @@
           v-ripple
         >
           <div class="flex-fill">{{ dataset.name }}</div>
-          <v-btn icon small class="mr-2" @click="upload(dataset)"
+          <v-btn icon small class="mr-2" @click.stop="upload(dataset)"
             ><v-icon>mdi-cloud-upload</v-icon></v-btn
           >
           <v-btn
             icon
             small
             target="_blank"
+            @click.stop
             :href="`/api/datasets/${dataset.key}/export?token=${encodeURI(
               'Bearer ' + jwt.token
             )}`"

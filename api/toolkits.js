@@ -13,18 +13,18 @@ router.get("/", security.isAdmin, function (req, res) {
 });
 
 // Get Data
-router.get("/:key", security.isAdmin, async function (req, res) {
-  let dataset = toolkits.get(req.params.key);
-  if (!dataset) return res.errorResponse("Invalid key!");
+// router.get("/:key", security.isAdmin, async function (req, res) {
+//   let dataset = toolkits.get(req.params.key);
+//   if (!dataset) return res.errorResponse("Invalid key!");
 
-  try {
-    let results = await datasets.getData(req.params.key);
-    res.successResponse(results);
-  } catch (e) {
-    console.log(e);
-    return res.errorResponse("Unexpected error occured while retrieving data.");
-  }
-});
+//   try {
+//     let results = await datasets.getData(req.params.key);
+//     res.successResponse(results);
+//   } catch (e) {
+//     console.log(e);
+//     return res.errorResponse("Unexpected error occured while retrieving data.");
+//   }
+// });
 
 // Get Data
 router.get("/:key/:userId", async function (req, res) {
@@ -58,7 +58,7 @@ router.post("/:key/:userId", async function (req, res) {
 });
 
 //EXPORT Data
-router.get("/:key/export", security.isAdmin, async function (req, res) {
+router.get("/:key", security.isAdmin, async function (req, res) {
   let toolkit = toolkits.get(req.params.key);
   if (!toolkit) return res.errorResponse("Invalid key!");
 

@@ -17,9 +17,11 @@ async function getData(key) {
 
   if (toolkit) {
     let results = await db[toolkit.model].findAll({ raw: true });
-    let users = await db.User.where({
-      id: {
-        [Op.in]: results.slice().map((x) => x.userId),
+    let users = await db.User.findAll({
+      where: {
+        id: {
+          [Op.in]: results.slice().map((x) => x.userId),
+        },
       },
     });
 
@@ -74,7 +76,7 @@ async function upsert(key, data) {
     target = await db[toolkit.model].create(data);
   }
 
-  return target.toJSON();
+  return toolkit.toDto(target.toJSON());
 }
 
 module.exports = {
