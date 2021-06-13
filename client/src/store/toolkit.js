@@ -1,6 +1,6 @@
 import Vue from "vue";
 
-export default {
+let store = {
   namespaced: true,
   state() {
     return {
@@ -31,23 +31,45 @@ export default {
     },
   },
   actions: {
-    load({ commit, dispatch }, key) {
+    load({ commit, dispatch }, { key, userId }) {
       return new Promise((resolve, reject) => {
         commit("incrementPendingStateChanges", 1);
         dispatch(
           "handleApiFetch",
           {
             method: "get",
-            url: `/api/datasets/${key}`,
+            url: `/api/toolkits/${key}/${userId}`,
           },
           { root: true }
         )
-          .then((results) => {
-            commit("setLoaded", { key, data: results });
-            resolve(results);
+          .then((result) => {
+            commit("setLoaded", result);
+            resolve(result);
+          }, reject)
+          .finally(() => commit("incrementPendingStateChanges", -1));
+      });
+    },
+    update({ commit, dispatch, state }, key) {
+      return new Promise((resolve, reject) => {
+        commit("incrementPendingStateChanges", 1);
+        console.log("updating");
+        dispatch(
+          "handleApiFetch",
+          {
+            method: "post",
+            url: `/api/toolkits/${key}/${state.loaded.userId}`,
+            body: state.loaded,
+          },
+          { root: true }
+        )
+          .then((result) => {
+            commit("setLoaded", result);
+            resolve(result);
           }, reject)
           .finally(() => commit("incrementPendingStateChanges", -1));
       });
     },
   },
 };
+
+export default store;

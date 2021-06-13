@@ -192,12 +192,13 @@ router.beforeEach((to, from, next) => {
           next(paths.admin.root);
         else next();
       } else {
-        if (
-          to.path === "/" ||
-          (to.path != paths.ilDCT.root && !store.getters["user/authorized"])
-        )
-          next(paths.ilDCT.root);
-        else next();
+        next();
+        // if (
+        //   to.path === "/" ||
+        //   (to.path != paths.ilDCT.root && !store.getters["user/authorized"])
+        // )
+        //   next(paths.ilDCT.root);
+        // else next();
       }
     } else setTimeout(tryNext, 10);
   };

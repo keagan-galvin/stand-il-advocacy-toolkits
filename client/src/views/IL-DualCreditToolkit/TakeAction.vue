@@ -41,7 +41,7 @@
           </v-checkbox>
         </div>
         <div data-aos="fade-left" data-aos-duration="500" data-aos-delay="600">
-          <v-checkbox v-model="creadedFacebookGroup">
+          <v-checkbox v-model="createdFacebookGroup">
             <template v-slot:label>
               <div class="text-body-1 black--text">
                 Create a
@@ -154,7 +154,7 @@
           </v-checkbox>
         </div>
         <div data-aos="fade-left" data-aos-duration="500" data-aos-delay="600">
-          <v-checkbox v-model="creadedFacebookGroup">
+          <v-checkbox v-model="createdFacebookGroup">
             <template v-slot:label>
               <div class="text-body-1 black--text">
                 Create a
@@ -281,7 +281,7 @@
           </v-checkbox>
         </div>
         <div data-aos="fade-left" data-aos-duration="500" data-aos-delay="600">
-          <v-checkbox v-model="creadedFacebookGroup">
+          <v-checkbox v-model="createdFacebookGroup">
             <template v-slot:label>
               <div class="text-body-1 black--text">
                 Create a
@@ -398,7 +398,7 @@
           </v-checkbox>
         </div>
         <div data-aos="fade-left" data-aos-duration="500" data-aos-delay="600">
-          <v-checkbox v-model="creadedFacebookGroup">
+          <v-checkbox v-model="createdFacebookGroup">
             <template v-slot:label>
               <div class="text-body-1 black--text">
                 Create a
@@ -673,12 +673,12 @@ export default {
         this.updateToolkit("postedToSocialMedia", value);
       },
     },
-    creadedFacebookGroup: {
+    createdFacebookGroup: {
       get() {
-        return this.$store.state.toolkit.loaded.creadedFacebookGroup;
+        return this.$store.state.toolkit.loaded.createdFacebookGroup;
       },
       set(value) {
-        this.updateToolkit("creadedFacebookGroup", value);
+        this.updateToolkit("createdFacebookGroup", value);
       },
     },
     startedPetition: {

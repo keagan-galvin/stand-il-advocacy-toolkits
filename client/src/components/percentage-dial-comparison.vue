@@ -63,14 +63,14 @@
       <div class="d-flex align-center">
         <div class="label-wrapper">
           <div class="text-secondary font-weight-bold text-nowrap">
-            <span class="value spin-in"
+            <span class="value spin-in" style="color: #0067b1"
               ><span>{{ (valueA * 100).toFixed(2) }}</span
               >%
             </span>
           </div>
           <div class="label mb-2" v-html="labelA"></div>
           <div class="text-primary font-weight-bold text-nowrap">
-            <span class="value"
+            <span class="value" style="color: #f1645d"
               ><span>{{ (valueB * 100).toFixed(2) }}</span
               >%
             </span>

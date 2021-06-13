@@ -20,6 +20,7 @@ export default {
   state() {
     return {
       pendingStateChanges: 0,
+      attemptedLoad: false,
       ...defaultUser(),
     };
   },
@@ -43,6 +44,9 @@ export default {
     incrementPendingStateChanges(state, data) {
       state.pendingStateChanges += data;
     },
+    setAttemptedLoad(state, data) {
+      state.attemptedLoad = data;
+    },
   },
   actions: {
     load({ commit, dispatch }, email) {
@@ -60,7 +64,10 @@ export default {
               }, reject);
             } else resolve(null);
           }, reject)
-          .finally(() => commit("incrementPendingStateChanges", -1));
+          .finally(() => {
+            commit("incrementPendingStateChanges", -1);
+            commit("setAttemptedLoad", true);
+          });
       });
     },
     upsert({ commit }, user) {

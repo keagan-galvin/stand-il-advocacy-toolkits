@@ -7,8 +7,10 @@
           +entity.N_Students_who_took_Dual_Credit_classes_912_Total
             | numeral("0,0")
         }}
-        students in 2020 but {{ underRepresentedStatement }} students were
-        underrepresented in dual credit courses.
+        students in 2020. {{ representedStatement }} students were well
+        represented in those courses but as you can see from the dials below,
+        {{ underRepresentedStatement }} students were underrepresented in dual
+        credit courses.
       </p>
       <div
         class="d-flex flex-wrap mx-auto justify-center mt-8"
@@ -368,6 +370,32 @@ export default {
         return this.underRepresented[0].label;
 
       let safeArray = this.underRepresented.slice();
+
+      let last = safeArray[safeArray.length - 1].label;
+      safeArray.pop();
+      let result = safeArray.map((x) => x.label).join(", ");
+      result += " and " + last;
+      return result;
+    },
+    represented() {
+      let results = [];
+
+      for (var key in this.population) {
+        let target = this.population[key];
+        if (
+          target.enrollmentPercentage < target.dualCreditPercentage + 0.03 &&
+          target.enrollmentPercentage > 0
+        )
+          results.push({ ...target });
+      }
+
+      return results;
+    },
+    representedStatement() {
+      if (this.represented.length === 0) return "";
+      if (this.represented.length === 1) return this.represented[0].label;
+
+      let safeArray = this.represented.slice();
 
       let last = safeArray[safeArray.length - 1].label;
       safeArray.pop();

@@ -59,7 +59,7 @@
               Topics for Further Exploration
             </div>
             <v-divider class="mb-4"></v-divider>
-            <ul>
+            <ol>
               <li class="mb-2">
                 Do neighboring schools offer dual credit? What has their
                 experience been like? Challenges? Advice?
@@ -73,7 +73,7 @@
                 <router-link :to="{ name: 'il-dc.school-profile' }"
                   >School's Dual Credit Profile</router-link
                 >, does any data point jump out at you?
-                <ol class="mt-2">
+                <ul class="mt-2">
                   <li class="mb-2">What are the bright spots?</li>
                   <li class="mb-2">What can the school be doing better?</li>
                   <li>
@@ -82,9 +82,9 @@
                     introductory conversation and this profile is a great
                     jumping off point.
                   </li>
-                </ol>
+                </ul>
               </li>
-            </ul>
+            </ol>
           </v-alert>
         </div>
       </template>
@@ -106,8 +106,8 @@
           <router-link
             :to="{ name: 'il-dc.school-profile', query: { print: true } }"
             >School's Dual Credit Profile</router-link
-          >, below, will help you understand the unique challenges your school
-          faces. Also included in this section are printable materials with
+          >, will help you understand the unique challenges your school faces.
+          Also included in this section are printable materials with
           research-based talking points to help you make your case and share
           with prospective partners and key decision makers. Not all of these
           talking points may resonate with you or your school's community,
@@ -156,7 +156,7 @@
               Topics for Further Exploration
             </div>
             <v-divider class="mb-4"></v-divider>
-            <ul>
+            <ol>
               <li class="mb-2">
                 Is the course currently taught at the high school or college?
               </li>
@@ -199,7 +199,7 @@
                 <router-link :to="{ name: 'il-dc.school-profile' }"
                   >School's Dual Credit Profile</router-link
                 >, does any data point jump out at you?
-                <ol class="mt-2">
+                <ul class="mt-2">
                   <li class="mb-2">
                     Is your school fully funded? If not, be prepared to talk
                     about the Model Partnership Agreement which can help keep
@@ -218,9 +218,9 @@
                     introductory conversation and this profile is a great
                     jumping off point.
                   </li>
-                </ol>
+                </ul>
               </li>
-            </ul>
+            </ol>
           </v-alert>
         </div>
       </template>
@@ -294,8 +294,11 @@
               <v-col cols="12" xl="4" lg="6" md="6">
                 <district-best-practices></district-best-practices>
               </v-col>
-              <v-col cols="12" xl="4">
+              <v-col xl="4" lg="6" md="6">
                 <school-profile></school-profile>
+              </v-col>
+              <v-col cols="12" xl="4" lg="6" md="6">
+                <dual-credit-qualitcy-act></dual-credit-qualitcy-act>
               </v-col>
               <v-col cols="12" xl="6">
                 <case-for-broad-eligibility></case-for-broad-eligibility>
@@ -303,7 +306,7 @@
               <v-col cols="12" xl="6">
                 <academic-acceleration-factsheet></academic-acceleration-factsheet>
               </v-col>
-              <v-col cols="12" xl="4" lg="6" md="6">
+              <v-col cols="12">
                 <dual-credit-equity-report></dual-credit-equity-report>
               </v-col>
             </v-row>
@@ -317,7 +320,7 @@
               Topics for Further Exploration
             </div>
             <v-divider class="mb-4"></v-divider>
-            <ul>
+            <ol>
               <li class="mb-2">
                 How does your school currently determine eligibility for dual
                 credit courses?
@@ -333,7 +336,7 @@
                 <router-link :to="{ name: 'il-dc.school-profile' }"
                   >School's Dual Credit Profile</router-link
                 >, does any data point jump out at you?
-                <ol class="mt-2">
+                <ul class="mt-2">
                   <li class="mb-2">
                     What percentage of students are enrolling in college? Dual
                     credit courses are a great way to build student's academic
@@ -357,9 +360,9 @@
                     introductory conversation and this profile is a great
                     jumping off point.
                   </li>
-                </ol>
+                </ul>
               </li>
-            </ul>
+            </ol>
           </v-alert>
         </div>
       </template>
@@ -427,7 +430,7 @@
               Topics for Further Exploration
             </div>
             <v-divider class="mb-4"></v-divider>
-            <ul>
+            <ol>
               <li class="mb-2">
                 Do neighboring schools offer dual credit? What do they charge
                 for similar courses? Are they offering the courses through the
@@ -436,7 +439,7 @@
               <li class="mb-2">
                 Is your cost considered a "priority course"? See the Cost
                 Savings Policies brief to find out.
-                <ol class="mt-2">
+                <ul class="mt-2">
                   <li class="mb-2">
                     If your course is not a "priority course" ask your principal
                     if there is a realistic path to making it one. For more
@@ -447,14 +450,14 @@
                     >
                     .
                   </li>
-                </ol>
+                </ul>
               </li>
               <li>
                 Review your
                 <router-link :to="{ name: 'il-dc.school-profile' }"
                   >School's Dual Credit Profile</router-link
                 >, does any data point jump out at you?
-                <ol class="mt-2">
+                <ul class="mt-2">
                   <li class="mb-2">What are the bright spots?</li>
                   <li class="mb-2">
                     Is your school fully funded? If not, be prepared to talk
@@ -467,9 +470,9 @@
                     introductory conversation and this profile is a great
                     jumping off point.
                   </li>
-                </ol>
+                </ul>
               </li>
-            </ul>
+            </ol>
           </v-alert>
         </div>
       </template>

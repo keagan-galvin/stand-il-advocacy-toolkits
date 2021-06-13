@@ -4,10 +4,12 @@
       <h2 class="text-md-h4 text-h5 primary--text mb-5">SET YOUR GOALS</h2>
       <p>
         This toolkit will guide you as you advocate for expanding dual credit in
-        your school. Whether you want to lower costs, expand access, introduce a
-        new course or program, or secure a dual credit endorsement on your
-        teaching license, this personalized toolkit will be your guide as you
-        navigate the path toward creating more equitable access to dual credit!
+        your school. Whether you are a parent looking to lower course costs, an
+        administrator seeking new policies to expand access for your students,
+        or a teacher exploring credentialling options, this toolkit will create
+        a personalized plan to help you realize your dual credit goals. To get
+        started answer the simple questions below and the toolkit will do the
+        rest. Good luck!
       </p>
       <div data-aos="fade-up" data-aos-duration="700" data-aos-delay="600">
         <v-row align="center" class="mt-8">
@@ -182,6 +184,7 @@ export default {
         "Teacher",
         "School Administrator",
         "Community College Staff",
+        "Community Member",
       ],
       useSuggestedPolicyGoal: null,
     };
@@ -289,7 +292,8 @@ export default {
         options = ["Start a new dual credit program"];
       }
 
-      if (this.role === "Teacher") options.push(this.teacherOption);
+      if (this.role === "Teacher" || this.role === "School Administrator")
+        options.push(this.teacherOption);
 
       return options;
     },

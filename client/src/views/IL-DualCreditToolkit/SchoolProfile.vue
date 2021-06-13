@@ -1,7 +1,7 @@
 <template>
   <div class="grey lighten-4">
     <v-container>
-      <div class="px-2 px-lg-16">
+      <div class="px-lg-16">
         <h2
           class="text-md-h4 text-h5 primary--text d-flex"
           :class="{ 'mb-2': printing, 'mb-12': !printing }"
@@ -29,11 +29,26 @@
               <v-card-text
                 class="text-center text-subtitle-1 font-weight-normal"
               >
-                This dististrict is at
-                <span class="primary--text font-weight-medium"
-                  >{{ ebf_Adequacy }}%</span
-                >
-                of funding adequacy
+                This district is funded at
+                <span class="font-weight-medium">{{ ebf_Adequacy }}%</span>
+                of
+                <v-tooltip top :max-width="400">
+                  <template v-slot:activator="{ on, attrs }">
+                    <span
+                      class="font-weight-medium primary--text"
+                      v-on="on"
+                      v-bind="attrs"
+                      >adequacy</span
+                    >
+                  </template>
+                  <span>
+                    <v-icon class="white--text">mdi-information</v-icon>
+                    Illinois' evidence-based funding formula uses the districts
+                    unique needs to determine how much funding it should
+                    receive. The percentage of adequacy tells you how close to
+                    full funding (100%) the district is.
+                  </span>
+                </v-tooltip>
               </v-card-text>
             </v-card> </v-col
           ><v-col :cols="printing ? 6 : 12" sm="6">
@@ -57,7 +72,23 @@
                 </v-sheet>
                 <div class="flex-fill mt-4 text-center">
                   <div class="text-body-2 font-weight-medium mb-2">
-                    # of students enrolled in Dual Credit Courses
+                    # of students enrolled in
+                    <v-tooltip bottom :max-width="400">
+                      <template v-slot:activator="{ on, attrs }">
+                        <span
+                          class="font-weight-medium primary--text"
+                          v-on="on"
+                          v-bind="attrs"
+                          >dual credit courses</span
+                        >
+                      </template>
+                      <span>
+                        <v-icon class="white--text">mdi-information</v-icon>
+                        Dual credit courses allow high school students to
+                        complete coursework which counts for both high school
+                        and college credit
+                      </span>
+                    </v-tooltip>
                   </div>
                   <div
                     :class="{
@@ -109,7 +140,24 @@
                       'text-body-1 font-weight-medium': isMobile || printing,
                     }"
                   >
-                    AP courses resulting in college credit
+                    <v-tooltip bottom :max-width="400">
+                      <template v-slot:activator="{ on, attrs }">
+                        <span
+                          class="font-weight-medium primary--text"
+                          v-on="on"
+                          v-bind="attrs"
+                          >AP courses</span
+                        >
+                      </template>
+                      <span>
+                        <v-icon class="white--text">mdi-information</v-icon>
+                        AP, or Advanced Placement courses offer college-level
+                        curricula and examinations to high school students.
+                        Unlike dual credit courses, students must pass an
+                        end-of-course exam in order to receive college credit.
+                      </span>
+                    </v-tooltip>
+                    resulting in college credit
                   </div>
                 </div>
               </v-card-text>
@@ -190,8 +238,25 @@
                       'text-body-1 font-weight-medium': isMobile || printing,
                     }"
                   >
-                    Students required to take non-credit bearing remedial
-                    courses at community colleges
+                    Students required to take non-credit bearing
+                    <v-tooltip bottom :max-width="400">
+                      <template v-slot:activator="{ on, attrs }">
+                        <span
+                          class="font-weight-medium primary--text"
+                          v-on="on"
+                          v-bind="attrs"
+                          >remedial courses</span
+                        >
+                      </template>
+                      <span>
+                        <v-icon class="white--text">mdi-information</v-icon>
+                        Remedial classes are courses that may be required for
+                        students to build up their skills in math, reading, or
+                        English before they are allowed to take regular college
+                        courses.
+                      </span>
+                    </v-tooltip>
+                    at community colleges
                   </div>
                 </div>
               </v-card-text>
@@ -199,7 +264,7 @@
           </v-col>
           <v-col :cols="printing ? 7 : 12" sm="6">
             <v-card
-              class="flex-fill"
+              class="flex-fill overflow-hidden"
               :data-aos="'fade-right'"
               data-aos-duration="500"
               data-aos-delay="700"

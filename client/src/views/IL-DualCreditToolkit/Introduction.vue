@@ -327,13 +327,31 @@ export default {
         .dispatch("user/load", this.user.email)
         .then((result) => {
           if (result) {
+            this.$store
+              .dispatch("toolkit/load", {
+                key: this.$store.state.toolkitKey,
+                userId: result.id,
+              })
+              .then(
+                () => {
+                  setTimeout(() => {
+                    //this.$router.push({ name: "il-dc.policy-goals" });
+                    this.$store.dispatch("notifications/send", {
+                      message: "Welcome back - let's get to work!",
+                    });
+                  }, 500);
+                },
+                (err) => {
+                  console.log(err);
+                  this.$store.dispatch("notifications/send", {
+                    message:
+                      "Unexpected error while loading toolkit! Functionality may be limited.",
+                    type: "error",
+                  });
+                }
+              );
+
             this.dialog = false;
-            setTimeout(() => {
-              //this.$router.push({ name: "il-dc.policy-goals" });
-              this.$store.dispatch("notifications/send", {
-                message: "Welcome back - let's get to work!",
-              });
-            }, 500);
           } else this.step++;
         })
         .finally(() => (this.loading = false));

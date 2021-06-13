@@ -365,7 +365,7 @@ import "aos/dist/aos.css";
 import Notifications from "../../components/notifications.vue";
 import PageTransition from "../../components/page-transition.vue";
 import StepActions from "../../components/step-actions.vue";
-import { datasets } from "../../common/constants.js";
+import { datasets, toolkits } from "../../common/constants.js";
 
 import { hasPolicyGoals, hasQualifyingTeacherPath } from "./helpers.js";
 
@@ -392,7 +392,11 @@ export default {
       return this.$vuetify.breakpoint.mobile;
     },
     loading() {
-      return this.$store.getters.loading || this.isLoading;
+      return (
+        this.$store.getters.loading ||
+        this.isLoading ||
+        this.$store.getters["toolkit/loading"]
+      );
     },
     year() {
       return new Date().getFullYear();
@@ -435,12 +439,15 @@ export default {
     },
   },
   mounted() {
-    this.loadDataSets();
+    let queue = [this.loadDataSets()];
+    if (this.authorized) queue.push(this.$store.dispatch("refresh"));
 
-    if (this.authorized) {
-      if (!this.isMobile) this.drawer = true;
-      this.$store.dispatch("refresh");
-    }
+    Promise.all(queue).finally(() => {
+      if (this.authorized) {
+        if (!this.isMobile) this.drawer = true;
+        this.initialized = true;
+      }
+    });
   },
   watch: {
     authorized(val, prev) {
@@ -472,7 +479,7 @@ export default {
     loadDataSets() {
       this.isLoading = true;
 
-      new Promise((resolve, reject) => {
+      return new Promise((resolve, reject) => {
         this.$store
           .dispatch("datasets/load", {
             key: "il-dualcredit-entity",
@@ -495,7 +502,6 @@ export default {
           );
       }).finally(() => {
         this.isLoading = false;
-        this.initialized = true;
       });
     },
     logout() {
@@ -526,6 +532,8 @@ export default {
     },
   },
   created() {
+    this.$store.commit("setToolkitKey", toolkits.il_dualcredit_toolkit);
+
     AOS.init({ once: true });
 
     window.addEventListener("beforeprint", () => {
@@ -544,6 +552,14 @@ export default {
             : "scroll-y-reverse";
       next();
     });
+  },
+  beforeRouteUpdate(to, from, next) {
+    if (
+      to.path === "/" ||
+      (to.path != "/il-dual-credit" && !this.$store.getters["user/authorized"])
+    )
+      next(paths.ilDCT.root);
+    else next();
   },
 };
 </script>

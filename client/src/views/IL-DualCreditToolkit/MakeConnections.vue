@@ -95,7 +95,10 @@
                 about a possible dual credit partnership?
               </li>
               <li class="mb-2">
-                Have you heard of the Model Partnership Agreement?
+                Have you heard of the
+                <a :href="materials.ModelPartnershipAgreement" target="_blank"
+                  >Model Partnership Agreement</a
+                >?
               </li>
               <li class="mb-2">
                 Should you met with the district superintendent?
@@ -248,13 +251,22 @@
                 about a possible dual credit partnership?
               </li>
               <li class="mb-2">
-                Have you heard of the Model Partnership Agreement (MPA)?
+                Have you heard of the
+                <a :href="materials.ModelPartnershipAgreement" target="_blank"
+                  >Model Partnership Agreement</a
+                >
+                (MPA)?
                 <ul class="mt-2">
                   <li class="mt-1">
-                    If not, share the Model Partnership Overview and explain how
-                    the MPA might address some of the biggest barriers to
-                    expanding dual credit, namely, course costs and qualified
-                    instructors.
+                    If not,
+                    <a
+                      :href="materials.ModelPartnershipAgreement"
+                      target="_blank"
+                      >share the Model Partnership Overview</a
+                    >
+                    and explain how the MPA might address some of the biggest
+                    barriers to expanding dual credit, namely, course costs and
+                    qualified instructors.
                   </li>
                   <li class="mt-1">
                     If so, explore how implementing the MPA might serve as a
@@ -417,8 +429,11 @@
                   <li class="mt-1">
                     Often a lack of qualified teachers and course costs are the
                     biggest challenges to offering a course as dual credit but
-                    the Dual Credit Quality Act addresses both of these. See the
-                    summary in step two's sharable materials library.
+                    the Dual Credit Quality Act addresses both of these.
+                    <a :href="materials.DCQASummary" target="_blank"
+                      >See the summary in step two's sharable materials
+                      library.</a
+                    >
                   </li>
                 </ul>
               </li>
@@ -567,7 +582,11 @@
                     the Dual Credit Quality Act?
                     <br />
                     <span>
-                      Be prepared to discuss the Cost Savings Policies brief.
+                      Be prepared to discuss the
+                      <a :href="materials.CostSavingPolicies" target="_blank"
+                        >Cost Savings Policies</a
+                      >
+                      brief.
                     </span>
                   </li>
                 </ul>
@@ -656,6 +675,11 @@ export default {
   data() {
     return {
       loading: false,
+      materials: {
+        DCQASummary: require("../../assets/il-dc/DualCreditAdvocacyToolkit_DCQASummary.pdf"),
+        ModelPartnershipAgreement: require("../../assets/il-dc/DualCreditAdvocacyToolkit_MPA.pdf"),
+        CostSavingPolicies: require("../../assets/il-dc/DualCreditAdvocacyToolkit_CostSavingPolicies.pdf"),
+      },
     };
   },
   computed: {
