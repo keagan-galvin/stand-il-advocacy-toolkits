@@ -84,8 +84,8 @@ var server = app.listen(port, function () {
 if (port != 3000) {
   const sslServer = https.createServer(
     {
-      key: process.env.SSL_KEY,
-      cert: process.env.SSL_CERTIFICATE,
+      key: fs.readFileSync(path.join(__dirname, "cert", "key.pem")),
+      cert: fs.readFileSync(path.join(__dirname, "cert", "cert.pem")),
     },
     app
   );
