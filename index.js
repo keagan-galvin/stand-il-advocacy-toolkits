@@ -1,6 +1,8 @@
 require("dotenv").config();
 
 const express = require("express");
+const https = require("https");
+const fs = require("fs");
 const compression = require("compression");
 const path = require("path");
 const constants = require("./constants");
@@ -10,6 +12,16 @@ const app = express();
 app.use(compression());
 app.use(express.json());
 app.use(express.static("public"));
+
+app.enable("trust proxy");
+const port = process.env.PORT || 3000;
+
+if (port != 3000) {
+  app.use((req, res, next) => {
+    console.log;
+    req.secure ? next() : res.redirect("https://" + req.headers.host + req.url);
+  });
+}
 
 app.use(function (req, res, next) {
   res.successResponse = (data) => {
@@ -65,7 +77,20 @@ app.use("/api/datasets", require("./api/datasets"));
 app.use("/api/toolkits", require("./api/toolkits"));
 
 // START
-const port = process.env.PORT || 3000;
 var server = app.listen(port, function () {
   console.log("Listening on %s", port);
 });
+
+if (port != 3000) {
+  const sslServer = https.createServer(
+    {
+      key: fs.readFileSync(path.join(__dirname, "cert", "key.pem")),
+      cert: fs.readFileSync(path.join(__dirname, "cert", "cert.pem")),
+    },
+    app
+  );
+
+  sslServer.listen(443, () => {
+    console.log("Listening on 443");
+  });
+}

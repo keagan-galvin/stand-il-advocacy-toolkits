@@ -1,29 +1,26 @@
-# client
+# Client
+The client was generated with [Vue Cli](https://cli.vuejs.org/) and can be found within the ./client directory. It leverages [VueJs](https://vuejs.org/), [Vuex](https://vuex.vuejs.org/), and [Vuetify](https://vuetifyjs.com/en/).
 
-## Project setup
-
+### Project setup
 ```
 ./client npm install
 ```
 
-### Compiles and hot-reloads for development
-
+### Commands
 ```
-./client npm run serve
-```
-
-### Compiles and minifies for production
-
-```
-./client npm run build
+./client npm dev
+./client npm build
 ```
 
-### Lints and fixes files
+# Server
+The client and api are served by [express js](https://expressjs.com/), [sequelize](https://sequelize.org/master/) is an ORM used for db interactions. Before running the server a .env file must be added to the project root with the following configurations:
 
 ```
-./client npm run lint
+DB_HOST=INSERT_VALUE
+DB_USERNAME=INSERT_VALUE
+DB_PASS=INSERT_VALUE
+DB=INSERT_VALUE
+TOKEN_SECRET=INSERT_VALUE
+ADMIN_USERNAME=INSERT_VALUE
+ADMIN_PASSWORD=INSERT_VALUE
 ```
-
-### Customize configuration
-
-See [Configuration Reference](https://cli.vuejs.org/config/).

@@ -119,3 +119,6 @@ dist
 *.njsproj
 *.sln
 *.sw?
+cert/cabundle.pem
+cert/cert.pem
+cert/key.pem
