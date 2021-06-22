@@ -110,7 +110,7 @@
                 <p class="mt-12" v-if="hasMastersDegree === 'Yes'">
                   Is your Master's degree in one of the following: biology,
                   calculus, english, composition, english literature, general
-                  math, history, psycology, speech, or statistics?
+                  math, history, psychology, speech, or statistics?
                 </p>
               </v-slide-y-transition>
               <v-slide-y-transition>

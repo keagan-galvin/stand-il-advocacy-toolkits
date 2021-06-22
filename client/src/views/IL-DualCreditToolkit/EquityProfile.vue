@@ -327,10 +327,11 @@ export default {
       for (var key in this.population) {
         let target = this.population[key];
         if (
-          target.satMath.level_1 ||
-          target.satMath.level_2 ||
-          target.satMath.level_3 ||
-          target.satMath.level_4
+          (target.satMath.level_1 ||
+            target.satMath.level_2 ||
+            target.satMath.level_3 ||
+            target.satMath.level_4) &&
+          target.enrollmentPercentage > target.dualCreditPercentage + 0.03
         )
           results.push({ ...target });
       }
@@ -343,10 +344,11 @@ export default {
       for (var key in this.population) {
         let target = this.population[key];
         if (
-          target.satELA.level_1 ||
-          target.satELA.level_2 ||
-          target.satELA.level_3 ||
-          target.satELA.level_4
+          (target.satELA.level_1 ||
+            target.satELA.level_2 ||
+            target.satELA.level_3 ||
+            target.satELA.level_4) &&
+          target.enrollmentPercentage > target.dualCreditPercentage + 0.03
         )
           results.push({ ...target });
       }

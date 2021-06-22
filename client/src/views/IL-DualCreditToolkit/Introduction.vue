@@ -256,6 +256,18 @@
           </v-card>
         </v-dialog>
       </p>
+
+      <p class="mt-8 mb-0">
+        A very special thanks to the Joyce Foundation for its generous support
+        of our ongoing dual credit work.
+        <a href="https://www.joycefdn.org/" target="_blank">
+          <img
+            class="mx-auto d-block"
+            src="@/assets/joyce_foundation_2.png"
+            alt="The Joyce Foundation"
+          />
+        </a>
+      </p>
     </div>
   </v-container>
 </template>
