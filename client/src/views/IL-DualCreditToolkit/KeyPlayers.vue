@@ -217,12 +217,12 @@
                 From what you know of this person, are they likely to support
                 your goal or will they need to be persuaded?
               </li>
-              <li>
-                In step three, we'll provide you with your school's principal
-                contact info and some questions to ask so you can have an
-                introductory conversation.
-              </li>
             </ol>
+            <p class="mt-4 mb-0">
+              In step three, we'll provide you with your school's principal
+              contact info and some questions to ask so you can have an
+              introductory conversation.
+            </p>
           </v-alert>
 
           <v-alert border="left" color="secondary" elevation="0">
@@ -244,12 +244,13 @@
                 From what you know of this person, are they likely to support
                 your goal or will they need to be persuaded?
               </li>
-              <li>
-                In step three, we'll provide you with your district's
-                superintendent's contact info and some questions to ask so you
-                can have an introductory conversation.
-              </li>
             </ol>
+
+            <p class="mt-4 mb-0">
+              In step three, we'll provide you with your district's
+              superintendent's contact info and some questions to ask so you can
+              have an introductory conversation.
+            </p>
           </v-alert>
         </div>
         <div style="height: 25px"></div>
@@ -312,12 +313,13 @@
                 From what you know of this person, are they likely to support
                 your goal or will they need to be persuaded?
               </li>
-              <li>
-                In step three, we'll provide you with your school's principal
-                contact info and some questions to ask so you can have an
-                introductory conversation.
-              </li>
             </ol>
+
+            <p class="mt-4 mb-0">
+              In step three, we'll provide you with your school's principal
+              contact info and some questions to ask so you can have an
+              introductory conversation.
+            </p>
           </v-alert>
 
           <v-alert border="left" color="secondary" elevation="0">
@@ -339,12 +341,13 @@
                 From what you know of this person, are they likely to support
                 your goal or will they need to be persuaded?
               </li>
-              <li>
-                In step three, we'll provide you with your district's
-                superintendent's contact info and some questions to ask so you
-                can have an introductory conversation.
-              </li>
             </ol>
+
+            <p class="mt-4 mb-0">
+              In step three, we'll provide you with your district's
+              superintendent's contact info and some questions to ask so you can
+              have an introductory conversation.
+            </p>
           </v-alert>
         </div>
         <div style="height: 25px"></div>
@@ -407,12 +410,13 @@
                 From what you know of this person, are they likely to support
                 your goal or will they need to be persuaded?
               </li>
-              <li>
-                In step three, we'll provide you with your school's principal
-                contact info and some questions to ask so you can have an
-                introductory conversation.
-              </li>
             </ol>
+
+            <p class="mt-4 mb-0">
+              In step three, we'll provide you with your school's principal
+              contact info and some questions to ask so you can have an
+              introductory conversation.
+            </p>
           </v-alert>
 
           <v-alert border="left" color="secondary" elevation="0">
@@ -434,12 +438,12 @@
                 From what you know of this person, are they likely to support
                 your goal or will they need to be persuaded?
               </li>
-              <li>
-                In step three, we'll provide you with your district's
-                superintendent's contact info and some questions to ask so you
-                can have an introductory conversation.
-              </li>
             </ol>
+            <p class="mt-4 mb-0">
+              In step three, we'll provide you with your district's
+              superintendent's contact info and some questions to ask so you can
+              have an introductory conversation.
+            </p>
           </v-alert>
         </div>
         <div style="height: 25px"></div>

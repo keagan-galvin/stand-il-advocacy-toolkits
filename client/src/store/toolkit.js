@@ -43,6 +43,7 @@ let store = {
           { root: true }
         )
           .then((result) => {
+            console.log(result);
             commit("setLoaded", result);
             resolve(result);
           }, reject)
