@@ -183,6 +183,7 @@ export default {
         "Student",
         "Teacher",
         "School Administrator",
+        "School Board Member",
         "Community College Staff",
         "Community Member",
       ],
@@ -292,7 +293,11 @@ export default {
         options = ["Start a new dual credit program"];
       }
 
-      if (this.role === "Teacher" || this.role === "School Administrator")
+      if (
+        this.role === "Teacher" ||
+        this.role === "School Administrator" ||
+        this.role === "School Board Member"
+      )
         options.push(this.teacherOption);
 
       return options;

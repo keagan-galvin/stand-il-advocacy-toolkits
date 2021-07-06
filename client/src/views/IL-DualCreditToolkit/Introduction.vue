@@ -371,22 +371,32 @@ export default {
     submitUserDetail() {
       this.loading = true;
 
-      return this.$store
-        .dispatch("user/upsert", this.user)
-        .then(
-          // Success
-          () => {
-            this.dialog = false;
-            setTimeout(() => {
-              this.$router.push({ name: "il-dc.policy-goals" });
-            }, 500);
-          },
-          // Error
-          () => {
-            console.warn("ERROR HAS NOT BEEN IMPLEMENTED");
-          }
-        )
-        .finally(() => (this.loading = false));
+      return this.$store.dispatch("user/upsert", this.user).then(
+        // Success
+        (result) => {
+          this.$store
+            .dispatch("toolkit/load", {
+              key: this.$store.state.toolkitKey,
+              userId: result.id,
+            })
+            .then(() => {
+              this.dialog = false;
+              setTimeout(() => {
+                this.$router.push({ name: "il-dc.policy-goals" });
+              }, 500);
+            })
+            .finally(() => (this.loading = false));
+        },
+        // Error
+        (err) => {
+          console.log(err);
+          this.$store.dispatch("notifications/send", {
+            message: "Unexpected error while saving! Please try again later.",
+            type: "error",
+          });
+          this.loading = false;
+        }
+      );
     },
     go(name) {
       this.$router.push({ name });

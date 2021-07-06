@@ -161,9 +161,9 @@
               <li class="mb-2">
                 Community colleges are the primary partners for high schools
                 seeking to offer dual credit, but four-year college and
-                universities are also standing up to serve students. State law
-                requires high schools to pursue Illinois-based partnerships
-                first, but within that space, there a multitude of options.
+                universities are also standing up to serve students. However,
+                state law requires high schools to pursue community college
+                partnerships before out-of-state options.
               </li>
               <li>
                 The
