@@ -264,11 +264,11 @@
         <p>
           Community colleges are the primary partners for high schools seeking
           to offer dual credit, but four-year college and universities are also
-          standing up to serve students. State law requires high schools to
-          pursue Illinois-based partnerships first, but within that space, there
-          a multitude of options. Alternatively, the Virtual Course Catalog is a
-          great option for schools struggling to overcome long commutes to a
-          community college or an acute teacher shortage.
+          standing up to serve students. However, state law requires high
+          schools to pursue community college partnerships before out-of-state
+          options. Alternatively, the Virtual Course Catalog is a great option
+          for schools struggling to overcome long commutes to a community
+          college or an acute teacher shortage.
         </p>
         <div style="height: 25px"></div>
         <div data-aos="fade-left" data-aos-duration="700">
@@ -290,10 +290,13 @@
       <template v-if="teachCTE">
         <p>
           According to ISBE and ICCB guidance Career and Technical Education
-          (CTE) instructors must have a minimum of 60 semester hours, 2,000
-          hours of work experience, and appropriate recognizable credentials,
-          depending on the field. To receive your CTE educator license you must
-          submit apply online and the license must be renewed every five years.
+          (CTE) instructors must have 2,000 hours of work experience and
+          appropriate recognizable credentials and/or a minimum of 60 semester
+          hours. To receive your CTE educator license you must submit apply
+          online and the license must be renewed every five years. Before
+          applying for your CTE educator license connect with both your
+          secondary and postsecondary partners to clarify their credential
+          requirements for your specific field.
         </p>
         <div style="height: 50px"></div>
         <div data-aos="fade-up" data-aos-duration="700" data-aos-delay="500">
