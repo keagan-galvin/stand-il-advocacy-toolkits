@@ -18,7 +18,6 @@ const port = process.env.PORT || 3000;
 
 if (port != 3000) {
   app.use((req, res, next) => {
-    console.log;
     req.secure ? next() : res.redirect("https://" + req.headers.host + req.url);
   });
 }

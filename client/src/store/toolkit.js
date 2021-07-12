@@ -43,7 +43,6 @@ let store = {
           { root: true }
         )
           .then((result) => {
-            console.log(result);
             commit("setLoaded", result);
             resolve(result);
           }, reject)
@@ -53,7 +52,6 @@ let store = {
     update({ commit, dispatch, state }, key) {
       return new Promise((resolve, reject) => {
         commit("incrementPendingStateChanges", 1);
-        console.log("updating");
         dispatch(
           "handleApiFetch",
           {

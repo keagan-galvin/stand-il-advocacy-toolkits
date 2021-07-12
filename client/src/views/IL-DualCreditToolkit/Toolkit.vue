@@ -449,8 +449,6 @@ export default {
         this.$router.push({ path: "/il-dual-credit" });
       }
 
-      console.log(this.$route.path);
-
       this.initialized = true;
     });
   },
