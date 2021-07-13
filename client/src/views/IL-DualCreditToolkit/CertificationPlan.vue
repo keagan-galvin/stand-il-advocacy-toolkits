@@ -222,9 +222,6 @@
               <v-col cols="12" xl="4" lg="6" md="6">
                 <credentialling-chart></credentialling-chart>
               </v-col>
-              <v-col cols="12" xl="4" lg="6" md="6">
-                <guidance-crosswalk></guidance-crosswalk>
-              </v-col>
             </v-row>
           </v-alert>
         </div>
@@ -331,7 +328,6 @@ import DualCreditEndorsementFaq from "./sharable-materials/DualCreditEndorsement
 import DualCreditQualitcyAct from "./sharable-materials//DualCreditQualitcyAct.vue";
 import EducatorLicensureProcess from "./sharable-materials/EducatorLicensureProcess.vue";
 import FacultyQualificationRequirements from "./sharable-materials/FacultyQualificationRequirements.vue";
-import GuidanceCrosswalk from "./sharable-materials/GuidanceCrosswalk.vue";
 import VirtualCourseCatalog from "./sharable-materials/VirtualCourseCatalog.vue";
 
 export default {
@@ -342,7 +338,6 @@ export default {
     DualCreditQualitcyAct,
     EducatorLicensureProcess,
     FacultyQualificationRequirements,
-    GuidanceCrosswalk,
     VirtualCourseCatalog,
   },
   data() {

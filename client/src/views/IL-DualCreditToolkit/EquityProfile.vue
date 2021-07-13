@@ -2,7 +2,8 @@
   <div>
     <div v-if="underRepresented.length > 0" class="mb-8">
       <p class="primary--text font-weight-medium">
-        {{ entity.School_Name }} offers dual credit courses that enrolled
+        According to 2019 ISBE Report Card data {{ entity.School_Name }} offers
+        dual credit courses that enrolled
         {{
           +entity.N_Students_who_took_Dual_Credit_classes_912_Total
             | numeral("0,0")
