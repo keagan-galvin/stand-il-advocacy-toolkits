@@ -529,7 +529,10 @@ export default {
       this.$router.push({ name });
     },
     openCollegeSearch() {
-      window.open("http://iccbdbsrv.iccb.org/zipcodes/home.cfm", "_blank");
+      window.open(
+        "https://www.usnews.com/education/community-colleges/search",
+        "_blank"
+      );
     },
     updateToolkit(key, value) {
       this.$store.commit("toolkit/updateLoadedProp", { key, value });

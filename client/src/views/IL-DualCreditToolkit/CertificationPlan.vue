@@ -222,6 +222,9 @@
               <v-col cols="12" xl="4" lg="6" md="6">
                 <credentialling-chart></credentialling-chart>
               </v-col>
+              <v-col cols="12" xl="4" lg="6" md="6">
+                <faculty-qualification-requirements></faculty-qualification-requirements>
+              </v-col>
             </v-row>
           </v-alert>
         </div>
