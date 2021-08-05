@@ -309,9 +309,9 @@
               <v-col cols="12" xl="6">
                 <dual-credit-equity-report></dual-credit-equity-report>
               </v-col>
-              <v-col cols="12" xl="6">
+              <!-- <v-col cols="12" xl="6">
                 <iccb-placement-methods></iccb-placement-methods>
-              </v-col>
+              </v-col> -->
             </v-row>
           </v-alert>
         </div>
@@ -494,7 +494,7 @@ import CostSavingPolicies from "./sharable-materials/CostSavingPolicies.vue";
 import DistrictBestPractices from "./sharable-materials/DistrictBestPractices.vue";
 import DualCreditEquityReport from "./sharable-materials/DualCreditEquityReport.vue";
 import DualCreditQualitcyAct from "./sharable-materials/DualCreditQualitcyAct.vue";
-import IccbPlacementMethods from "./sharable-materials/ICCBPlacementMethods.vue";
+//import IccbPlacementMethods from "./sharable-materials/ICCBPlacementMethods.vue";
 import ModelPartnershipAgreement from "./sharable-materials/ModelPartnershipAgreement.vue";
 import SchoolProfile from "./sharable-materials/SchoolProfile.vue";
 
@@ -507,7 +507,7 @@ export default {
     DualCreditQualitcyAct,
     CaseForDualCredit,
     CostSavingPolicies,
-    IccbPlacementMethods,
+    // IccbPlacementMethods,
     ModelPartnershipAgreement,
     SchoolProfile,
     EquityProfile,
