@@ -8,7 +8,7 @@
           +entity.N_Students_who_took_Dual_Credit_classes_912_Total
             | numeral("0,0")
         }}
-        students in 2020. {{ representedStatement }} students were well
+        students in 2019. {{ representedStatement }} students were well
         represented in those courses but as you can see from the dials below,
         {{ underRepresentedStatement }} students were underrepresented in dual
         credit courses.
