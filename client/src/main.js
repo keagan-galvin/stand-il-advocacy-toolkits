@@ -1,10 +1,12 @@
 import Vue from "vue";
+
 import App from "./App.vue";
 import router from "./router";
 import store from "./store";
 import vuetify from "./plugins/vuetify";
 import VueConfetti from "vue-confetti";
 import VueGtag from "vue-gtag";
+import Meta from "vue-meta";
 
 import "./utilities/vee-validate";
 import VueMask from "v-mask";
@@ -12,6 +14,8 @@ import vueNumeralFilterInstaller from "vue-numeral-filter";
 
 import OffsetFull from "./directives/offset.full.js";
 import OffsetCentered from "./directives/offset.centered.js";
+
+Vue.use(Meta);
 
 Vue.config.productionTip = false;
 
