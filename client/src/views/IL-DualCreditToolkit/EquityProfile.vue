@@ -62,6 +62,13 @@
             </v-card-text>
             <v-divider v-if="i != satMath.length - 1"></v-divider>
           </div>
+          <v-card-text
+            class="d-flex flex-column text-center"
+            v-if="!satMath.length"
+          >
+            <div class="font-weight-bold">No Data Available</div>
+            <i>Student group has fewer than 10 students.</i>
+          </v-card-text>
           <v-divider></v-divider>
           <v-card-text><split-percentage-bar-key /></v-card-text>
         </v-card>
@@ -87,6 +94,13 @@
             </v-card-text>
             <v-divider v-if="i != satELA.length - 1"></v-divider>
           </div>
+          <v-card-text
+            class="d-flex flex-column text-center"
+            v-if="!satELA.length"
+          >
+            <div class="font-weight-bold">No Data Available</div>
+            <i>Student group has fewer than 10 students.</i>
+          </v-card-text>
           <v-divider></v-divider>
           <v-card-text><split-percentage-bar-key /></v-card-text>
         </v-card>
@@ -387,7 +401,8 @@ export default {
         let target = this.population[key];
         if (
           target.enrollmentPercentage < target.dualCreditPercentage + 0.03 &&
-          target.enrollmentPercentage > 0
+          target.enrollmentPercentage > 0 &&
+          target.dualCreditPercentage != 0
         )
           results.push({ ...target });
       }

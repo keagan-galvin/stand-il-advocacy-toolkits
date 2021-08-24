@@ -4,7 +4,7 @@
 
 <script>
 export default {
-  data() {},
+  data: () => ({}),
   metaInfo: {
     meta: [
       { charset: "utf-8" },
