@@ -81,10 +81,11 @@ var server = app.listen(port, function () {
 });
 
 if (port != 3000) {
+  let keyStorageRoot = "/etc/letsencrypt/live/standadvocacytoolkit.org/";
   const sslServer = https.createServer(
     {
-      key: fs.readFileSync(path.join(__dirname, "cert", "key.pem")),
-      cert: fs.readFileSync(path.join(__dirname, "cert", "cert.pem")),
+      key: fs.readFileSync(path.join(keyStorageRoot, "privkey.pem")),
+      cert: fs.readFileSync(path.join(keyStorageRoot, "cert.pem")),
     },
     app
   );
