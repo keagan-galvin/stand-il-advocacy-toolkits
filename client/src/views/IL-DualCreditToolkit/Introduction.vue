@@ -30,6 +30,13 @@
         >
       </p>
       <p class="mx-auto" style="max-width: 950px">
+        <a href="https://www.youtube.com/watch?v=ASNNIKso1qQ" target="_blank"
+          >Watch this brief demo to familiarize yourself with the toolkit</a
+        ><template v-if="!authorized"
+          >, or click the button below to get started.</template
+        >
+      </p>
+      <p class="mx-auto" style="max-width: 950px">
         <v-dialog
           v-if="!authorized"
           v-model="dialog"
