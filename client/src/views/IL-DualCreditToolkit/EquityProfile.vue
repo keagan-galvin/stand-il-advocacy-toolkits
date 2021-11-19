@@ -154,7 +154,7 @@ export default {
 
       return {
         lowIncome: {
-          label: "Low Income",
+          label: "low income",
           enrollmentPercentage:
             +this.entity.P_Student_Enrollment_Low_Income * 0.01,
           dualCreditPercentage: getDualCreditPercentage(
@@ -316,7 +316,7 @@ export default {
           },
         },
         white: {
-          label: "White",
+          label: "white",
           enrollmentPercentage: +this.entity.P_Student_Enrollment_White * 0.01,
           dualCreditPercentage: getDualCreditPercentage(
             +this.entity.N_Dual_Credit_Students_White
@@ -411,7 +411,11 @@ export default {
     },
     representedStatement() {
       if (this.represented.length === 0) return "";
-      if (this.represented.length === 1) return this.represented[0].label;
+      if (this.represented.length === 1)
+        return (
+          this.represented[0].label.charAt(0).toUpperCase() +
+          this.represented[0].label.slice(1)
+        );
 
       let safeArray = this.represented.slice();
 
@@ -419,7 +423,7 @@ export default {
       safeArray.pop();
       let result = safeArray.map((x) => x.label).join(", ");
       result += " and " + last;
-      return result;
+      return result.charAt(0).toUpperCase() + result.slice(1);
     },
   },
   methods: {

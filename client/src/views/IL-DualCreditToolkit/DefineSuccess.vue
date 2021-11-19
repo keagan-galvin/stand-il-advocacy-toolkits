@@ -24,7 +24,7 @@
       <div data-aos="fade-right" data-aos-duration="500" data-aos-delay="800">
         <v-slide-y-transition mode="out-in">
           <div v-if="accomplishedGoal">
-            <h1 class="text-h4 accent--text">CONGRATUALTIONS!</h1>
+            <h1 class="text-h4 accent--text">CONGRATULATIONS!</h1>
             <p class="mb-8">
               Your hard work has paid off and you have been an effective agent
               of change! Now it's time to shout your success from the rooftops.
