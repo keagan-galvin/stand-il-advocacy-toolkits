@@ -13,17 +13,17 @@ The client was generated with [Vue Cli](https://cli.vuejs.org/) and can be found
 ```
 
 # Server
-The client and api are served by [express js](https://expressjs.com/), [sequelize](https://sequelize.org/master/) is an ORM used for db interactions. Before running the server a .env file must be added to the project root with the following configurations:
+The client and api are served by [express js](https://expressjs.com/), [sequelize](https://sequelize.org/master/) is an ORM used for db interactions. The following enviroment variables need to be defined:
 
 ```
-DB_HOST=INSERT_VALUE
-DB_USERNAME=INSERT_VALUE
-DB_PASS=INSERT_VALUE
-DB=INSERT_VALUE
-PORT=INSERV_VALUE
-TOKEN_SECRET=INSERT_VALUE
-ADMIN_USERNAME=INSERT_VALUE
-ADMIN_PASSWORD=INSERT_VALUE
+DB_HOST
+DB_USERNAME
+DB_PASS
+DB
+PORT
+TOKEN_SECRET
+ADMIN_USERNAME
+ADMIN_PASSWORD
 ```
 
 ### Server Setup
