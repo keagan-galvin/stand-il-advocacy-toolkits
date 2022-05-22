@@ -80,17 +80,17 @@ var server = app.listen(port, function () {
   console.log("Listening on %s", port);
 });
 
-if (port != 3000) {
-  let keyStorageRoot = "/etc/letsencrypt/live/standadvocacytoolkit.org/";
-  const sslServer = https.createServer(
-    {
-      key: fs.readFileSync(path.join(keyStorageRoot, "privkey.pem")),
-      cert: fs.readFileSync(path.join(keyStorageRoot, "cert.pem")),
-    },
-    app
-  );
+// if (port != 3000) {
+//   let keyStorageRoot = "/etc/letsencrypt/live/standadvocacytoolkit.org/";
+//   const sslServer = https.createServer(
+//     {
+//       key: fs.readFileSync(path.join(keyStorageRoot, "privkey.pem")),
+//       cert: fs.readFileSync(path.join(keyStorageRoot, "cert.pem")),
+//     },
+//     app
+//   );
 
-  sslServer.listen(443, () => {
-    console.log("Listening on 443");
-  });
-}
+//   sslServer.listen(443, () => {
+//     console.log("Listening on 443");
+//   });
+// }
