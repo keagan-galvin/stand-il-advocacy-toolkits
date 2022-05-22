@@ -52,5 +52,5 @@ jobs:
         with:
           app-name: 'StandToolkitAppService'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_32A0A791F3D4434A99D588C092F92558 }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_CBC3DF7065A340D787F02B76279C6A7B }}
           package: .
