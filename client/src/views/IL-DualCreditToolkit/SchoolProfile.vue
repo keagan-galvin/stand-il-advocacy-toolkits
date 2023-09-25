@@ -318,7 +318,7 @@
             </v-card>
           </v-col>
         </v-row>
-        <p class="text-caption text-center mt-4">Illinois Report Card, 2019</p>
+        <p class="text-caption text-center mt-4">Illinois Report Card, 2022</p>
       </div>
     </v-container>
   </div>
